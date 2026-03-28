@@ -26,16 +26,16 @@ export default function CartProvider({ children }) {
         </div>
         <div style={{flex:1,overflowY:'auto',padding:'14px 20px',display:'flex',flexDirection:'column',gap:10}}>
           {!items.length
-            ? <div style={{textAlign:'center',padding:'60px 0',color:'#555'}}><div style={{fontSize:48,marginBottom:12}}>🛒</div><div style={{fontSize:14}}>Votre panier est vide</div></div>
+            ? <div style={{textAlign:'center',padding:'60px 0',color:'#555'}}><div style={{fontSize:48,marginBottom:12}}>🛒</div><div>Votre panier est vide</div></div>
             : items.map(item=>(
               <div key={item.id} style={{display:'flex',gap:12,alignItems:'center',background:'#12121e',borderRadius:8,padding:'10px 12px',border:'1px solid #1c1c28'}}>
                 <div style={{width:50,height:50,borderRadius:6,overflow:'hidden',background:'#0d0d12',flexShrink:0}}>
-                  {item.photos?.[0]?<img src={item.photos[0]} alt="" style={{width:'100%',height:'100%',objectFit:'contain',padding:3}}/>:<div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24}}>🛍️</div>}
+                  {item.photos?.[0]?<img src={item.photos[0]} alt="" style={{width:'100%',height:'100%',objectFit:'contain',padding:3}}/>:<div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:22}}>🛍️</div>}
                 </div>
                 <div style={{flex:1,minWidth:0}}>
                   <div style={{fontSize:11,fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',color:'#ccc'}}>{item.title}</div>
-                  <div style={{fontFamily:'Bebas Neue',fontSize:16,color:'#e8b820',marginTop:3,letterSpacing:.5}}>{item.currency==='CAD'?'CA$':'$'}{(item.price*item.qty).toFixed(2)}</div>
-                  <div style={{display:'flex',alignItems:'center',gap:6,marginTop:6}}>
+                  <div style={{fontFamily:'Bebas Neue',fontSize:16,color:'#e8b820',marginTop:3}}>{item.currency==='CAD'?'CA$':'$'}{(item.price*item.qty).toFixed(2)}</div>
+                  <div style={{display:'flex',alignItems:'center',gap:6,marginTop:5}}>
                     <button onClick={()=>updateQty(item.id,item.qty-1)} style={{width:22,height:22,borderRadius:4,background:'#1a1a26',border:'1px solid #2a2a38',color:'#eee',cursor:'pointer',fontSize:14,display:'flex',alignItems:'center',justifyContent:'center'}}>−</button>
                     <span style={{fontSize:12,width:20,textAlign:'center'}}>{item.qty}</span>
                     <button onClick={()=>updateQty(item.id,item.qty+1)} style={{width:22,height:22,borderRadius:4,background:'#1a1a26',border:'1px solid #2a2a38',color:'#eee',cursor:'pointer',fontSize:14,display:'flex',alignItems:'center',justifyContent:'center'}}>+</button>
@@ -53,7 +53,7 @@ export default function CartProvider({ children }) {
               <span style={{fontFamily:'Bebas Neue',fontSize:26,color:'#e8b820',letterSpacing:1}}>CA${total.toFixed(2)}</span>
             </div>
             <Link href="/checkout" onClick={()=>setOpen(false)}
-              style={{display:'block',width:'100%',background:'#e8b820',color:'#000',padding:'14px',borderRadius:8,fontWeight:800,fontSize:15,textAlign:'center',textDecoration:'none',letterSpacing:.3}}>
+              style={{display:'block',width:'100%',background:'#e8b820',color:'#000',padding:'14px',borderRadius:8,fontWeight:800,fontSize:15,textAlign:'center',textDecoration:'none'}}>
               PASSER À LA CAISSE →
             </Link>
             <div style={{textAlign:'center',fontSize:11,color:'#444',marginTop:8}}>🔒 Paiement sécurisé par Stripe</div>
