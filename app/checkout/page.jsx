@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { useCart } from '../../components/CartProvider'
 import Link from 'next/link'
 
-const CA_PROVINCES = [['QC','Québec'],['ON','Ontario'],['BC','Colombie-Brit.'],['AB','Alberta'],['MB','Manitoba'],['SK','Saskatchewan'],['NS','Nouvelle-Écosse'],['NB','Nouveau-Brunswick'],['NL','Terre-Neuve'],['PE','Île-du-Prince-Édouard'],['YT','Yukon'],['NT','Territoires du Nord-Ouest'],['NU','Nunavut']]
-const US_STATES = [['NY','New York'],['CA','California'],['TX','Texas'],['FL','Florida'],['IL','Illinois'],['PA','Pennsylvania'],['OH','Ohio'],['GA','Georgia'],['NC','North Carolina'],['MI','Michigan'],['WA','Washington'],['AZ','Arizona'],['MA','Massachusetts'],['TN','Tennessee'],['IN','Indiana'],['CO','Colorado'],['VA','Virginia'],['MD','Maryland'],['MN','Minnesota'],['OR','Oregon'],['WI','Wisconsin'],['AL','Alabama'],['SC','South Carolina'],['LA','Louisiana'],['KY','Kentucky'],['CT','Connecticut'],['IA','Iowa'],['NV','Nevada'],['AR','Arkansas'],['MS','Mississippi'],['KS','Kansas'],['UT','Utah'],['NE','Nebraska'],['NM','New Mexico'],['WV','West Virginia'],['ID','Idaho'],['HI','Hawaii'],['NH','New Hampshire'],['ME','Maine'],['RI','Rhode Island'],['MT','Montana'],['DE','Delaware'],['SD','South Dakota'],['ND','North Dakota'],['AK','Alaska'],['VT','Vermont'],['WY','Wyoming']]
+const CA_PROVINCES = [['QC','Québec'],['ON','Ontario'],['BC','Colombie-Brit.'],['AB','Alberta'],['MB','Manitoba'],['SK','Saskatchewan'],['NS','Nouvelle-Écosse'],['NB','Nouveau-Brunswick'],['NL','Terre-Neuve'],['PE','Î.-P.-É.'],['YT','Yukon'],['NT','T.N.-O.'],['NU','Nunavut']]
+const US_STATES = [['NY','New York'],['CA','California'],['TX','Texas'],['FL','Florida'],['IL','Illinois'],['PA','Pennsylvania'],['OH','Ohio'],['GA','Georgia'],['NC','North Carolina'],['MI','Michigan'],['WA','Washington'],['AZ','Arizona'],['MA','Massachusetts'],['TN','Tennessee'],['IN','Indiana'],['CO','Colorado'],['VA','Virginia'],['OR','Oregon'],['WI','Wisconsin'],['MN','Minnesota'],['AL','Alabama'],['SC','South Carolina'],['LA','Louisiana'],['KY','Kentucky'],['CT','Connecticut'],['IA','Iowa'],['NV','Nevada'],['AR','Arkansas'],['MS','Mississippi'],['KS','Kansas'],['UT','Utah'],['NE','Nebraska'],['NM','New Mexico'],['WV','West Virginia'],['ID','Idaho'],['HI','Hawaii'],['NH','New Hampshire'],['ME','Maine'],['RI','Rhode Island'],['MT','Montana'],['DE','Delaware'],['SD','South Dakota'],['ND','North Dakota'],['AK','Alaska'],['VT','Vermont'],['WY','Wyoming']]
 
 function calcShipping(items, country, province) {
   const w = items.reduce((a,i)=>a+(i.weight||250)*i.qty, 0)
@@ -28,7 +28,6 @@ export default function CheckoutPage() {
   const { items, total } = useCart()
   const [form, setForm] = useState({name:'',email:'',address:'',city:'',province:'QC',country:'CA'})
   const [loading, setLoading] = useState(false)
-
   const shipping = calcShipping(items, form.country, form.province)
   const grandTotal = total + shipping.cost
 
@@ -44,8 +43,8 @@ export default function CheckoutPage() {
     if (!form.name||!form.email) return alert('Remplis ton nom et email')
     setLoading(true)
     try {
-      const res = await fetch('/api/checkout',{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({items,customerInfo:form,shipping}) })
-      const { url, error } = await res.json()
+      const res = await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items,customerInfo:form,shipping})})
+      const {url,error} = await res.json()
       if (error) throw new Error(error)
       if (url) window.location.href = url
     } catch(e) { alert('Erreur: '+e.message); setLoading(false) }
@@ -54,8 +53,7 @@ export default function CheckoutPage() {
   const F = ({label,k,type='text'}) => (
     <div style={{marginBottom:13}}>
       <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>{label}</label>
-      <input type={type} value={form[k]} onChange={e=>setForm(f=>({...f,[k]:e.target.value}))}
-        style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#12121e',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none'}}/>
+      <input type={type} value={form[k]} onChange={e=>setForm(f=>({...f,[k]:e.target.value}))} style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#12121e',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none'}}/>
     </div>
   )
 
@@ -69,15 +67,13 @@ export default function CheckoutPage() {
         <F label="Ville" k="city"/>
         <div style={{marginBottom:13}}>
           <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Pays</label>
-          <select value={form.country} onChange={e=>setForm(f=>({...f,country:e.target.value,province:e.target.value==='CA'?'QC':'NY'}))}
-            style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#12121e',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none'}}>
+          <select value={form.country} onChange={e=>setForm(f=>({...f,country:e.target.value,province:e.target.value==='CA'?'QC':'NY'}))} style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#12121e',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none'}}>
             <option value="CA">🇨🇦 Canada</option><option value="US">🇺🇸 États-Unis</option>
           </select>
         </div>
         <div style={{marginBottom:20}}>
           <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>{form.country==='CA'?'Province':'État'}</label>
-          <select value={form.province} onChange={e=>setForm(f=>({...f,province:e.target.value}))}
-            style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#12121e',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none'}}>
+          <select value={form.province} onChange={e=>setForm(f=>({...f,province:e.target.value}))} style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#12121e',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none'}}>
             {(form.country==='CA'?CA_PROVINCES:US_STATES).map(([code,name])=>(<option key={code} value={code}>{name}</option>))}
           </select>
         </div>
@@ -85,14 +81,11 @@ export default function CheckoutPage() {
           <div style={{fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:6}}>Livraison estimée</div>
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
             <div style={{fontSize:13,color:'#aaa'}}>{shipping.label}</div>
-            <div style={{fontFamily:'Bebas Neue',fontSize:18,color:shipping.cost===0?'#4ade80':'#e8b820'}}>
-              {shipping.cost===0?'GRATUIT':`CA$${shipping.cost.toFixed(2)}`}
-            </div>
+            <div style={{fontFamily:'Bebas Neue',fontSize:18,color:shipping.cost===0?'#4ade80':'#e8b820'}}>{shipping.cost===0?'GRATUIT':`CA$${shipping.cost.toFixed(2)}`}</div>
           </div>
           {total<150&&<div style={{fontSize:11,color:'#555',marginTop:4}}>Livraison gratuite dès CA$150</div>}
         </div>
-        <button onClick={pay} disabled={loading||!form.name||!form.email}
-          style={{width:'100%',background:'#e8b820',color:'#000',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',opacity:loading?.7:1}}>
+        <button onClick={pay} disabled={loading||!form.name||!form.email} style={{width:'100%',background:'#e8b820',color:'#000',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',opacity:loading?.7:1}}>
           {loading?'Redirection...':'💳 PAYER — CA$'+grandTotal.toFixed(2)}
         </button>
         <div style={{textAlign:'center',fontSize:11,color:'#444',marginTop:8}}>🔒 Stripe SSL</div>

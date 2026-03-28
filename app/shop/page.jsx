@@ -1,5 +1,4 @@
 export const dynamic = 'force-dynamic'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import { getProducts, getCategories, getCatMeta } from '../../lib/products'

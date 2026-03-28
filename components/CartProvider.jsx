@@ -52,8 +52,7 @@ export default function CartProvider({ children }) {
               <span style={{color:'#666',fontSize:13}}>Total estimé</span>
               <span style={{fontFamily:'Bebas Neue',fontSize:26,color:'#e8b820',letterSpacing:1}}>CA${total.toFixed(2)}</span>
             </div>
-            <Link href="/checkout" onClick={()=>setOpen(false)}
-              style={{display:'block',width:'100%',background:'#e8b820',color:'#000',padding:'14px',borderRadius:8,fontWeight:800,fontSize:15,textAlign:'center',textDecoration:'none'}}>
+            <Link href="/checkout" onClick={()=>setOpen(false)} style={{display:'block',width:'100%',background:'#e8b820',color:'#000',padding:'14px',borderRadius:8,fontWeight:800,fontSize:15,textAlign:'center',textDecoration:'none'}}>
               PASSER À LA CAISSE →
             </Link>
             <div style={{textAlign:'center',fontSize:11,color:'#444',marginTop:8}}>🔒 Paiement sécurisé par Stripe</div>

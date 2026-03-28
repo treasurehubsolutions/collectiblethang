@@ -1,5 +1,4 @@
 export const dynamic = 'force-dynamic'
-
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
@@ -9,21 +8,14 @@ export async function POST(req) {
     const line_items = items.map(item => ({
       price_data: {
         currency: 'cad',
-        product_data: {
-          name: item.title.substring(0, 200),
-          images: item.photos?.slice(0,1).filter(Boolean) || [],
-        },
+        product_data: { name: item.title.substring(0,200), images: item.photos?.slice(0,1).filter(Boolean)||[] },
         unit_amount: Math.round(item.price * 100),
       },
       quantity: item.qty,
     }))
     if (shipping?.cost > 0) {
       line_items.push({
-        price_data: {
-          currency: 'cad',
-          product_data: { name: `Livraison — ${shipping.label}` },
-          unit_amount: Math.round(shipping.cost * 100),
-        },
+        price_data: { currency:'cad', product_data:{ name:`Livraison — ${shipping.label}` }, unit_amount: Math.round(shipping.cost*100) },
         quantity: 1,
       })
     }

@@ -1,5 +1,4 @@
 export const dynamic = 'force-dynamic'
-
 import { getProduct, getProducts, getCatMeta } from '../../../lib/products'
 import { notFound } from 'next/navigation'
 import ProductClient from '../../../components/ProductClient'

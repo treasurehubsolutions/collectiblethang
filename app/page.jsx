@@ -1,5 +1,4 @@
 export const dynamic = 'force-dynamic'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import { getFeatured, getCategories, getCatMeta, getNewArrivals } from '../lib/products'
@@ -10,12 +9,9 @@ export default async function Home() {
   const [featured, newArrivals, categories] = await Promise.all([
     getFeatured(), getNewArrivals(), getCategories()
   ])
-
   return (
     <div>
-      {/* HERO */}
       <div style={{background:'linear-gradient(180deg,#12121e 0%,#0d0d12 100%)',borderBottom:'2px solid #e8b820',position:'relative',overflow:'hidden'}}>
-        <div style={{position:'absolute',inset:0,backgroundImage:'radial-gradient(ellipse at 20% 50%,rgba(232,184,32,.06) 0%,transparent 60%)',pointerEvents:'none'}}/>
         <div style={{maxWidth:1300,margin:'0 auto',padding:'48px 24px 42px',position:'relative',zIndex:1}}>
           <div style={{display:'flex',alignItems:'center',gap:40,flexWrap:'wrap',justifyContent:'space-between'}}>
             <div style={{maxWidth:560}}>
@@ -26,14 +22,14 @@ export default async function Home() {
                 LA BOUTIQUE DES<br/><span style={{color:'#e8b820'}}>VRAIS COLLECTIONNEURS</span>
               </h1>
               <p style={{fontSize:15,color:'#888',lineHeight:1.7,marginBottom:28}}>
-                Hot Wheels · Action Figures · Star Wars · Marvel · DC · VHS · LEGO — photos réelles, paiement sécurisé
+                Hot Wheels · Action Figures · Star Wars · Marvel · DC · VHS · LEGO
               </p>
               <div style={{display:'flex',gap:12,flexWrap:'wrap'}}>
                 <Link href="/shop" style={{display:'inline-block',background:'#e8b820',color:'#000',padding:'13px 28px',borderRadius:6,fontWeight:800,fontSize:15,textDecoration:'none'}}>Explorer →</Link>
                 <Link href="/shop?sort=popular" style={{display:'inline-block',background:'transparent',color:'#e8b820',padding:'13px 28px',borderRadius:6,fontWeight:700,fontSize:15,textDecoration:'none',border:'1px solid #e8b820'}}>Populaires</Link>
               </div>
             </div>
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:1,background:'#1c1c28',borderRadius:10,overflow:'hidden',border:'1px solid #1c1c28'}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:1,background:'#1c1c28',borderRadius:10,overflow:'hidden'}}>
               {[['1 800+','Articles'],['9 000+','Photos réelles'],['100%','Feedback +'],['🇨🇦','Canada & USA']].map(([n,l])=>(
                 <div key={l} style={{background:'#12121e',padding:'18px 24px',textAlign:'center'}}>
                   <div style={{fontFamily:'Bebas Neue',fontSize:28,color:'#e8b820',letterSpacing:1}}>{n}</div>
@@ -45,7 +41,6 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* CATEGORY NAV */}
       <div style={{background:'#141420',borderBottom:'1px solid #1c1c28',overflowX:'auto'}}>
         <div style={{maxWidth:1300,margin:'0 auto',padding:'0 16px',display:'flex'}}>
           {HERO_CATS.map(cat => {
@@ -60,7 +55,6 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* CATEGORIES GRID */}
       <div style={{maxWidth:1300,margin:'0 auto',padding:'36px 24px 0'}}>
         <h2 style={{fontFamily:'Bebas Neue',fontSize:26,letterSpacing:2,color:'#fff',borderBottom:'2px solid #e8b820',paddingBottom:4,marginBottom:16,display:'inline-block'}}>Catégories</h2>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))',gap:10}}>
@@ -79,7 +73,6 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* NEW ARRIVALS */}
       <div style={{maxWidth:1300,margin:'0 auto',padding:'36px 24px 0'}}>
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:16}}>
           <h2 style={{fontFamily:'Bebas Neue',fontSize:26,letterSpacing:2,color:'#fff',borderBottom:'2px solid #e8b820',paddingBottom:4,display:'inline-block'}}>🆕 Nouveaux Arrivages</h2>
@@ -90,7 +83,6 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* POPULAR */}
       <div style={{maxWidth:1300,margin:'0 auto',padding:'36px 24px 60px'}}>
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:16}}>
           <h2 style={{fontFamily:'Bebas Neue',fontSize:26,letterSpacing:2,color:'#fff',borderBottom:'2px solid #e8b820',paddingBottom:4,display:'inline-block'}}>🔥 Les Plus Populaires</h2>

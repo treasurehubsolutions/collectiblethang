@@ -9,10 +9,7 @@ export default function ProductClient({ product: p }) {
   const [added, setAdded] = useState(false)
   const { addItem } = useCart()
   const sym = p.currency==='CAD'?'CA$':'$'
-  function handleAdd() {
-    for(let i=0;i<qty;i++) addItem(p)
-    setAdded(true); setTimeout(()=>setAdded(false),2000)
-  }
+  function handleAdd() { for(let i=0;i<qty;i++) addItem(p); setAdded(true); setTimeout(()=>setAdded(false),2000) }
   return (
     <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:40}}>
       <div>
@@ -24,8 +21,7 @@ export default function ProductClient({ product: p }) {
         {p.photos?.length>1&&(
           <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
             {p.photos.map((ph,i)=>(
-              <button key={i} onClick={()=>setMain(i)}
-                style={{position:'relative',width:64,height:64,borderRadius:6,overflow:'hidden',background:'#12121e',border:i===main?'2px solid #e8b820':'2px solid #1c1c28',cursor:'pointer',padding:0}}>
+              <button key={i} onClick={()=>setMain(i)} style={{position:'relative',width:64,height:64,borderRadius:6,overflow:'hidden',background:'#12121e',border:i===main?'2px solid #e8b820':'2px solid #1c1c28',cursor:'pointer',padding:0}}>
                 <img src={ph} alt="" style={{width:'100%',height:'100%',objectFit:'contain',padding:4}}/>
               </button>
             ))}
@@ -51,9 +47,8 @@ export default function ProductClient({ product: p }) {
             <button onClick={()=>setQty(q=>Math.min(p.stock||99,q+1))} style={{width:34,height:34,background:'#1a1a26',border:'none',color:'#eee',cursor:'pointer',fontSize:18,borderLeft:'1px solid #1c1c28'}}>+</button>
           </div>
         </div>
-        <button onClick={handleAdd}
-          style={{width:'100%',background:added?'#166534':'#e8b820',color:added?'#86efac':'#000',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',transition:'all .2s',marginBottom:10}}>
-          {added?'✓ Ajouté au panier !`':`🛒 Ajouter au panier — ${sym}${(p.price*qty).toFixed(2)}`}
+        <button onClick={handleAdd} style={{width:'100%',background:added?'#166534':'#e8b820',color:added?'#86efac':'#000',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',transition:'all .2s',marginBottom:10}}>
+          {added?'✓ Ajouté au panier !`':`🛒 Ajouter — ${sym}${(p.price*qty).toFixed(2)}`}
         </button>
         <div style={{fontSize:12,color:'#444',textAlign:'center',marginBottom:20}}>🔒 Paiement sécurisé par Stripe · SSL</div>
         {p.description&&(

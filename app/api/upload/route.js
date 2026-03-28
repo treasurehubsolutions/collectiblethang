@@ -1,5 +1,4 @@
 export const dynamic = 'force-dynamic'
-
 import { getAdminClient } from '../../../lib/supabase'
 
 export async function POST(req) {
@@ -7,23 +6,14 @@ export async function POST(req) {
     const formData = await req.formData()
     const file = formData.get('file')
     if (!file) return Response.json({ error: 'No file' }, { status: 400 })
-
     const admin = getAdminClient()
     const ext = file.name.split('.').pop().toLowerCase()
     const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-
-    const { data, error } = await admin.storage
-      .from('product-images')
-      .upload(filename, buffer, { contentType: file.type, upsert: false })
-
+    const { error } = await admin.storage.from('product-images').upload(filename, buffer, { contentType: file.type })
     if (error) return Response.json({ error: error.message }, { status: 500 })
-
-    const { data: { publicUrl } } = admin.storage
-      .from('product-images')
-      .getPublicUrl(filename)
-
+    const { data: { publicUrl } } = admin.storage.from('product-images').getPublicUrl(filename)
     return Response.json({ url: publicUrl })
   } catch (err) {
     return Response.json({ error: err.message }, { status: 500 })

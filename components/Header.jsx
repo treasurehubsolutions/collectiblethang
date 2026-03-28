@@ -3,12 +3,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useCart } from './CartProvider'
 
-const NAV_CATS = [
-  ['Hot Wheels','🚗'],['Hot Wheels Premium','🏎️'],['Star Wars','⚔️'],
-  ['Marvel','⚡'],['DC Comics','🦇'],['Transformers','🤖'],
-  ['WWE & Wrestling','🏆'],['Hallmark Ornaments','🎄'],['McFarlane Figures','💀'],
-  ['Jurassic Park / World','🦕'],['Masters of the Universe','⚔️'],['VHS Tapes','📼'],
-]
+const NAV_CATS = [['Hot Wheels','🚗'],['Hot Wheels Premium','🏎️'],['Star Wars','⚔️'],['Marvel','⚡'],['DC Comics','🦇'],['Transformers','🤖'],['WWE & Wrestling','🏆'],['Hallmark Ornaments','🎄'],['McFarlane Figures','💀'],['Jurassic Park / World','🦕'],['Masters of the Universe','⚔️'],['VHS Tapes','📼']]
 
 export default function Header() {
   const { count, setOpen } = useCart()
@@ -24,20 +19,14 @@ export default function Header() {
       </div>
       <header style={{background:'#0d0d12',borderBottom:'1px solid #1c1c28',position:'sticky',top:0,zIndex:200}}>
         <div style={{maxWidth:1300,margin:'0 auto',padding:'0 20px',height:58,display:'flex',alignItems:'center',gap:16}}>
-          <Link href="/" style={{fontFamily:'Bebas Neue',fontSize:22,color:'#e8b820',textDecoration:'none',letterSpacing:2,flexShrink:0}}>
-            COLLECTIBLE<span style={{color:'#333'}}>THANG</span>
-          </Link>
+          <Link href="/" style={{fontFamily:'Bebas Neue',fontSize:22,color:'#e8b820',textDecoration:'none',letterSpacing:2,flexShrink:0}}>COLLECTIBLE<span style={{color:'#333'}}>THANG</span></Link>
           <form onSubmit={handleSearch} style={{flex:1,maxWidth:500,display:'flex'}}>
-            <input value={search} onChange={e=>setSearch(e.target.value)}
-              placeholder="Rechercher Hot Wheels, Star Wars, Marvel..."
+            <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Rechercher Hot Wheels, Star Wars, Marvel..."
               style={{flex:1,padding:'8px 14px',background:'#1a1a26',border:'1px solid #2a2a38',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:13,outline:'none'}}/>
-            <button type="submit" style={{padding:'8px 16px',background:'#e8b820',color:'#000',border:'none',borderRadius:'0 6px 6px 0',fontWeight:800,fontSize:13,cursor:'pointer'}}>
-              Chercher
-            </button>
+            <button type="submit" style={{padding:'8px 16px',background:'#e8b820',color:'#000',border:'none',borderRadius:'0 6px 6px 0',fontWeight:800,fontSize:13,cursor:'pointer'}}>Chercher</button>
           </form>
           <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:8,flexShrink:0}}>
-            <button onClick={()=>setOpen(true)}
-              style={{display:'flex',alignItems:'center',gap:7,background:'#e8b820',color:'#000',border:'none',borderRadius:6,padding:'8px 16px',fontWeight:800,fontSize:13,cursor:'pointer'}}>
+            <button onClick={()=>setOpen(true)} style={{display:'flex',alignItems:'center',gap:7,background:'#e8b820',color:'#000',border:'none',borderRadius:6,padding:'8px 16px',fontWeight:800,fontSize:13,cursor:'pointer'}}>
               🛒 Panier
               {count>0&&<span style={{background:'rgba(0,0,0,.2)',borderRadius:20,padding:'1px 7px',fontSize:11,fontWeight:700}}>{count}</span>}
             </button>
