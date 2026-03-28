@@ -1,4 +1,5 @@
 export const dynamic = 'force-dynamic'
+
 import { getAdminClient } from '../../../lib/supabase'
 
 export async function POST(req) {
