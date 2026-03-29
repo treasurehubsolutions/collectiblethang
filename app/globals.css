@@ -2,30 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 * { box-sizing: border-box; }
-
-:root {
-  --red:    #cc1100;
-  --cyan:   #00c8d4;
-  --gold:   #d4a800;
-  --purple: #7c22e8;
-  --bg:     #07070f;
-  --card:   #0f0f1c;
-  --border: #1c1c30;
-  --text:   #eeecd8;
-  --muted:  #66668a;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', -apple-system, sans-serif;
-  margin: 0;
-}
+body { background: #07070f; color: #eeecd8; font-family: 'Inter', -apple-system, sans-serif; margin: 0; }
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-track { background: #07070f; }
 ::-webkit-scrollbar-thumb { background: #2a2a3a; border-radius: 3px; }
-
-/* Glow effects matching logo */
-.glow-cyan { text-shadow: 0 0 20px rgba(0,200,212,.6), 0 0 40px rgba(0,200,212,.3); }
-.glow-red  { text-shadow: 0 0 20px rgba(204,17,0,.6), 0 0 40px rgba(204,17,0,.3); }
-.glow-gold { text-shadow: 0 0 20px rgba(212,168,0,.6), 0 0 40px rgba(212,168,0,.3); }

@@ -8,14 +8,14 @@ export async function POST(req) {
     const line_items = items.map(item => ({
       price_data: {
         currency: 'cad',
-        product_data: { name: item.title.substring(0,200), images: item.photos?.slice(0,1).filter(Boolean)||[] },
+        product_data: { name: item.title.substring(0,200) },
         unit_amount: Math.round(item.price * 100),
       },
       quantity: item.qty,
     }))
     if (shipping?.cost > 0) {
       line_items.push({
-        price_data: { currency:'cad', product_data:{ name:`Livraison — ${shipping.label}` }, unit_amount: Math.round(shipping.cost*100) },
+        price_data: { currency:'cad', product_data:{ name:`Shipping — ${shipping.label}` }, unit_amount: Math.round(shipping.cost*100) },
         quantity: 1,
       })
     }
@@ -27,10 +27,9 @@ export async function POST(req) {
       shipping_address_collection: { allowed_countries: ['CA','US'] },
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
-      metadata: { customer_name: customerInfo.name }
     })
-    return Response.json({ url: session.url })
-  } catch (err) {
-    return Response.json({ error: err.message }, { status: 500 })
+    return Response.json({url:session.url})
+  } catch(err) {
+    return Response.json({error:err.message},{status:500})
   }
 }
