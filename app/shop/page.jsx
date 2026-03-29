@@ -7,7 +7,7 @@ export default async function ShopPage({ searchParams }) {
   const category = searchParams?.category || ''
   const search = searchParams?.search || ''
   const sort = searchParams?.sort || ''
-  const page = parseInt(searchParams?.page || '1')
+  const page = parseInt(searchParams?.page || '1') || 1
 
   let items = [], total = 0, totalPages = 1, categories = []
   try {
@@ -15,44 +15,58 @@ export default async function ShopPage({ searchParams }) {
       getProducts({ category, search, sort, page }),
       getCategories()
     ])
-    items = prods.items
-    total = prods.total
-    totalPages = prods.totalPages
-    categories = cats
+    items = prods.items || []
+    total = prods.total || 0
+    totalPages = prods.totalPages || 1
+    categories = cats || []
   } catch(e) {
-    console.error('Shop page error:', e)
+    console.error('ShopPage error:', e.message)
   }
 
   const meta = category ? getCatMeta(category) : null
 
-  function buildHref(params) {
-    const p = { ...(category&&{category}), ...(sort&&{sort}), ...(search&&{search}), ...params }
-    return '/shop?' + new URLSearchParams(p).toString()
+  // Build URL without empty params
+  function href(overrides) {
+    const params = {}
+    if (category) params.category = category
+    if (sort) params.sort = sort
+    if (search) params.search = search
+    Object.assign(params, overrides)
+    // Remove empty values
+    Object.keys(params).forEach(k => { if (!params[k] || params[k]==='0') delete params[k] })
+    const qs = new URLSearchParams(params).toString()
+    return qs ? `/shop?${qs}` : '/shop'
   }
 
   return (
     <div style={{maxWidth:1300,margin:'0 auto',padding:'16px'}}>
 
-      {/* Search */}
-      <form action="/shop" style={{marginBottom:12,display:'flex',gap:0}}>
+      {/* Search bar */}
+      <form action="/shop" style={{marginBottom:12,display:'flex'}}>
         <input name="search" defaultValue={search} placeholder="Search products..."
           style={{flex:1,padding:'10px 14px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:14,outline:'none'}}/>
-        <button type="submit" style={{padding:'10px 18px',background:'#cc1100',color:'#fff',border:'none',borderRadius:'0 6px 6px 0',fontWeight:700,fontSize:13,cursor:'pointer'}}>Search</button>
+        <button type="submit" style={{padding:'10px 18px',background:'#cc1100',color:'#fff',border:'none',borderRadius:'0 6px 6px 0',fontWeight:700,fontSize:13,cursor:'pointer'}}>
+          Search
+        </button>
       </form>
 
-      {/* Category pills - horizontal scroll */}
-      <div style={{display:'flex',gap:6,overflowX:'auto',paddingBottom:8,marginBottom:10}}>
+      {/* Category pills */}
+      <div style={{display:'flex',gap:6,overflowX:'auto',paddingBottom:8,marginBottom:10,scrollbarWidth:'none'}}>
         <CatPill href="/shop" on={!category}>🏠 All</CatPill>
         {categories.map(([cat,n]) => {
           const m = getCatMeta(cat)
-          return <CatPill key={cat} href={buildHref({category:cat,page:1})} on={category===cat} color={m.color}>{m.emoji} {cat}</CatPill>
+          return (
+            <CatPill key={cat} href={href({category:cat,page:'1'})} on={category===cat} color={m.color}>
+              {m.emoji} {cat}
+            </CatPill>
+          )
         })}
       </div>
 
       {/* Sort pills */}
       <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:14,alignItems:'center'}}>
         {[['','Default'],['new','New'],['popular','Popular'],['sold','Best sellers'],['price_asc','Price ↑'],['price_desc','Price ↓']].map(([v,l])=>(
-          <SortPill key={v} href={buildHref({sort:v,page:1})} on={sort===v}>{l}</SortPill>
+          <SortPill key={v} href={href({sort:v,page:'1'})} on={sort===v}>{l}</SortPill>
         ))}
         <span style={{marginLeft:'auto',fontSize:12,color:'#555'}}>
           <strong style={{color:'#aaa'}}>{total.toLocaleString()}</strong> items
@@ -60,7 +74,11 @@ export default async function ShopPage({ searchParams }) {
       </div>
 
       {/* Category title */}
-      {meta && <h1 style={{fontFamily:'Bebas Neue',fontSize:22,letterSpacing:2,color:'#fff',marginBottom:14}}>{meta.emoji} {category}</h1>}
+      {meta && (
+        <h1 style={{fontFamily:'Bebas Neue',fontSize:22,letterSpacing:2,color:'#fff',marginBottom:14}}>
+          {meta.emoji} {category}
+        </h1>
+      )}
 
       {/* Product grid */}
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:10}}>
@@ -75,9 +93,9 @@ export default async function ShopPage({ searchParams }) {
                   {p.photos?.[0]
                     ? <img src={p.photos[0]} alt={p.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading="lazy" onError={e=>{e.target.style.display='none'}}/>
                     : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>{m.emoji}</div>}
-                  {isNew&&<span style={{position:'absolute',bottom:4,left:4,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>NEW</span>}
-                  {p.condition==='Open box'&&<span style={{position:'absolute',bottom:4,left:4,background:'#713f12',color:'#fde68a',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>OPEN BOX</span>}
-                  {p.watchers>10&&<span style={{position:'absolute',top:4,right:4,background:'rgba(204,17,0,.9)',color:'#fff',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>🔥{p.watchers}</span>}
+                  {isNew && <span style={{position:'absolute',bottom:4,left:4,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>NEW</span>}
+                  {p.condition==='Open box' && <span style={{position:'absolute',bottom:4,left:4,background:'#713f12',color:'#fde68a',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>OPEN BOX</span>}
+                  {p.watchers>10 && <span style={{position:'absolute',top:4,right:4,background:'rgba(204,17,0,.9)',color:'#fff',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>🔥{p.watchers}</span>}
                 </div>
               </Link>
               <div style={{padding:'8px 9px',flex:1,display:'flex',flexDirection:'column'}}>
@@ -95,17 +113,25 @@ export default async function ShopPage({ searchParams }) {
         })}
       </div>
 
+      {/* Empty state */}
+      {items.length===0 && (
+        <div style={{textAlign:'center',padding:'60px 24px',color:'#555'}}>
+          <div style={{fontSize:48,marginBottom:12}}>🔍</div>
+          <div style={{fontFamily:'Bebas Neue',fontSize:22,letterSpacing:2,color:'#333'}}>No products found</div>
+        </div>
+      )}
+
       {/* Pagination */}
-      {totalPages>1&&(
+      {totalPages>1 && (
         <div style={{display:'flex',gap:4,justifyContent:'center',marginTop:32,flexWrap:'wrap'}}>
-          {page>1&&<PG href={buildHref({page:page-1})}>‹</PG>}
+          {page>1 && <PG href={href({page:String(page-1)})}>&#8249;</PG>}
           {Array.from({length:totalPages},(_,i)=>i+1)
             .filter(n=>n===1||n===totalPages||Math.abs(n-page)<=2)
             .map((n,i,arr)=>[
-              arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#555'}}>…</span>:null,
-              <PG key={n} href={buildHref({page:n})} on={n===page}>{n}</PG>
+              arr[i-1]&&n-arr[i-1]>1 ? <span key={`e${n}`} style={{padding:'6px 8px',color:'#555'}}>&#8230;</span> : null,
+              <PG key={n} href={href({page:String(n)})} on={n===page}>{n}</PG>
             ])}
-          {page<totalPages&&<PG href={buildHref({page:page+1})}>›</PG>}
+          {page<totalPages && <PG href={href({page:String(page+1)})}>&#8250;</PG>}
         </div>
       )}
     </div>

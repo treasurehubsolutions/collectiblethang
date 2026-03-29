@@ -25,13 +25,13 @@ export default function Header() {
 
   function handleSearch(e) {
     e.preventDefault()
-    if (search.trim()) window.location.href = `/shop?search=${encodeURIComponent(search.trim())}`
+    if (search.trim()) window.location.href = '/shop?search=' + encodeURIComponent(search.trim())
   }
 
   return (
     <>
       <div style={{background:'linear-gradient(90deg,#cc1100,#7c22e8)',color:'#fff',textAlign:'center',padding:'6px 12px',fontSize:11,fontWeight:700}}>
-        <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:0,flexWrap:'wrap'}}>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'center',flexWrap:'wrap',gap:0}}>
           {topbarItems.map((item, i) => (
             <span key={i} style={{display:'inline-flex',alignItems:'center',gap:4}}>
               {i > 0 && <span style={{margin:'0 6px',opacity:.5}}>·</span>}
@@ -51,40 +51,33 @@ export default function Header() {
           <Link href="/" style={{flexShrink:0,display:'flex',alignItems:'center'}}>
             <Image src="/logo.png" alt="Born2BeToys" width={160} height={50} style={{objectFit:'contain',height:50,width:'auto'}}/>
           </Link>
-
           <form onSubmit={handleSearch} style={{flex:1,maxWidth:500,display:'flex'}}>
-            <input value={search} onChange={e=>setSearch(e.target.value)}
-              placeholder={tx.searchPlaceholder}
+            <input value={search} onChange={e=>setSearch(e.target.value)} placeholder={tx.searchPlaceholder}
               style={{flex:1,padding:'8px 14px',background:'#12121e',border:'1px solid #2a2a3a',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:13,outline:'none'}}/>
             <button type="submit" style={{padding:'8px 16px',background:'#cc1100',color:'#fff',border:'none',borderRadius:'0 6px 6px 0',fontWeight:800,fontSize:13,cursor:'pointer'}}>
               {tx.search}
             </button>
           </form>
-
           <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:8,flexShrink:0}}>
-            <button onClick={toggle}
-              style={{background:'none',border:'1px solid #2a2a3a',color:'#aaa',borderRadius:6,padding:'6px 10px',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+            <button onClick={toggle} style={{background:'none',border:'1px solid #2a2a3a',color:'#aaa',borderRadius:6,padding:'6px 10px',fontSize:12,fontWeight:700,cursor:'pointer'}}>
               {lang==='en' ? '🇫🇷 FR' : '🇺🇸 EN'}
             </button>
-            <Link href="/livraison"
-              style={{fontSize:12,color:'#666',textDecoration:'none',padding:'6px 10px',border:'1px solid #1c1c30',borderRadius:5,whiteSpace:'nowrap'}}>
+            <Link href="/livraison" style={{fontSize:12,color:'#666',textDecoration:'none',padding:'6px 10px',border:'1px solid #1c1c30',borderRadius:5,whiteSpace:'nowrap'}}>
               {tx.shipping}
             </Link>
-            <button onClick={()=>setOpen(true)}
-              style={{display:'flex',alignItems:'center',gap:7,background:'#cc1100',color:'#fff',border:'none',borderRadius:6,padding:'8px 16px',fontWeight:800,fontSize:13,cursor:'pointer'}}>
+            <button onClick={()=>setOpen(true)} style={{display:'flex',alignItems:'center',gap:7,background:'#cc1100',color:'#fff',border:'none',borderRadius:6,padding:'8px 16px',fontWeight:800,fontSize:13,cursor:'pointer'}}>
               🛒 {tx.cart}
               {count>0 && <span style={{background:'rgba(255,255,255,.2)',borderRadius:20,padding:'1px 7px',fontSize:11,fontWeight:700}}>{count}</span>}
             </button>
           </div>
         </div>
-
         <div style={{background:'#0a0a16',borderTop:'1px solid #1a1a28',overflowX:'auto'}}>
           <div style={{maxWidth:1300,margin:'0 auto',padding:'0 20px',display:'flex',alignItems:'center'}}>
             <Link href="/shop" style={{padding:'9px 14px',fontSize:12,color:'#aaa',textDecoration:'none',borderRight:'1px solid #1a1a28',whiteSpace:'nowrap',fontWeight:700}}>
               {tx.allItems}
             </Link>
             {NAV_CATS.map(([cat,emoji]) => (
-              <Link key={cat} href={`/shop?category=${encodeURIComponent(cat)}`}
+              <Link key={cat} href={'/shop?category='+encodeURIComponent(cat)}
                 style={{padding:'9px 12px',fontSize:12,color:'#777',textDecoration:'none',borderRight:'1px solid #1a1a28',whiteSpace:'nowrap',display:'flex',alignItems:'center',gap:4}}>
                 {emoji} {cat}
               </Link>
