@@ -26,7 +26,7 @@ export default function Header() {
 
   return (
     <>
-      <div style={{background:'#cc1100',color:'#fff',textAlign:'center',padding:'6px',fontSize:11,fontWeight:700,letterSpacing:'.3px'}}>
+      <div style={{background:'linear-gradient(90deg,#cc1100,#7c22e8)',color:'#fff',textAlign:'center',padding:'6px',fontSize:11,fontWeight:700,letterSpacing:'.3px'}}>
         {tx.topbar}
       </div>
       <header style={{background:'#0d0d12',borderBottom:'1px solid #1c1c28',position:'sticky',top:0,zIndex:200}}>
