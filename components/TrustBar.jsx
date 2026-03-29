@@ -9,6 +9,7 @@ export default function TrustBar() {
     {icon:'🔒',title:tx.trust1t,desc:tx.trust1d},
     {icon:'📦',title:tx.trust2t,desc:tx.trust2d},
     {icon:'🇨🇦',title:tx.trust3t,desc:tx.trust3d},
+    {icon:'⚜️',title:'Fièrement Québécois',desc:<span style={{display:'flex',alignItems:'center',gap:4}}><img src="/qc-flag.png" alt="Québec" style={{width:22,height:15,borderRadius:2,objectFit:'cover'}}/> Made in Québec 🇨🇦</span>},
     {icon:'⭐',title:tx.trust4t,desc:tx.trust4d},
     {icon:'↩️',title:tx.trust5t,desc:tx.trust5d},
     {icon:'💰',title:tx.trust6t,desc:tx.trust6d},
