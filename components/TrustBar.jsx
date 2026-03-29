@@ -9,13 +9,12 @@ export default function TrustBar() {
     {icon:'🔒',title:tx.trust1t,desc:tx.trust1d},
     {icon:'📦',title:tx.trust2t,desc:tx.trust2d},
     {icon:'🇨🇦',title:tx.trust3t,desc:tx.trust3d},
-    {icon:'⚜️',title:'Fièrement Québécois',desc:<span style={{display:'flex',alignItems:'center',gap:4}}><img src="/qc-flag.png" alt="Québec" style={{width:22,height:15,borderRadius:2,objectFit:'cover'}}/> Made in Québec 🇨🇦</span>},
     {icon:'⭐',title:tx.trust4t,desc:tx.trust4d},
     {icon:'↩️',title:tx.trust5t,desc:tx.trust5d},
     {icon:'💰',title:tx.trust6t,desc:tx.trust6d},
   ]
   return (
-    <div style={{background:'#0a0a14',borderTop:'1px solid #1c1c28',borderBottom:'1px solid #1c1c28',padding:'20px 24px'}}>
+    <div style={{background:'#0a0a16',borderTop:'1px solid #1c1c30',borderBottom:'1px solid #1c1c30',padding:'20px 24px'}}>
       <div style={{maxWidth:1300,margin:'0 auto',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(150px,1fr))',gap:16}}>
         {items.map(({icon,title,desc})=>(
           <div key={title} style={{display:'flex',alignItems:'center',gap:10}}>
