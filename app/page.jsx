@@ -22,15 +22,15 @@ export default async function Home() {
                 LA BOUTIQUE DES<br/><span style={{color:'#e8b820'}}>VRAIS COLLECTIONNEURS</span>
               </h1>
               <p style={{fontSize:15,color:'#888',lineHeight:1.7,marginBottom:28}}>
-                Hot Wheels · Action Figures · Star Wars · Marvel · DC · VHS · LEGO
+                Liquidation & Discount · Hot Wheels · Star Wars · Marvel · DC · VHS · LEGO
               </p>
               <div style={{display:'flex',gap:12,flexWrap:'wrap'}}>
-                <Link href="/shop" style={{display:'inline-block',background:'#e8b820',color:'#000',padding:'13px 28px',borderRadius:6,fontWeight:800,fontSize:15,textDecoration:'none'}}>Explorer →</Link>
-                <Link href="/shop?sort=popular" style={{display:'inline-block',background:'transparent',color:'#e8b820',padding:'13px 28px',borderRadius:6,fontWeight:700,fontSize:15,textDecoration:'none',border:'1px solid #e8b820'}}>Populaires</Link>
+                <Link href="/shop" style={{display:'inline-block',background:'#e8b820',color:'#000',padding:'13px 28px',borderRadius:6,fontWeight:800,fontSize:15,textDecoration:'none'}}>Voir les aubaines →</Link>
+                <Link href="/shop?sort=popular" style={{display:'inline-block',background:'transparent',color:'#e8b820',padding:'13px 28px',borderRadius:6,fontWeight:700,fontSize:15,textDecoration:'none',border:'1px solid #e8b820'}}>🔥 Liquidation</Link>
               </div>
             </div>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:1,background:'#1c1c28',borderRadius:10,overflow:'hidden'}}>
-              {[['1 800+','Articles'],['9 000+','Photos réelles'],['100%','Feedback +'],['🇨🇦','Canada & USA']].map(([n,l])=>(
+              {[['1 500+','Articles'],['9 000+','Photos réelles'],['100%','Feedback +'],['🇨🇦','Canada & USA']].map(([n,l])=>(
                 <div key={l} style={{background:'#12121e',padding:'18px 24px',textAlign:'center'}}>
                   <div style={{fontFamily:'Bebas Neue',fontSize:28,color:'#e8b820',letterSpacing:1}}>{n}</div>
                   <div style={{fontSize:11,color:'#666',marginTop:3,textTransform:'uppercase',letterSpacing:'0.05em'}}>{l}</div>
@@ -85,7 +85,7 @@ export default async function Home() {
 
       <div style={{maxWidth:1300,margin:'0 auto',padding:'36px 24px 60px'}}>
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:16}}>
-          <h2 style={{fontFamily:'Bebas Neue',fontSize:26,letterSpacing:2,color:'#fff',borderBottom:'2px solid #e8b820',paddingBottom:4,display:'inline-block'}}>🔥 Les Plus Populaires</h2>
+          <h2 style={{fontFamily:'Bebas Neue',fontSize:26,letterSpacing:2,color:'#fff',borderBottom:'2px solid #e8b820',paddingBottom:4,display:'inline-block'}}>🔥 Les Plus 🔥 Liquidation</h2>
           <Link href="/shop?sort=popular" style={{fontSize:13,color:'#e8b820',textDecoration:'none',fontWeight:600}}>Voir tout →</Link>
         </div>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(185px,1fr))',gap:12}}>
