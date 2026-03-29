@@ -208,7 +208,7 @@ function ProductCard({p, tx}) {
       <div style={{position:'absolute',top:0,left:0,right:0,height:2,background:meta.color,zIndex:1}}/>
       <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
         {p.photos?.[0]
-          ? <Image src={p.photos[0]} alt={p.title} fill style={{objectFit:'contain',padding:10}} unoptimized/>
+          ? <img src={p.photos[0]} alt={p.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:10}} loading="lazy" onError={e=>{e.target.style.display='none'}}/>
           : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:48}}>{meta.emoji}</div>}
         {isNew&&<span style={{position:'absolute',bottom:6,left:6,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 6px',borderRadius:3}}>{tx.new}</span>}
         {p.watchers>10&&<span style={{position:'absolute',top:6,right:6,background:'rgba(204,17,0,.85)',color:'#fff',fontSize:9,fontWeight:700,padding:'2px 6px',borderRadius:3}}>🔥 {p.watchers}</span>}
