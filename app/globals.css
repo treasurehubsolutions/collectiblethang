@@ -2,7 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 * { box-sizing: border-box; }
-body { background: #0d0d12; color: #e8e6d8; font-family: 'Inter', -apple-system, sans-serif; margin: 0; }
+
+:root {
+  /* Born2BeToys brand colors from logo */
+  --red: #cc1100;        /* BORN2BE red */
+  --cyan: #00c8c8;       /* TOYS cyan */  
+  --gold: #d4a800;       /* "2" gold/yellow */
+  --purple: #5500aa;     /* glow purple */
+  --bg: #08080f;         /* dark background */
+  --card: #10101a;       /* card background */
+  --border: #1e1e30;     /* borders */
+  --text: #eeecd8;       /* main text */
+  --muted: #666680;      /* muted text */
+}
+
+body { 
+  background: var(--bg); 
+  color: var(--text); 
+  font-family: 'Inter', -apple-system, sans-serif; 
+  margin: 0; 
+}
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0d0d12; }
-::-webkit-scrollbar-thumb { background: #2a2a38; border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2a2a3a; border-radius: 3px; }

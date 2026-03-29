@@ -6,12 +6,12 @@ export default function TrustBar() {
   const { lang } = useLang()
   const tx = T[lang]
   const items = [
-    { icon:'🔒', title:tx.trust1t, desc:tx.trust1d },
-    { icon:'📦', title:tx.trust2t, desc:tx.trust2d },
-    { icon:'🇨🇦', title:tx.trust3t, desc:tx.trust3d },
-    { icon:'⭐', title:tx.trust4t, desc:tx.trust4d },
-    { icon:'↩️', title:tx.trust5t, desc:tx.trust5d },
-    { icon:'💰', title:tx.trust6t, desc:tx.trust6d },
+    {icon:'🔒',title:tx.trust1t,desc:tx.trust1d},
+    {icon:'📦',title:tx.trust2t,desc:tx.trust2d},
+    {icon:'🇨🇦',title:tx.trust3t,desc:tx.trust3d},
+    {icon:'⭐',title:tx.trust4t,desc:tx.trust4d},
+    {icon:'↩️',title:tx.trust5t,desc:tx.trust5d},
+    {icon:'💰',title:tx.trust6t,desc:tx.trust6d},
   ]
   return (
     <div style={{background:'#0a0a14',borderTop:'1px solid #1c1c28',borderBottom:'1px solid #1c1c28',padding:'20px 24px'}}>

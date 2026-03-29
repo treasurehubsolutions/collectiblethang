@@ -1,11 +1,17 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { useCart } from './CartProvider'
 import { useLang } from './LangProvider'
 import { T } from '../lib/i18n'
 
-const NAV_CATS = [['Hot Wheels','🚗'],['Hot Wheels Premium','🏎️'],['Star Wars','⚔️'],['Marvel','⚡'],['DC Comics','🦇'],['Transformers','🤖'],['WWE & Wrestling','🏆'],['Hallmark Ornaments','🎄'],['McFarlane Figures','💀'],['Jurassic Park / World','🦕'],['Masters of the Universe','⚔️'],['VHS Tapes','📼']]
+const NAV_CATS = [
+  ['Hot Wheels','🚗'],['Hot Wheels Premium','🏎️'],['Star Wars','⚔️'],
+  ['Marvel','⚡'],['DC Comics','🦇'],['Transformers','🤖'],
+  ['WWE & Wrestling','🏆'],['Hallmark Ornaments','🎄'],['McFarlane Figures','💀'],
+  ['Jurassic Park / World','🦕'],['VHS Tapes','📼'],
+]
 
 export default function Header() {
   const { count, setOpen } = useCart()
@@ -20,27 +26,34 @@ export default function Header() {
 
   return (
     <>
-      <div style={{background:'#e8b820',color:'#000',textAlign:'center',padding:'6px',fontSize:11,fontWeight:700,letterSpacing:'.4px'}}>
+      <div style={{background:'#cc1100',color:'#fff',textAlign:'center',padding:'6px',fontSize:11,fontWeight:700,letterSpacing:'.3px'}}>
         {tx.topbar}
       </div>
       <header style={{background:'#0d0d12',borderBottom:'1px solid #1c1c28',position:'sticky',top:0,zIndex:200}}>
-        <div style={{maxWidth:1300,margin:'0 auto',padding:'0 20px',height:58,display:'flex',alignItems:'center',gap:16}}>
-          <Link href="/" style={{fontFamily:'Bebas Neue',fontSize:22,color:'#e8b820',textDecoration:'none',letterSpacing:2,flexShrink:0}}>
-            Born2Be<span style={{color:'#fff'}}>Toys</span>
+        <div style={{maxWidth:1300,margin:'0 auto',padding:'0 20px',height:62,display:'flex',alignItems:'center',gap:16}}>
+          {/* Logo */}
+          <Link href="/" style={{flexShrink:0,display:'flex',alignItems:'center'}}>
+            <Image src="/logo.png" alt="Born2BeToys" width={160} height={50} style={{objectFit:'contain',height:50,width:'auto'}}/>
           </Link>
+
+          {/* Search */}
           <form onSubmit={handleSearch} style={{flex:1,maxWidth:500,display:'flex'}}>
             <input value={search} onChange={e=>setSearch(e.target.value)}
               placeholder={tx.searchPlaceholder}
               style={{flex:1,padding:'8px 14px',background:'#1a1a26',border:'1px solid #2a2a38',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:13,outline:'none'}}/>
             <button type="submit" style={{padding:'8px 16px',background:'#e8b820',color:'#000',border:'none',borderRadius:'0 6px 6px 0',fontWeight:800,fontSize:13,cursor:'pointer'}}>{tx.search}</button>
           </form>
+
+          {/* Actions */}
           <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:8,flexShrink:0}}>
-            {/* Language toggle */}
             <button onClick={toggle}
-              style={{background:'none',border:'1px solid #2a2a38',color:'#aaa',borderRadius:6,padding:'6px 10px',fontSize:12,fontWeight:700,cursor:'pointer',letterSpacing:1}}>
-              {lang === 'en' ? '🇫🇷 FR' : '🇺🇸 EN'}
+              style={{background:'none',border:'1px solid #2a2a38',color:'#aaa',borderRadius:6,padding:'6px 10px',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+              {lang==='en'?'🇫🇷 FR':'🇺🇸 EN'}
             </button>
-            <Link href="/livraison" style={{fontSize:12,color:'#666',textDecoration:'none',padding:'6px 10px',border:'1px solid #1c1c28',borderRadius:5,whiteSpace:'nowrap'}}>{tx.shipping}</Link>
+            <Link href="/livraison"
+              style={{fontSize:12,color:'#666',textDecoration:'none',padding:'6px 10px',border:'1px solid #1c1c28',borderRadius:5,whiteSpace:'nowrap'}}>
+              {tx.shipping}
+            </Link>
             <button onClick={()=>setOpen(true)}
               style={{display:'flex',alignItems:'center',gap:7,background:'#e8b820',color:'#000',border:'none',borderRadius:6,padding:'8px 16px',fontWeight:800,fontSize:13,cursor:'pointer'}}>
               🛒 {tx.cart}
@@ -48,6 +61,8 @@ export default function Header() {
             </button>
           </div>
         </div>
+
+        {/* Category nav */}
         <div style={{background:'#0a0a14',borderTop:'1px solid #1a1a28',overflowX:'auto'}}>
           <div style={{maxWidth:1300,margin:'0 auto',padding:'0 20px',display:'flex',alignItems:'center'}}>
             <Link href="/shop" style={{padding:'9px 14px',fontSize:12,color:'#aaa',textDecoration:'none',borderRight:'1px solid #1a1a28',whiteSpace:'nowrap',fontWeight:700}}>{tx.allItems}</Link>

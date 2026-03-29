@@ -8,15 +8,13 @@ export default function AboutPage() {
   const tx = T[lang]
   return (
     <div style={{maxWidth:900,margin:'0 auto',padding:'60px 24px'}}>
-      <div style={{marginBottom:48}}>
-        <div style={{fontFamily:'Bebas Neue',fontSize:12,letterSpacing:4,color:'#e8b820',textTransform:'uppercase',marginBottom:8}}>{tx.aboutBadge}</div>
-        <h1 style={{fontFamily:'Bebas Neue',fontSize:'clamp(36px,5vw,60px)',letterSpacing:2,color:'#fff',marginBottom:20,lineHeight:1}}>{tx.aboutTitle}</h1>
-        <p style={{fontSize:15,color:'#888',lineHeight:1.8,marginBottom:16}}>{tx.aboutP1}</p>
-        <p style={{fontSize:15,color:'#888',lineHeight:1.8,marginBottom:16}}>{tx.aboutP2}</p>
-        <p style={{fontSize:15,color:'#888',lineHeight:1.8}}>{tx.aboutP3}</p>
-      </div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:16,marginBottom:48}}>
-        {[['1 500+','Items in stock / Articles en stock'],['100%','Positive feedback eBay'],['9 000+','Real photos / Photos réelles'],['30 days','Return policy / Politique retour']].map(({0:n,1:l})=>(
+      <div style={{fontFamily:'Bebas Neue',fontSize:12,letterSpacing:4,color:'#e8b820',textTransform:'uppercase',marginBottom:8}}>{tx.aboutBadge}</div>
+      <h1 style={{fontFamily:'Bebas Neue',fontSize:'clamp(36px,5vw,60px)',letterSpacing:2,color:'#fff',marginBottom:20,lineHeight:1}}>{tx.aboutTitle}</h1>
+      <p style={{fontSize:15,color:'#888',lineHeight:1.8,marginBottom:16}}>{tx.aboutP1}</p>
+      <p style={{fontSize:15,color:'#888',lineHeight:1.8,marginBottom:16}}>{tx.aboutP2}</p>
+      <p style={{fontSize:15,color:'#888',lineHeight:1.8,marginBottom:40}}>{tx.aboutP3}</p>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(190px,1fr))',gap:16,marginBottom:40}}>
+        {[['1 500+','Items / Articles'],['100%','Positive Feedback'],['9 000+','Real Photos'],['30 days','Return Policy']].map(([n,l])=>(
           <div key={n} style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:10,padding:'24px',textAlign:'center'}}>
             <div style={{fontFamily:'Bebas Neue',fontSize:36,color:'#e8b820',letterSpacing:1}}>{n}</div>
             <div style={{fontSize:11,color:'#666',marginTop:4}}>{l}</div>
