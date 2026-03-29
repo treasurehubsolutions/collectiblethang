@@ -27,7 +27,19 @@ export default function Header() {
   return (
     <>
       <div style={{background:'linear-gradient(90deg,#cc1100,#7c22e8)',color:'#fff',textAlign:'center',padding:'6px',fontSize:11,fontWeight:700,letterSpacing:'.3px'}}>
-        {tx.topbar}
+        ><span style={{display:'inline-flex',alignItems:'center',gap:6,flexWrap:'wrap',justifyContent:'center'}}>
+          {tx.topbar.split('·').map((item,i,arr)=>(
+            <span key={i} style={{display:'inline-flex',alignItems:'center',gap:4}}>
+              {i > 0 && <span style={{opacity:.5}}>·</span>}
+              {item.trim().includes('Québécois') ? (
+                <span style={{display:'inline-flex',alignItems:'center',gap:4}}>
+                  <img src="/qc-flag.png" alt="QC" style={{width:20,height:14,borderRadius:2,objectFit:'cover',verticalAlign:'middle'}}/>
+                  {item.trim()}
+                </span>
+              ) : item.trim()}
+            </span>
+          ))}
+        </span>
       </div>
       <header style={{background:'#0d0d12',borderBottom:'1px solid #1c1c28',position:'sticky',top:0,zIndex:200}}>
         <div style={{maxWidth:1300,margin:'0 auto',padding:'0 20px',height:62,display:'flex',alignItems:'center',gap:16}}>
