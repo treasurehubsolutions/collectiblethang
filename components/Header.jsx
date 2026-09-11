@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useCart } from './CartProvider'
 import { useLang } from './LangProvider'
 
-const CATS = ['Hot Wheels','Hot Wheels Premium','Star Wars','Marvel','DC Comics','Transformers','WWE & Wrestling','McFarlane Figures','VHS Tapes','DVD & Blu-ray','Hallmark Ornaments','Deals']
+const CATS = ['Hot Wheels','Hot Wheels Premium','Star Wars','Marvel','DC Comics','Transformers','WWE & Wrestling','McFarlane Figures','VHS Tapes','Bluray DVD','Hallmark Ornaments','Deals']
 
 export default function Header() {
   const { items, setOpen } = useCart()
@@ -21,11 +21,11 @@ export default function Header() {
 
       {/* Main header */}
       <header style={{background:'#07070f',borderBottom:'1px solid #1c1c20',position:'sticky',top:0,zIndex:100}}>
-        <div style={{maxWidth:1300,margin:'0 auto',padding:'0 16px',display:'flex',alignItems:'center',gap:12,height:90}}>
+        <div style={{maxWidth:1300,margin:'0 auto',padding:'0 16px',display:'flex',alignItems:'center',gap:12,height:72}}>
 
           {/* Logo */}
           <Link href="/" style={{textDecoration:'none',flexShrink:0}}>
-            <img src="/logo.jpg" alt="THE SHELF CARTEL" style={{height:90,width:'auto',objectFit:'contain'}}/>
+            <img src="/logo.jpg" alt="THE SHELF CARTEL" style={{height:58,width:'auto',objectFit:'contain'}}/>
           </Link>
 
           {/* Search */}
