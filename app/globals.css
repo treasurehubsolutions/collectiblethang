@@ -6,12 +6,7 @@ body{background:#07070f;color:#eeecd8;font-family:'Inter',-apple-system,sans-ser
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:#07070f;}
 ::-webkit-scrollbar-thumb{background:#2a2a3a;border-radius:3px;}
-select {
+select, select option {
   background: #0f0f1c !important;
   color: #eee !important;
-  border: 1px solid #1c1c30 !important;
-}
-select option {
-  background: #0f0f1c;
-  color: #eee;
 }
