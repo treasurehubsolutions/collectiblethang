@@ -21,11 +21,11 @@ export default function Header() {
 
       {/* Main header */}
       <header style={{background:'#07070f',borderBottom:'1px solid #1c1c20',position:'sticky',top:0,zIndex:100}}>
-        <div style={{maxWidth:1300,margin:'0 auto',padding:'0 16px',display:'flex',alignItems:'center',gap:12,height:72}}>
+        <div style={{maxWidth:1300,margin:'0 auto',padding:'0 16px',display:'flex',alignItems:'center',gap:12,height:90}}>
 
           {/* Logo */}
           <Link href="/" style={{textDecoration:'none',flexShrink:0}}>
-            <img src="/logo.jpg" alt="THE SHELF CARTEL" style={{height:58,width:'auto',objectFit:'contain'}}/>
+            <img src="/logo.jpg" alt="THE SHELF CARTEL" style={{height:90,width:'auto',objectFit:'contain'}}/>
           </Link>
 
           {/* Search */}
