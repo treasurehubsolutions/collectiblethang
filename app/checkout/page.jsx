@@ -148,7 +148,8 @@ export default function CheckoutPage() {
               <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>
                 {form.country==='CA'?'Province':'State'}
               </label>
-              <select value={form.province} onChange={e=>setForm(f=>({...f,province:e.target.value}))}>
+              <select value={form.province} onChange={e=>setForm(f=>({...f,province:e.target.value}))}
+                style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}>
                 {(form.country==='CA'?CA_PROVINCES:US_STATES).map(([code,name])=>(
                   <option key={code} value={code}>{name}</option>
                 ))}
