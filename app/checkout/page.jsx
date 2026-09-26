@@ -131,8 +131,16 @@ export default function CheckoutPage() {
           <F label="Email *" k="email" type="email"/>
 
           <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:14,marginTop:20}}>Shipping Address</div>
-          <F label="Address" k="address"/>
-          <F label="City" k="city"/>
+          <div style={{marginBottom:12}}>
+            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Address</label>
+            <input value={form.address} onChange={e=>setForm(f=>({...f,address:e.target.value}))}
+              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+          </div>
+          <div style={{marginBottom:12}}>
+            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>City</label>
+            <input value={form.city} onChange={e=>setForm(f=>({...f,city:e.target.value}))}
+              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+          </div>
 
           <div style={{marginBottom:12}}>
             <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Country</label>
