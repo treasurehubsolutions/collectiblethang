@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCart } from '../../components/CartProvider'
 import Link from 'next/link'
 
@@ -23,24 +23,32 @@ const US_STATES = [
   ['VT','Vermont'],['WY','Wyoming']
 ]
 
+const inputStyle = {width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}
+const labelStyle = {display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}
+
 export default function CheckoutPage() {
-  const { items, total } = useCart()
-  const [form, setForm] = useState({ name:'', email:'', address:'', city:'', province:'QC', country:'CA', postal:'' })
+  const { items } = useCart()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [address, setAddress] = useState('')
+  const [city, setCity] = useState('')
+  const [country, setCountry] = useState('CA')
+  const [province, setProvince] = useState('QC')
+  const [postal, setPostal] = useState('')
   const [rates, setRates] = useState([])
   const [selectedRate, setSelectedRate] = useState(null)
   const [loadingRates, setLoadingRates] = useState(false)
   const [rateError, setRateError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [postalFetched, setPostalFetched] = useState('')
+  const timerRef = useRef(null)
 
   const totalValue = items.reduce((a,i) => a + i.price * i.qty, 0)
   const shippingCost = totalValue >= 250 ? 0 : (selectedRate ? parseFloat(selectedRate.amount) : null)
   const grandTotal = totalValue + (shippingCost || 0)
 
-  const fetchRates = useCallback(async () => {
-    const postal = form.postal.replace(/\s/g,'').toUpperCase()
-    if (!postal || postal.length < 5) return
-    if (postal === postalFetched) return
+  async function fetchRates(p, c, prov) {
+    const cleanPostal = p.replace(/\s/g,'').toUpperCase()
+    if (!cleanPostal || cleanPostal.length < 5) return
     setLoadingRates(true)
     setRateError('')
     setRates([])
@@ -49,19 +57,16 @@ export default function CheckoutPage() {
       const res = await fetch('/api/shipping', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items,
-          toPostal: postal,
-          toCountry: form.country,
-          toState: form.province
-        })
+        body: JSON.stringify({ items, toPostal: cleanPostal, toCountry: c, toState: prov })
       })
       const data = await res.json()
       if (data.rates && data.rates.length > 0) {
         setRates(data.rates)
-        setSelectedRate(data.rates[0])
-        setPostalFetched(postal)
-        if (data.free) setSelectedRate({ amount: '0.00', name: '🎉 Free Shipping' })
+        if (data.free) {
+          setSelectedRate({ amount: '0.00', name: '🎉 Free Shipping', service: 'free' })
+        } else {
+          setSelectedRate(data.rates[0])
+        }
       } else {
         setRateError('Could not get rates. Please try again.')
       }
@@ -69,30 +74,46 @@ export default function CheckoutPage() {
       setRateError('Connection error. Please try again.')
     }
     setLoadingRates(false)
-  }, [form.postal, form.country, form.province, items, postalFetched])
+  }
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const postal = form.postal.replace(/\s/g,'')
-      if (postal.length >= 6 || (form.country === 'US' && postal.length >= 5)) {
-        fetchRates()
+  function handlePostalChange(val) {
+    setPostal(val)
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      const clean = val.replace(/\s/g,'')
+      if (clean.length >= 6 || (country === 'US' && clean.length >= 5)) {
+        fetchRates(val, country, province)
       }
     }, 800)
-    return () => clearTimeout(timer)
-  }, [form.postal, form.country, form.province, fetchRates])
+  }
+
+  function handleProvinceChange(val) {
+    setProvince(val)
+    const clean = postal.replace(/\s/g,'')
+    if (clean.length >= 5) fetchRates(postal, country, val)
+  }
+
+  function handleCountryChange(val) {
+    setCountry(val)
+    setProvince(val === 'CA' ? 'QC' : 'NY')
+    setPostal('')
+    setRates([])
+    setSelectedRate(null)
+  }
 
   async function pay() {
-    if (!form.name || !form.email) return alert('Please fill in your name and email')
+    if (!name || !email) return alert('Please fill in your name and email')
     if (totalValue < 250 && !selectedRate) return alert('Please enter your postal code to get shipping rates')
     setLoading(true)
     try {
       const shipping = totalValue >= 250
         ? { cost: 0, label: 'Free Shipping' }
         : { cost: parseFloat(selectedRate.amount), label: selectedRate.name }
+      const customerInfo = { name, email, address, city, province, country, postal }
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, customerInfo: form, shipping })
+        body: JSON.stringify({ items, customerInfo, shipping })
       })
       const { url, error } = await res.json()
       if (error) throw new Error(error)
@@ -116,35 +137,32 @@ export default function CheckoutPage() {
       <h1 style={{fontFamily:'Bebas Neue',fontSize:28,letterSpacing:2,marginBottom:28,color:'#fff'}}>CHECKOUT</h1>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:40}}>
 
-        {/* LEFT — Form */}
         <div>
           <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:14}}>Contact</div>
+
           <div style={{marginBottom:12}}>
-            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Full name *</label>
-            <input value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))}
-              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+            <label style={labelStyle}>Full name *</label>
+            <input value={name} onChange={e=>setName(e.target.value)} style={inputStyle}/>
           </div>
           <div style={{marginBottom:12}}>
-            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Email *</label>
-            <input type="email" value={form.email} onChange={e=>setForm(f=>({...f,email:e.target.value}))}
-              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+            <label style={labelStyle}>Email *</label>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} style={inputStyle}/>
           </div>
 
           <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:14,marginTop:20}}>Shipping Address</div>
+
           <div style={{marginBottom:12}}>
-            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Address</label>
-            <input value={form.address} onChange={e=>setForm(f=>({...f,address:e.target.value}))}
-              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+            <label style={labelStyle}>Address</label>
+            <input value={address} onChange={e=>setAddress(e.target.value)} style={inputStyle}/>
           </div>
           <div style={{marginBottom:12}}>
-            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>City</label>
-            <input value={form.city} onChange={e=>setForm(f=>({...f,city:e.target.value}))}
-              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+            <label style={labelStyle}>City</label>
+            <input value={city} onChange={e=>setCity(e.target.value)} style={inputStyle}/>
           </div>
 
           <div style={{marginBottom:12}}>
-            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Country</label>
-            <select value={form.country} onChange={e=>setForm(f=>({...f,country:e.target.value,province:e.target.value==='CA'?'QC':'NY',postal:''}))}>
+            <label style={labelStyle}>Country</label>
+            <select value={country} onChange={e=>handleCountryChange(e.target.value)} style={inputStyle}>
               <option value="CA">🇨🇦 Canada</option>
               <option value="US">🇺🇸 United States</option>
             </select>
@@ -152,34 +170,22 @@ export default function CheckoutPage() {
 
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:12}}>
             <div>
-              <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>
-                {form.country==='CA'?'Province':'State'}
-              </label>
-              <select value={form.province} onChange={e=>setForm(f=>({...f,province:e.target.value}))}
-                style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}>
-                {(form.country==='CA'?CA_PROVINCES:US_STATES).map(([code,name])=>(
+              <label style={labelStyle}>{country==='CA'?'Province':'State'}</label>
+              <select value={province} onChange={e=>handleProvinceChange(e.target.value)} style={inputStyle}>
+                {(country==='CA'?CA_PROVINCES:US_STATES).map(([code,name])=>(
                   <option key={code} value={code}>{name}</option>
                 ))}
               </select>
             </div>
             <div>
-              <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>
-                Postal / ZIP *
-              </label>
-              <input
-                value={form.postal}
-                onChange={e=>setForm(f=>({...f,postal:e.target.value}))}
-                placeholder={form.country==='CA'?'G8T 2K4':'10001'}
-                style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}
-              />
+              <label style={labelStyle}>Postal / ZIP *</label>
+              <input value={postal} onChange={e=>handlePostalChange(e.target.value)}
+                placeholder={country==='CA'?'G8T 2K4':'10001'} style={inputStyle}/>
             </div>
           </div>
 
-          {/* Shipping rates */}
           <div style={{marginTop:20}}>
-            <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:10}}>
-              Shipping Method
-            </div>
+            <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:10}}>Shipping Method</div>
 
             {totalValue >= 250 ? (
               <div style={{background:'rgba(74,222,128,.08)',border:'1px solid rgba(74,222,128,.25)',borderRadius:8,padding:'14px 16px',display:'flex',alignItems:'center',gap:10}}>
@@ -191,44 +197,34 @@ export default function CheckoutPage() {
                 <div style={{marginLeft:'auto',fontFamily:'Bebas Neue',fontSize:18,color:'#4ade80'}}>FREE</div>
               </div>
             ) : loadingRates ? (
-              <div style={{background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,padding:'16px',textAlign:'center',color:'#555',fontSize:13}}>
-                ⏳ Getting shipping rates...
-              </div>
+              <div style={{background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,padding:'16px',textAlign:'center',color:'#555',fontSize:13}}>⏳ Getting shipping rates...</div>
             ) : rates.length > 0 ? (
               <div style={{display:'flex',flexDirection:'column',gap:8}}>
                 {rates.map((rate, i) => (
                   <label key={i} style={{display:'flex',alignItems:'center',gap:12,background:selectedRate?.service===rate.service?'rgba(204,17,0,.08)':'#0f0f1c',border:`1px solid ${selectedRate?.service===rate.service?'#cc1100':'#1c1c30'}`,borderRadius:8,padding:'12px 14px',cursor:'pointer'}}>
-                    <input type="radio" name="rate" checked={selectedRate?.service===rate.service} onChange={()=>setSelectedRate(rate)}
-                      style={{accentColor:'#cc1100'}}/>
+                    <input type="radio" name="rate" checked={selectedRate?.service===rate.service} onChange={()=>setSelectedRate(rate)} style={{accentColor:'#cc1100'}}/>
                     <div style={{flex:1}}>
                       <div style={{fontSize:13,fontWeight:600,color:'#ddd'}}>{rate.name}</div>
                       <div style={{fontSize:11,color:'#555',marginTop:2}}>{rate.days}</div>
                     </div>
-                    <div style={{fontFamily:'Bebas Neue',fontSize:18,color:'#d4a800'}}>
-                      CA${parseFloat(rate.amount).toFixed(2)}
-                    </div>
+                    <div style={{fontFamily:'Bebas Neue',fontSize:18,color:'#d4a800'}}>CA${parseFloat(rate.amount).toFixed(2)}</div>
                   </label>
                 ))}
               </div>
             ) : rateError ? (
-              <div style={{background:'rgba(248,113,113,.08)',border:'1px solid rgba(248,113,113,.2)',borderRadius:8,padding:'12px 14px',color:'#f87171',fontSize:12}}>
-                {rateError}
-              </div>
+              <div style={{background:'rgba(248,113,113,.08)',border:'1px solid rgba(248,113,113,.2)',borderRadius:8,padding:'12px 14px',color:'#f87171',fontSize:12}}>{rateError}</div>
             ) : (
-              <div style={{background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,padding:'16px',textAlign:'center',color:'#555',fontSize:12}}>
-                Enter your postal code above to see shipping rates
-              </div>
+              <div style={{background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,padding:'16px',textAlign:'center',color:'#555',fontSize:12}}>Enter your postal code above to see shipping rates</div>
             )}
           </div>
 
-          <button onClick={pay} disabled={loading || (!selectedRate && totalValue < 250) || !form.name || !form.email}
-            style={{width:'100%',background:'#cc1100',color:'#fff',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',marginTop:20,opacity:(loading||(!selectedRate&&totalValue<250)||!form.name||!form.email)?.6:1}}>
+          <button onClick={pay} disabled={loading || (!selectedRate && totalValue < 250) || !name || !email}
+            style={{width:'100%',background:'#cc1100',color:'#fff',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',marginTop:20,opacity:(loading||(!selectedRate&&totalValue<250)||!name||!email)?0.6:1}}>
             {loading ? 'Redirecting...' : `💳 PAY — CA$${grandTotal.toFixed(2)}`}
           </button>
           <div style={{textAlign:'center',fontSize:11,color:'#444',marginTop:8}}>🔒 Secured by Stripe SSL</div>
         </div>
 
-        {/* RIGHT — Order summary */}
         <div>
           <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:14}}>Order Summary</div>
           <div style={{background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:10,padding:'14px',display:'flex',flexDirection:'column',gap:10}}>
@@ -257,9 +253,7 @@ export default function CheckoutPage() {
                 </span>
               </div>
               {totalValue < 250 && (
-                <div style={{fontSize:10,color:'#555',textAlign:'right'}}>
-                  Add CA${(250-totalValue).toFixed(2)} more for free shipping
-                </div>
+                <div style={{fontSize:10,color:'#555',textAlign:'right'}}>Add CA${(250-totalValue).toFixed(2)} more for free shipping</div>
               )}
               <div style={{borderTop:'1px solid #1c1c30',paddingTop:8,display:'flex',justifyContent:'space-between',alignItems:'baseline'}}>
                 <span style={{fontWeight:700,color:'#eee'}}>Total</span>
