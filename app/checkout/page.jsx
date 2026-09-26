@@ -111,14 +111,6 @@ export default function CheckoutPage() {
     </div>
   )
 
-  const F = ({label, k, type='text', placeholder=''}) => (
-    <div style={{marginBottom:12}}>
-      <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>{label}</label>
-      <input type={type} value={form[k]} onChange={e=>setForm(f=>({...f,[k]:e.target.value}))} placeholder={placeholder}
-        style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
-    </div>
-  )
-
   return (
     <div style={{maxWidth:1000,margin:'0 auto',padding:'36px 24px'}}>
       <h1 style={{fontFamily:'Bebas Neue',fontSize:28,letterSpacing:2,marginBottom:28,color:'#fff'}}>CHECKOUT</h1>
@@ -127,8 +119,16 @@ export default function CheckoutPage() {
         {/* LEFT — Form */}
         <div>
           <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:14}}>Contact</div>
-          <F label="Full name *" k="name"/>
-          <F label="Email *" k="email" type="email"/>
+          <div style={{marginBottom:12}}>
+            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Full name *</label>
+            <input value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))}
+              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+          </div>
+          <div style={{marginBottom:12}}>
+            <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Email *</label>
+            <input type="email" value={form.email} onChange={e=>setForm(f=>({...f,email:e.target.value}))}
+              style={{width:'100%',padding:'10px 14px',borderRadius:6,background:'#0f0f1c',border:'1px solid #1c1c30',color:'#eee',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+          </div>
 
           <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:14,marginTop:20}}>Shipping Address</div>
           <div style={{marginBottom:12}}>
