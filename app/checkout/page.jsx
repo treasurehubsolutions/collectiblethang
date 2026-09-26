@@ -34,7 +34,7 @@ export default function CheckoutPage() {
   const [postalFetched, setPostalFetched] = useState('')
 
   const totalValue = items.reduce((a,i) => a + i.price * i.qty, 0)
-  const shippingCost = totalValue >= 150 ? 0 : (selectedRate ? parseFloat(selectedRate.amount) : null)
+  const shippingCost = totalValue >= 250 ? 0 : (selectedRate ? parseFloat(selectedRate.amount) : null)
   const grandTotal = totalValue + (shippingCost || 0)
 
   const fetchRates = useCallback(async () => {
@@ -71,7 +71,6 @@ export default function CheckoutPage() {
     setLoadingRates(false)
   }, [form.postal, form.country, form.province, items, postalFetched])
 
-  // Auto-fetch rates when postal changes
   useEffect(() => {
     const timer = setTimeout(() => {
       const postal = form.postal.replace(/\s/g,'')
@@ -84,10 +83,10 @@ export default function CheckoutPage() {
 
   async function pay() {
     if (!form.name || !form.email) return alert('Please fill in your name and email')
-    if (totalValue < 150 && !selectedRate) return alert('Please enter your postal code to get shipping rates')
+    if (totalValue < 250 && !selectedRate) return alert('Please enter your postal code to get shipping rates')
     setLoading(true)
     try {
-      const shipping = totalValue >= 150
+      const shipping = totalValue >= 250
         ? { cost: 0, label: 'Free Shipping' }
         : { cost: parseFloat(selectedRate.amount), label: selectedRate.name }
       const res = await fetch('/api/checkout', {
@@ -174,7 +173,7 @@ export default function CheckoutPage() {
               Shipping Method
             </div>
 
-            {totalValue >= 150 ? (
+            {totalValue >= 250 ? (
               <div style={{background:'rgba(74,222,128,.08)',border:'1px solid rgba(74,222,128,.25)',borderRadius:8,padding:'14px 16px',display:'flex',alignItems:'center',gap:10}}>
                 <span style={{fontSize:20}}>🎉</span>
                 <div>
@@ -214,8 +213,8 @@ export default function CheckoutPage() {
             )}
           </div>
 
-          <button onClick={pay} disabled={loading || (!selectedRate && totalValue < 150) || !form.name || !form.email}
-            style={{width:'100%',background:'#cc1100',color:'#fff',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',marginTop:20,opacity:(loading||(!selectedRate&&totalValue<150)||!form.name||!form.email)?.6:1}}>
+          <button onClick={pay} disabled={loading || (!selectedRate && totalValue < 250) || !form.name || !form.email}
+            style={{width:'100%',background:'#cc1100',color:'#fff',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',marginTop:20,opacity:(loading||(!selectedRate&&totalValue<250)||!form.name||!form.email)?.6:1}}>
             {loading ? 'Redirecting...' : `💳 PAY — CA$${grandTotal.toFixed(2)}`}
           </button>
           <div style={{textAlign:'center',fontSize:11,color:'#444',marginTop:8}}>🔒 Secured by Stripe SSL</div>
@@ -249,9 +248,9 @@ export default function CheckoutPage() {
                   {shippingCost===null ? '—' : shippingCost===0 ? 'FREE' : `CA$${shippingCost.toFixed(2)}`}
                 </span>
               </div>
-              {totalValue < 150 && (
+              {totalValue < 250 && (
                 <div style={{fontSize:10,color:'#555',textAlign:'right'}}>
-                  Add CA${(150-totalValue).toFixed(2)} more for free shipping
+                  Add CA${(250-totalValue).toFixed(2)} more for free shipping
                 </div>
               )}
               <div style={{borderTop:'1px solid #1c1c30',paddingTop:8,display:'flex',justifyContent:'space-between',alignItems:'baseline'}}>

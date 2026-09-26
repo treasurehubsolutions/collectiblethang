@@ -132,12 +132,18 @@ function parseCSV(filePath) {
   const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''))
   const rows = []
   for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue
-    const values = lines[i].match(/(".*?"|[^,]+|(?<=,)(?=,)|(?<=,)$|^(?=,))/g) || []
+    const line = lines[i]
+    if (!line.trim()) continue
+    const values = []
+    let cur = '', inQ = false
+    for (let c = 0; c < line.length; c++) {
+      if (line[c] === '"') { inQ = !inQ }
+      else if (line[c] === ',' && !inQ) { values.push(cur); cur = '' }
+      else cur += line[c]
+    }
+    values.push(cur)
     const row = {}
-    headers.forEach((h, j) => {
-      row[h] = (values[j] || '').replace(/^"|"$/g, '').trim()
-    })
+    headers.forEach((h, j) => { row[h] = (values[j] || '').trim() })
     rows.push(row)
   }
   return rows
