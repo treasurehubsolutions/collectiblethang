@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { createClient } from '@supabase/supabase-js'
 
 export default async function sitemap() {
@@ -12,11 +13,11 @@ export default async function sitemap() {
 
   let productPages = []
   try {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    if (!url || !key) return staticPages
+    const supaUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supaKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    if (!supaUrl || !supaKey) return staticPages
 
-    const sb = createClient(url, key)
+    const sb = createClient(supaUrl, supaKey)
     const { data, error } = await sb
       .from('products')
       .select('id, updated_at')
@@ -32,9 +33,7 @@ export default async function sitemap() {
         priority: 0.7,
       }))
     }
-  } catch(e) {
-    console.error('Sitemap error:', e)
-  }
+  } catch(e) {}
 
   return [...staticPages, ...productPages]
 }
