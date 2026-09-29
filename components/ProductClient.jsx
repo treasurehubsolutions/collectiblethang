@@ -78,6 +78,13 @@ export default function ProductClient({ product: p }) {
           </div>
         </div>
 
+        {p.description && (
+          <div style={{marginTop:16,background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,padding:'14px 16px'}}>
+            <div style={{fontSize:11,color:m.color,textTransform:'uppercase',letterSpacing:'0.1em',fontWeight:700,marginBottom:8}}>Description</div>
+            <p style={{fontSize:13,color:'#bbb',lineHeight:1.7,margin:0}}>{p.description}</p>
+          </div>
+        )}
+
         <div style={{marginTop:16,fontSize:12,color:'#555',lineHeight:1.8}}>
           📦 Ships from Quebec, Canada<br/>
           🇨🇦 Canada & USA shipping available<br/>
