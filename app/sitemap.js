@@ -16,13 +16,22 @@ export default async function sitemap() {
   try {
     const supaUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supaKey = process.env.SUPABASE_SERVICE_KEY
-    if (!supaUrl || !supaKey) return staticPages
+
+    console.log('SITEMAP2: supaUrl=', supaUrl ? 'OK' : 'MISSING')
+    console.log('SITEMAP2: supaKey=', supaKey ? 'OK (' + supaKey.substring(0, 20) + '...)' : 'MISSING')
+
+    if (!supaUrl || !supaKey) {
+      console.log('SITEMAP2: missing env vars, returning static only')
+      return staticPages
+    }
 
     const sb = createClient(supaUrl, supaKey)
     const { data, error } = await sb
       .from('products')
       .select('id, updated_at')
       .limit(5000)
+
+    console.log('SITEMAP2: data count=', data?.length, 'error=', error?.message || 'none')
 
     if (data && !error) {
       productPages = data.map(p => ({
@@ -32,7 +41,10 @@ export default async function sitemap() {
         priority: 0.7,
       }))
     }
-  } catch(e) {}
+  } catch(e) {
+    console.log('SITEMAP2 ERROR:', e.message)
+  }
 
+  console.log('SITEMAP2: total URLs=', staticPages.length + productPages.length)
   return [...staticPages, ...productPages]
 }
