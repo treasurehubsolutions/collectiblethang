@@ -33,14 +33,14 @@ export async function GET() {
 
       const { data, error } = await supabase
         .from('products')
-        .select('id, updated_at')
+        .select('id')
         .limit(5000)
 
       console.log('[sitemap] rows=', data?.length, 'error=', error?.message || 'none')
 
       if (data && !error) {
         dynamicUrls = data.map((p) => {
-          const lastmod = p.updated_at ? new Date(p.updated_at).toISOString() : now
+          const lastmod = now
           return `<url><loc>${baseUrl}/product/${p.id}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`
         })
       }
