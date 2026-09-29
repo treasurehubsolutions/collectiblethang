@@ -4,6 +4,26 @@ import { notFound } from 'next/navigation'
 import ProductClient from '../../../components/ProductClient'
 import Link from 'next/link'
 
+export async function generateMetadata({ params }) {
+  try {
+    const p = await getProduct(params.id)
+    if (!p) return {}
+    const price = `CA$${p.price.toFixed(2)}`
+    return {
+      title: `${p.title} – ${price} | The Shelf Cartel`,
+      description: `Buy ${p.title} for ${price}. ${p.description ? p.description.slice(0, 120) : 'Toys & collectibles shipped across Canada and USA.'} Shop at The Shelf Cartel.`,
+      openGraph: {
+        title: `${p.title} – ${price}`,
+        description: `${p.title} available at The Shelf Cartel. Ships Canada & USA.`,
+        images: p.photos?.[0] ? [{ url: p.photos[0] }] : [],
+        type: 'website',
+      },
+    }
+  } catch(e) {
+    return {}
+  }
+}
+
 export default async function ProductPage({ params }) {
   let p = null
   try { p = await getProduct(params.id) } catch(e) {}
