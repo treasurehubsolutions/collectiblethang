@@ -1,4 +1,5 @@
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 import { createClient } from '@supabase/supabase-js'
 
 export default async function sitemap() {
@@ -14,15 +15,13 @@ export default async function sitemap() {
   let productPages = []
   try {
     const supaUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supaKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    const supaKey = process.env.SUPABASE_SERVICE_KEY
     if (!supaUrl || !supaKey) return staticPages
 
     const sb = createClient(supaUrl, supaKey)
     const { data, error } = await sb
       .from('products')
       .select('id, updated_at')
-      .eq('enabled', true)
-      .gt('stock', 0)
       .limit(5000)
 
     if (data && !error) {
