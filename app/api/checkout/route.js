@@ -4,7 +4,7 @@ import Stripe from 'stripe'
 export async function POST(req) {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-    const { items, customerInfo, shipping } = await req.json()
+    const { items, customerInfo, shipping, promoDiscount } = await req.json()
     
     const lineItems = items.map(item => ({
       price_data: {
@@ -21,6 +21,18 @@ export async function POST(req) {
           currency: 'cad',
           product_data: { name: `Shipping — ${shipping.label}` },
           unit_amount: Math.round(shipping.cost * 100),
+        },
+        quantity: 1,
+      })
+    }
+
+    // Promo 3 pour 2 : ligne de réduction négative
+    if (promoDiscount && promoDiscount > 0) {
+      lineItems.push({
+        price_data: {
+          currency: 'cad',
+          product_data: { name: '🎉 Promo 3 pour 2 — Hot Wheels gratuit(s)' },
+          unit_amount: -Math.round(promoDiscount * 100),
         },
         quantity: 1,
       })

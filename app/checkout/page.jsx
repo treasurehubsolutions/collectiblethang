@@ -27,7 +27,7 @@ const inputStyle = {width:'100%',padding:'10px 14px',borderRadius:6,background:'
 const labelStyle = {display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}
 
 export default function CheckoutPage() {
-  const { items } = useCart()
+  const { items, subtotal, promoDiscount } = useCart()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
@@ -42,9 +42,10 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false)
   const timerRef = useRef(null)
 
-  const totalValue = items.reduce((a,i) => a + i.price * i.qty, 0)
-  const shippingCost = totalValue >= 250 ? 0 : (selectedRate ? parseFloat(selectedRate.amount) : null)
-  const grandTotal = totalValue + (shippingCost || 0)
+  const totalValue = subtotal ?? items.reduce((a,i) => a + i.price * i.qty, 0)
+  const discountedValue = totalValue - (promoDiscount || 0)
+  const shippingCost = discountedValue >= 250 ? 0 : (selectedRate ? parseFloat(selectedRate.amount) : null)
+  const grandTotal = discountedValue + (shippingCost || 0)
 
   async function fetchRates(p, c, prov) {
     const cleanPostal = p.replace(/\s/g,'').toUpperCase()
@@ -103,17 +104,17 @@ export default function CheckoutPage() {
 
   async function pay() {
     if (!name || !email) return alert('Please fill in your name and email')
-    if (totalValue < 250 && !selectedRate) return alert('Please enter your postal code to get shipping rates')
+    if (discountedValue < 250 && !selectedRate) return alert('Please enter your postal code to get shipping rates')
     setLoading(true)
     try {
-      const shipping = totalValue >= 250
+      const shipping = discountedValue >= 250
         ? { cost: 0, label: 'Free Shipping' }
         : { cost: parseFloat(selectedRate.amount), label: selectedRate.name }
       const customerInfo = { name, email, address, city, province, country, postal }
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, customerInfo, shipping })
+        body: JSON.stringify({ items, customerInfo, shipping, promoDiscount: promoDiscount || 0 })
       })
       const { url, error } = await res.json()
       if (error) throw new Error(error)
@@ -187,7 +188,7 @@ export default function CheckoutPage() {
           <div style={{marginTop:20}}>
             <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#555',marginBottom:10}}>Shipping Method</div>
 
-            {totalValue >= 250 ? (
+            {discountedValue >= 250 ? (
               <div style={{background:'rgba(74,222,128,.08)',border:'1px solid rgba(74,222,128,.25)',borderRadius:8,padding:'14px 16px',display:'flex',alignItems:'center',gap:10}}>
                 <span style={{fontSize:20}}>🎉</span>
                 <div>
@@ -218,8 +219,8 @@ export default function CheckoutPage() {
             )}
           </div>
 
-          <button onClick={pay} disabled={loading || (!selectedRate && totalValue < 250) || !name || !email}
-            style={{width:'100%',background:'#cc1100',color:'#fff',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',marginTop:20,opacity:(loading||(!selectedRate&&totalValue<250)||!name||!email)?0.6:1}}>
+          <button onClick={pay} disabled={loading || (!selectedRate && discountedValue < 250) || !name || !email}
+            style={{width:'100%',background:'#cc1100',color:'#fff',border:'none',borderRadius:8,padding:'16px',fontWeight:800,fontSize:16,cursor:'pointer',marginTop:20,opacity:(loading||(!selectedRate&&discountedValue<250)||!name||!email)?0.6:1}}>
             {loading ? 'Redirecting...' : `💳 PAY — CA$${grandTotal.toFixed(2)}`}
           </button>
           <div style={{textAlign:'center',fontSize:11,color:'#444',marginTop:8}}>🔒 Secured by Stripe SSL</div>
@@ -246,14 +247,20 @@ export default function CheckoutPage() {
               <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:'#666'}}>
                 <span>Subtotal</span><span>CA${totalValue.toFixed(2)}</span>
               </div>
+              {promoDiscount > 0 && (
+                <div style={{display:'flex',justifyContent:'space-between',fontSize:12}}>
+                  <span style={{color:'#4ade80'}}>🎉 Promo 3 pour 2</span>
+                  <span style={{color:'#4ade80'}}>−CA${promoDiscount.toFixed(2)}</span>
+                </div>
+              )}
               <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:'#666'}}>
                 <span>Shipping</span>
                 <span style={{color:shippingCost===0?'#4ade80':'#aaa'}}>
                   {shippingCost===null ? '—' : shippingCost===0 ? 'FREE' : `CA$${shippingCost.toFixed(2)}`}
                 </span>
               </div>
-              {totalValue < 250 && (
-                <div style={{fontSize:10,color:'#555',textAlign:'right'}}>Add CA${(250-totalValue).toFixed(2)} more for free shipping</div>
+              {discountedValue < 250 && (
+                <div style={{fontSize:10,color:'#555',textAlign:'right'}}>Add CA${(250-discountedValue).toFixed(2)} more for free shipping</div>
               )}
               <div style={{borderTop:'1px solid #1c1c30',paddingTop:8,display:'flex',justifyContent:'space-between',alignItems:'baseline'}}>
                 <span style={{fontWeight:700,color:'#eee'}}>Total</span>
