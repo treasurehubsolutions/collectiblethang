@@ -263,11 +263,13 @@ async function main() {
   const cleanRows = rows.filter(r => {
     const itemId = r['Item number'].trim()
     const title = (r['Title'] || '').toLowerCase()
+    const stock = parseInt(r['Available quantity'] ?? 0)
     if (variationIds.has(itemId)) return false
     if (YOU_PICK_KEYWORDS.some(kw => title.includes(kw))) {
       variationIds.add(itemId) // track for disabling
       return false
     }
+    if (stock <= 0) return false  // exclure stock 0 = sera désactivé
     return true
   })
   const activeIds = new Set(cleanRows.map(r => r['Item number'].trim()))
@@ -335,7 +337,7 @@ async function main() {
   const toUpdate = []
   const toDisable = []
 
-  // Disable products no longer on eBay or that are variations
+  // Disable products no longer on eBay, that are variations, or have stock 0
   for (const [ebayId, prod] of Object.entries(existingMap)) {
     if (!activeIds.has(ebayId) || variationIds.has(ebayId)) {
       if (prod.enabled) toDisable.push(prod.id)
@@ -353,7 +355,7 @@ async function main() {
     let price = parseFloat(row['Current price'] || row['Start price'] || 0)
     if ((row['Currency'] || 'CAD').toUpperCase() === 'USD') price = Math.round(price * 1.38 * 100) / 100
 
-    const stock = parseInt(row['Available quantity'] || 1) || 1
+    const stock = parseInt(row['Available quantity'] ?? 0)
     const condition = (row['Condition'] || 'New').trim()
     const imgs = cache[`api:${itemId}`] || cache[itemId] || []
 
@@ -390,14 +392,16 @@ async function main() {
     console.log(`✓ ${toDisable.length} produits désactivés`)
   }
 
-  // Update existing products
+  // Update existing products — par batch via upsert
   let updated = 0
-  for (const prod of toUpdate) {
-    const { id, ...data } = prod
-    const { error } = await supabase.from('products').update(data).eq('id', id)
-    if (!error) updated++
+  const BATCH_UPDATE = 50
+  for (let i = 0; i < toUpdate.length; i += BATCH_UPDATE) {
+    const batch = toUpdate.slice(i, i + BATCH_UPDATE)
+    const { error } = await supabase.from('products').upsert(batch, { onConflict: 'id' })
+    if (!error) updated += batch.length
+    process.stdout.write(`\r   Mise à jour: ${Math.min(i + BATCH_UPDATE, toUpdate.length)}/${toUpdate.length}`)
   }
-  console.log(`✓ ${updated} produits mis à jour`)
+  console.log(`\n✓ ${updated} produits mis à jour`)
 
   // Insert new products
   if (toInsert.length > 0) {
