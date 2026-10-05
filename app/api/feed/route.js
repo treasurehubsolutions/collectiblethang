@@ -4,9 +4,10 @@ import { createClient } from '@supabase/supabase-js'
 const SITE_URL = 'https://collectiblethang.vercel.app'
 const DEFAULT_CONDITION = 'new'
 
-// Cache 1 heure
+// Pas de cache — toujours frais depuis Supabase
 let _cache = null
 let _cacheTime = 0
+const CACHE_DURATION = 0 // désactivé
 
 function escapeXml(str) {
   if (!str) return ''
@@ -20,7 +21,7 @@ function escapeXml(str) {
 
 export async function GET() {
   const now = Date.now()
-  if (_cache && now - _cacheTime < 3600 * 1000) {
+  if (_cache && CACHE_DURATION > 0 && now - _cacheTime < CACHE_DURATION) {
     return new Response(_cache, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } })
   }
 
@@ -50,11 +51,9 @@ export async function GET() {
   const items = valid.map(p => {
     const isSmall = ['Hot Wheels', 'Hot Wheels Premium', 'Matchbox'].includes(p.category)
 
-    // Tarifs livraison Canada (QC/ON)
-    const shipCA_QcOn = isSmall ? '12.99' : '24.99'
-    // Tarifs livraison Canada (autres provinces)
-    const shipCA_Other = isSmall ? '15.99' : '29.99'
-    // Tarifs livraison USA
+    // Tarif CA national (sans région — Google Canada n'accepte pas les provinces)
+    const shipCA = isSmall ? '12.99' : '24.99'
+    // Tarif USA
     const shipUS = isSmall ? '15.99' : '29.99'
 
     const additionalImages = (p.photos || []).slice(1, 10)
@@ -77,17 +76,7 @@ export async function GET() {
     ${p.description ? `<description><![CDATA[${p.description.slice(0, 5000)}]]></description>` : ''}
     <g:shipping>
       <g:country>CA</g:country>
-      <g:region>QC</g:region>
-      <g:price>${shipCA_QcOn} CAD</g:price>
-    </g:shipping>
-    <g:shipping>
-      <g:country>CA</g:country>
-      <g:region>ON</g:region>
-      <g:price>${shipCA_QcOn} CAD</g:price>
-    </g:shipping>
-    <g:shipping>
-      <g:country>CA</g:country>
-      <g:price>${shipCA_Other} CAD</g:price>
+      <g:price>${shipCA} CAD</g:price>
     </g:shipping>
     <g:shipping>
       <g:country>US</g:country>
