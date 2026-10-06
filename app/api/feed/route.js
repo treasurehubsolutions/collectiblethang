@@ -4,7 +4,6 @@ import { createClient } from '@supabase/supabase-js'
 const SITE_URL = 'https://collectiblethang.vercel.app'
 const DEFAULT_CONDITION = 'new'
 
-// Pas de cache — toujours frais depuis Supabase
 let _cache = null
 let _cacheTime = 0
 const CACHE_DURATION = 0 // désactivé
@@ -51,9 +50,7 @@ export async function GET() {
   const items = valid.map(p => {
     const isSmall = ['Hot Wheels', 'Hot Wheels Premium', 'Matchbox'].includes(p.category)
 
-    // Tarif CA national (sans région — Google Canada n'accepte pas les provinces)
     const shipCA = isSmall ? '12.99' : '24.99'
-    // Tarif USA
     const shipUS = isSmall ? '15.99' : '29.99'
 
     const additionalImages = (p.photos || []).slice(1, 10)
@@ -98,5 +95,10 @@ export async function GET() {
   _cache = xml
   _cacheTime = Date.now()
 
-  return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } })
+  return new Response(xml, { headers: {
+    'Content-Type': 'application/xml; charset=utf-8',
+    'Cache-Control': 'no-store, no-cache, must-revalidate',
+    'CDN-Cache-Control': 'no-store',
+    'Vercel-CDN-Cache-Control': 'no-store',
+  } })
 }
