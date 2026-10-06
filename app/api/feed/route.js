@@ -46,6 +46,7 @@ export async function GET() {
 
   // Filtrer produits sans image ni prix
   const valid = all.filter(p => p.price > 0 && p.photos && p.photos.length > 0 && p.photos[0])
+  console.log(`Feed: ${all.length} total enabled, ${valid.length} with photos/price`)
 
   const items = valid.map(p => {
     const isSmall = ['Hot Wheels', 'Hot Wheels Premium', 'Matchbox'].includes(p.category)
@@ -100,5 +101,6 @@ export async function GET() {
     'Cache-Control': 'no-store, no-cache, must-revalidate',
     'CDN-Cache-Control': 'no-store',
     'Vercel-CDN-Cache-Control': 'no-store',
+    'X-Product-Count': String(valid.length),
   } })
 }
