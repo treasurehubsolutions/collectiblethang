@@ -36,7 +36,7 @@ export default async function ShopPage({ searchParams }) {
       <div style={{background:'#1a1200',border:'1px solid #c9a227',borderRadius:8,padding:'10px 16px',marginBottom:16,display:'flex',alignItems:'flex-start',gap:10}}>
         <span style={{fontSize:16,flexShrink:0}}>⚠️</span>
         <p style={{margin:0,fontSize:13,color:'#c9a227',lineHeight:1.6}}>
-          <strong>Launch phase / Phase de lancement :</strong> Some items may be unavailable due to inventory sync. If an item is out of stock, a full refund will be issued immediately to your credit card. — Certains produits pourraient ne pas être disponibles. En cas d'article indisponible, un remboursement complet sera émis immédiatement sur votre carte de crédit.
+          <strong>Launch phase :</strong> Some items may be unavailable — a full refund will be issued immediately if so. &nbsp;·&nbsp; <strong>Phase de lancement :</strong> Certains produits pourraient ne pas être disponibles — un remboursement complet sera émis immédiatement.
         </p>
       </div>
 

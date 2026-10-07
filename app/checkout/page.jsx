@@ -135,7 +135,13 @@ export default function CheckoutPage() {
 
   return (
     <div style={{maxWidth:1000,margin:'0 auto',padding:'36px 24px'}}>
-      <h1 style={{fontFamily:'Bebas Neue',fontSize:28,letterSpacing:2,marginBottom:28,color:'#fff'}}>CHECKOUT</h1>
+      <h1 style={{fontFamily:'Bebas Neue',fontSize:28,letterSpacing:2,marginBottom:16,color:'#fff'}}>CHECKOUT</h1>
+      <div style={{background:'#1a1200',border:'1px solid #c9a227',borderRadius:8,padding:'10px 16px',marginBottom:24,display:'flex',alignItems:'flex-start',gap:10}}>
+        <span style={{fontSize:16,flexShrink:0}}>⚠️</span>
+        <p style={{margin:0,fontSize:13,color:'#c9a227',lineHeight:1.6}}>
+          <strong>Launch phase :</strong> Some items may be unavailable — a full refund will be issued immediately if so. &nbsp;·&nbsp; <strong>Phase de lancement :</strong> Certains produits pourraient ne pas être disponibles — un remboursement complet sera émis immédiatement.
+        </p>
+      </div>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:40}}>
 
         <div>
