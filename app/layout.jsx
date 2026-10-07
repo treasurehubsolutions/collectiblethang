@@ -85,7 +85,7 @@ export default function RootLayout({ children }) {
                     style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:14,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
                     <img src="https://pages.ebay.com/favicon.ico" alt="eBay" style={{width:16,height:16}}/>
                     <div>
-                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>99.5% Positive Feedback</div>
+                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>⭐ 100% Positive Feedback</div>
                       <div style={{fontSize:10,color:'#555'}}>2,200+ items sold on eBay</div>
                     </div>
                   </a>
