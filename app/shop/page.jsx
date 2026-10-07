@@ -30,82 +30,50 @@ export default async function ShopPage({ searchParams }) {
     return `/shop?${q}`
   }
 
-  const catList = (
-    <>
-      <CatPill href="/shop" on={!category}>🛍️ All</CatPill>
-      {categories.map(([cat,n])=>{
-        const m = getCatMeta(cat)
-        return <CatPill key={cat} href={buildHref({category:cat,page:1})} on={category===cat} color={m.color}>{m.emoji} {cat} <span style={{opacity:0.5,fontSize:10}}>({n})</span></CatPill>
-      })}
-    </>
-  )
-
   return (
-    <div style={{maxWidth:1400,margin:'0 auto',padding:'16px 12px'}}>
+    <div style={{maxWidth:1300,margin:'0 auto',padding:'16px 16px'}}>
 
-      {/* Barre de recherche */}
       <form action="/shop" style={{marginBottom:12,display:'flex',gap:0}}>
         <input name="search" defaultValue={search} placeholder="Search..."
           style={{flex:1,padding:'10px 14px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:14,outline:'none'}}/>
         <button type="submit" style={{padding:'10px 18px',background:'#c9a227',color:'#000',border:'none',borderRadius:'0 6px 6px 0',fontWeight:700,fontSize:13,cursor:'pointer'}}>Search</button>
       </form>
 
-      {/* Barre horizontale scrollable — mobile seulement */}
-      <div className="cat-bar-mobile" style={{overflowX:'auto',marginBottom:10,display:'flex',gap:6,paddingBottom:4}}>
-        {catList}
+      <div style={{overflowX:'auto',marginBottom:12,display:'flex',gap:6,paddingBottom:4}}>
+        <CatPill href="/shop" on={!category}>All</CatPill>
+        {categories.map(([cat,n])=>{
+          const m = getCatMeta(cat)
+          return <CatPill key={cat} href={buildHref({category:cat,page:1})} on={category===cat} color={m.color}>{m.emoji} {cat}</CatPill>
+        })}
       </div>
 
-      {/* Layout desktop: sidebar gauche + produits */}
-      <div style={{display:'flex',gap:16,alignItems:'flex-start'}}>
+      <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:14}}>
+        {[['','Default'],['new','New'],['popular','Popular'],['sold','Best sellers'],['price_asc','Price ↑'],['price_desc','Price ↓']].map(([v,l])=>(
+          <SortPill key={v} href={buildHref({sort:v,page:1})} on={sort===v}>{l}</SortPill>
+        ))}
+        <span style={{marginLeft:'auto',fontSize:12,color:'#555',alignSelf:'center'}}>
+          <strong style={{color:'#aaa'}}>{total.toLocaleString()}</strong> items
+        </span>
+      </div>
 
-        {/* Sidebar catégories — desktop seulement */}
-        <aside className="cat-sidebar" style={{minWidth:160,maxWidth:180,flexShrink:0,position:'sticky',top:12,display:'flex',flexDirection:'column',gap:4}}>
-          <div style={{fontSize:10,fontWeight:700,letterSpacing:1,color:'#555',textTransform:'uppercase',marginBottom:4,paddingLeft:4}}>Catégories</div>
-          {catList}
-        </aside>
+      {meta && (
+        <h1 style={{fontFamily:'Bebas Neue',fontSize:20,letterSpacing:1.5,color:'#fff',marginBottom:12}}>
+          {meta.emoji} {category}
+        </h1>
+      )}
 
-        {/* Colonne principale */}
-        <div style={{flex:1,minWidth:0}}>
+      <ShopGrid items={items} />
 
-          {/* Tri + count */}
-          <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:14}}>
-            {[['','Default'],['new','New'],['popular','Popular'],['sold','Best sellers'],['price_asc','Price ↑'],['price_desc','Price ↓']].map(([v,l])=>(
-              <SortPill key={v} href={buildHref({sort:v,page:1})} on={sort===v}>{l}</SortPill>
-            ))}
-            <span style={{marginLeft:'auto',fontSize:12,color:'#555',alignSelf:'center'}}>
-              <strong style={{color:'#aaa'}}>{total.toLocaleString()}</strong> items
-            </span>
-          </div>
-
-          {meta && (
-            <h1 style={{fontFamily:'Bebas Neue',fontSize:20,letterSpacing:1.5,color:'#fff',marginBottom:12}}>
-              {meta.emoji} {category}
-            </h1>
-          )}
-
-          <ShopGrid items={items} />
-
-          {totalPages>1&&(
-            <div style={{display:'flex',gap:4,justifyContent:'center',marginTop:32,flexWrap:'wrap'}}>
-              {page>1&&<PG href={buildHref({page:page-1})}>‹</PG>}
-              {Array.from({length:totalPages},(_,i)=>i+1).filter(n=>n===1||n===totalPages||Math.abs(n-page)<=2).map((n,i,arr)=>[
-                arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#555'}}>…</span>:null,
-                <PG key={n} href={buildHref({page:n})} on={n===page}>{n}</PG>
-              ])}
-              {page<totalPages&&<PG href={buildHref({page:page+1})}>›</PG>}
-            </div>
-          )}
+      {totalPages>1&&(
+        <div style={{display:'flex',gap:4,justifyContent:'center',marginTop:32,flexWrap:'wrap'}}>
+          {page>1&&<PG href={buildHref({page:page-1})}>‹</PG>}
+          {Array.from({length:totalPages},(_,i)=>i+1).filter(n=>n===1||n===totalPages||Math.abs(n-page)<=2).map((n,i,arr)=>[
+            arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#555'}}>…</span>:null,
+            <PG key={n} href={buildHref({page:n})} on={n===page}>{n}</PG>
+          ])}
+          {page<totalPages&&<PG href={buildHref({page:page+1})}>›</PG>}
         </div>
-      </div>
-
-      <style>{`
-        .cat-sidebar { display: flex; }
-        .cat-bar-mobile { display: none; }
-        @media (max-width: 768px) {
-          .cat-sidebar { display: none !important; }
-          .cat-bar-mobile { display: flex !important; }
-        }
-      `}</style>
+      )}
     </div>
   )
 }
@@ -114,11 +82,11 @@ function CatPill({href, on, color, children}) {
   return (
     <Link href={href} style={{
       display:'inline-flex',alignItems:'center',gap:4,
-      padding:'6px 10px',borderRadius:6,fontSize:12,
+      padding:'6px 12px',borderRadius:20,fontSize:12,
       whiteSpace:'nowrap',textDecoration:'none',flexShrink:0,
-      background: on ? (color||'#c9a227') : 'transparent',
+      background: on ? (color||'#c9a227') : '#0f0f1c',
       color: on ? '#fff' : '#888',
-      border: `1px solid ${on ? (color||'#c9a227') : 'transparent'}`,
+      border: `1px solid ${on ? (color||'#c9a227') : '#1c1c30'}`,
       fontWeight: on ? 700 : 400,
     }}>
       {children}
