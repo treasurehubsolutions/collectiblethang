@@ -33,6 +33,13 @@ export default async function ShopPage({ searchParams }) {
   return (
     <div style={{maxWidth:1300,margin:'0 auto',padding:'16px 16px'}}>
 
+      <div style={{background:'#1a1200',border:'1px solid #c9a227',borderRadius:8,padding:'10px 16px',marginBottom:16,display:'flex',alignItems:'flex-start',gap:10}}>
+        <span style={{fontSize:16,flexShrink:0}}>⚠️</span>
+        <p style={{margin:0,fontSize:13,color:'#c9a227',lineHeight:1.6}}>
+          <strong>Phase de lancement :</strong> Certains produits pourraient ne pas être disponibles en raison de la synchronisation de l'inventaire. En cas d'article indisponible, un remboursement complet sera émis immédiatement sur votre carte de crédit.
+        </p>
+      </div>
+
       <form action="/shop" style={{marginBottom:12,display:'flex',gap:0}}>
         <input name="search" defaultValue={search} placeholder="Search..."
           style={{flex:1,padding:'10px 14px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:14,outline:'none'}}/>
