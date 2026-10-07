@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useCart } from './CartProvider'
 import { useLang } from './LangProvider'
+import { T } from '../lib/translations'
 
 const CATS = ['Hot Wheels','Hot Wheels Premium','Star Wars','Marvel','DC Comics','Transformers','WWE & Wrestling','McFarlane Figures','VHS Tapes','Bluray DVD','Hallmark Ornaments','Deals']
 
@@ -11,12 +12,13 @@ export default function Header() {
   const { lang, setLang } = useLang()
   const count = items.reduce((a, i) => a + i.qty, 0)
   const [q, setQ] = useState('')
+  const t = T[lang]
 
   return (
     <>
       {/* Top bar */}
       <div style={{background:'linear-gradient(90deg,#8b0000,#c9a227,#8b0000)',padding:'5px 0',textAlign:'center',fontSize:11,fontWeight:700,color:'#000',letterSpacing:'0.06em',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
-        👑 THE SHELF CARTEL &nbsp;·&nbsp; 🔥 NOUVEAUX ARTICLES CHAQUE SEMAINE &nbsp;·&nbsp; 📦 EMBALLAGE SÉCURISÉ &nbsp;·&nbsp; ⭐ 100% FEEDBACK POSITIF &nbsp;·&nbsp; 🇨🇦 QUÉBEC
+        {t.topbar}
       </div>
 
       {/* Main header */}
@@ -31,9 +33,9 @@ export default function Header() {
           {/* Search */}
           <form action="/shop" style={{flex:1,display:'flex',gap:0,maxWidth:520}}>
             <input name="search" value={q} onChange={e=>setQ(e.target.value)}
-              placeholder="Search Hot Wheels, Star Wars, Marvel, LEGO..."
+              placeholder={t.search_placeholder}
               style={{flex:1,padding:'9px 14px',background:'#12121e',border:'1px solid #2a2a20',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:13,outline:'none'}}/>
-            <button type="submit" style={{padding:'9px 16px',background:'#c9a227',color:'#000',border:'none',borderRadius:'0 6px 6px 0',fontWeight:800,fontSize:13,cursor:'pointer'}}>Search</button>
+            <button type="submit" style={{padding:'9px 16px',background:'#c9a227',color:'#000',border:'none',borderRadius:'0 6px 6px 0',fontWeight:800,fontSize:13,cursor:'pointer'}}>{t.search_btn}</button>
           </form>
 
           {/* Right */}
@@ -45,7 +47,7 @@ export default function Header() {
             <Link href="/livraison" style={{color:'#888',fontSize:12,textDecoration:'none'}}>📦</Link>
             <button onClick={()=>setOpen(true)}
               style={{display:'flex',alignItems:'center',gap:6,background:'#cc1100',border:'none',borderRadius:6,padding:'8px 14px',color:'#fff',fontWeight:700,fontSize:13,cursor:'pointer'}}>
-              🛒 Cart {count>0&&<span style={{background:'#c9a227',color:'#000',borderRadius:'50%',width:18,height:18,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800}}>{count}</span>}
+              🛒 {t.cart} {count>0&&<span style={{background:'#c9a227',color:'#000',borderRadius:'50%',width:18,height:18,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800}}>{count}</span>}
             </button>
           </div>
         </div>
