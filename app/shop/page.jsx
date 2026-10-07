@@ -1,4 +1,15 @@
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ searchParams }) {
+  const category = searchParams?.category || ''
+  const BASE = 'https://collectiblethang.vercel.app'
+  return {
+    alternates: {
+      canonical: category ? `${BASE}/shop?category=${encodeURIComponent(category)}` : `${BASE}/shop`,
+    },
+  }
+}
+
 import Link from 'next/link'
 import { getProducts, getCategories, getCatMeta } from '../../lib/products'
 import ShopGrid from '../../components/ShopGrid'
