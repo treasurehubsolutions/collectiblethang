@@ -81,42 +81,19 @@ export default function RootLayout({ children }) {
                     🇨🇦 Ships from Quebec, Canada<br/>
                     ↩️ 30-day return policy
                   </div>
-                  <a href="https://www.ebay.ca/str/collectiblethang?_tab=feedback" target="_blank" rel="noopener noreferrer"
-                    style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:14,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
-                    <img src="https://pages.ebay.com/favicon.ico" alt="eBay" style={{width:16,height:16}}/>
-                    <div>
-                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>⭐ 99.5% Positive Feedback</div>
-                      <div style={{fontSize:10,color:'#555'}}>2,200+ items sold on eBay</div>
-                    </div>
-                  </a>
-                  <a href="mailto:alexabran241@gmail.com" style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:8,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
-                    <span style={{fontSize:16}}>✉️</span>
-                    <div>
-                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>Contact Us</div>
-                      <div style={{fontSize:10,color:'#555'}}>Free pickup in Mauricie · Any question</div>
-                    </div>
-                  </a>
-                  <a href="https://www.instagram.com/theshelfcartel/" target="_blank" rel="noopener noreferrer"
-                    style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:8,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
-                    <span style={{fontSize:16}}>📸</span>
-                    <div>
-                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>@theshelfcartel</div>
-                      <div style={{fontSize:10,color:'#555'}}>Follow us on Instagram</div>
-                    </div>
-                  </a>
-                  <a href="https://www.facebook.com/theshelfcartel" target="_blank" rel="noopener noreferrer"
-                    style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:8,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
-                    <span style={{fontSize:16}}>👍</span>
-                    <div>
-                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>The Shelf Cartel</div>
-                      <div style={{fontSize:10,color:'#555'}}>Follow us on Facebook</div>
-                    </div>
-                  </a>
+                  <a href="mailto:alexabran241@gmail.com" style={{display:'block',fontSize:13,color:'#666',marginTop:12,textDecoration:'none'}}>✉️ Contact Us</a>
                 </div>
               </div>
-              <div style={{maxWidth:1300,margin:'0 auto',paddingTop:20,borderTop:'1px solid #1a1a20',display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8}}>
+              <div style={{maxWidth:1300,margin:'0 auto',paddingTop:20,borderTop:'1px solid #1a1a20',display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8,alignItems:'center'}}>
                 <div style={{fontSize:11,color:'#333'}}>© 2026 The Shelf Cartel · All rights reserved · Quebec, Canada</div>
-                <div style={{fontSize:11,color:'#333'}}>Toys · Collectibles · Liquidation · Discount</div>
+                <div style={{display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
+                  <a href="https://www.ebay.ca/str/collectiblethang?_tab=feedback" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
+                    <img src="https://pages.ebay.com/favicon.ico" alt="eBay" style={{width:12,height:12}}/>
+                    <span>⭐ 99.5% on eBay</span>
+                  </a>
+                  <a href="https://www.instagram.com/theshelfcartel/" target="_blank" rel="noopener noreferrer" style={{fontSize:11,color:'#555',textDecoration:'none'}}>📸 Instagram</a>
+                  <a href="https://www.facebook.com/theshelfcartel" target="_blank" rel="noopener noreferrer" style={{fontSize:11,color:'#555',textDecoration:'none'}}>👍 Facebook</a>
+                </div>
               </div>
             </footer>
           </CartProvider>

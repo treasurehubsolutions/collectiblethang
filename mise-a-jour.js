@@ -28,15 +28,16 @@ const supabase = createClient(SUPABASE_URL, SERVICE_KEY)
 
 // ── CATEGORY MAPPING ──────────────────────────────────────
 const CAT_KEYWORDS = {
-  'Hot Wheels Premium': ['premium','car culture','boulevard','retro entertainment','pop culture','fast & furious','hw screen time','hw art cars'],
-  'Hot Wheels':         ['hot wheels','hotwheels','hw ','matchbox'],
-  'Star Wars':          ['star wars','mandalorian','vader','yoda','jedi','sith','skywalker','boba fett','stormtrooper','grogu','ahsoka','black series','vintage collection','retro collection'],
+  // Hot Wheels Premium : doit contenir "hot wheels" ET un mot-clé premium
+  // (géré séparément dans smartCategory)
+  'Hot Wheels':         ['hot wheels','hotwheels','hw '],
+  'Star Wars':          ['star wars','mandalorian','vader','yoda','jedi','sith','skywalker','boba fett','stormtrooper','grogu','ahsoka','black series','vintage collection','retro collection','clone trooper','darth'],
   'Marvel':             ['marvel','spider-man','spiderman','iron man','captain america','thor','hulk','wolverine','deadpool','black panther','avengers','x-men','venom','legends series'],
   'DC Comics':          ['dc comics','batman','superman','wonder woman','the flash','aquaman','joker','harley quinn','dc multiverse'],
   'Transformers':       ['transformers','optimus prime','bumblebee','megatron','autobot','decepticon'],
   'WWE & Wrestling':    ['wwe','wrestling','john cena','the rock','undertaker','stone cold','aew','ljn'],
   'Jurassic Park / World': ['jurassic','dinosaur','t-rex','velociraptor'],
-  'Hallmark Ornaments': ['hallmark','ornament','keepsake'],
+  'Hallmark Ornaments': ['hallmark','keepsake'],
   'McFarlane Figures':  ['mcfarlane','spawn'],
   'Funko Pop':          ['funko','pop!'],
   'Disney & Pixar':     ['disney','pixar','mickey','frozen','toy story','buzz lightyear','simba'],
@@ -46,15 +47,16 @@ const CAT_KEYWORDS = {
   'Masters of the Universe': ['masters of the universe','he-man','skeletor','motu'],
   'TMNT':               ['tmnt','ninja turtle','teenage mutant'],
   'Pokémon':            ['pokemon','pokémon','pikachu','charizard'],
-  'Sonic':              ['sonic','hedgehog'],
+  'Sonic':              ['sonic the hedgehog','sonic hedgehog'],
   'VHS Tapes':          ['vhs','cassette'],
   'DVD & Blu-ray':      ['dvd','blu-ray','blu ray','bluray'],
   'Video Games':        ['nintendo','playstation','xbox','sega','gameboy','n64','gamecube','atari'],
-  'Diecast & Scale Models': ['diecast','die-cast','1:18','1:24','1:43','1:64','greenlight','maisto'],
+  'Diecast & Scale Models': ['diecast','die-cast','1:18','1:24','1:43','1:64','greenlight','maisto','bburago','burago','jada 1:','jada 25','fast & furious','fast and furious'],
   'Action Figures':     ['action figure','figure','figurine'],
   'Dolls & Barbie':     ['barbie','doll'],
   'Hockey':             ['hockey','nhl'],
   'Apparel':            ['hoodie','sweatshirt','t-shirt','jacket'],
+  'Matchbox':           ['matchbox'],
 }
 
 const EBAY_CAT_MAP = {
@@ -106,8 +108,16 @@ const CAT_SPECS = {
 }
 
 // ── HELPERS ───────────────────────────────────────────────
+const HW_PREMIUM_KEYWORDS = ['car culture','boulevard','retro entertainment','pop culture','hw screen time','hw art cars','hw id','hw race day','hw exotics','hw slammed','hw digital circuit','hw metro']
+
 function smartCategory(title, ebayCategory) {
   const t = title.toLowerCase()
+  const isHotWheels = t.includes('hot wheels') || t.includes('hotwheels') || t.includes('hw ')
+
+  // Hot Wheels Premium : DOIT contenir "hot wheels" ET un mot-clé de série premium
+  if (isHotWheels && HW_PREMIUM_KEYWORDS.some(kw => t.includes(kw))) return 'Hot Wheels Premium'
+
+  // Parcourir les autres catégories dans l'ordre
   for (const [cat, keywords] of Object.entries(CAT_KEYWORDS)) {
     if (keywords.some(kw => t.includes(kw.toLowerCase()))) return cat
   }
