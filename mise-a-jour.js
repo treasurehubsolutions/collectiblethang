@@ -286,7 +286,7 @@ async function main() {
   while (true) {
     const { data: page, error } = await supabase
       .from('products')
-      .select('id, ebay_id, title, enabled, source, photos')
+      .select('id, ebay_id, title, enabled, source, photos, admin_deleted, admin_price, admin_created, admin_oos')
       .eq('source', 'ebay')
       .range(from, from + PAGE - 1)
     if (error || !page || page.length === 0) break
@@ -338,7 +338,13 @@ async function main() {
   const toDisable = []
 
   // Disable products no longer on eBay, that are variations, or have stock 0
+  // 🔒 PROTECTION ADMIN : ne jamais toucher aux produits avec flags admin
+  let skippedAdmin = 0
   for (const [ebayId, prod] of Object.entries(existingMap)) {
+    if (prod.admin_deleted || prod.admin_created) {
+      skippedAdmin++
+      continue // Jamais toucher aux produits admin
+    }
     if (!activeIds.has(ebayId) || variationIds.has(ebayId)) {
       if (prod.enabled) toDisable.push(prod.id)
     }
@@ -359,25 +365,42 @@ async function main() {
     const condition = (row['Condition'] || 'New').trim()
     const imgs = cache[`api:${itemId}`] || cache[itemId] || []
 
-    const productData = {
-      title, price, currency: 'CAD', stock,
-      condition, category, ebay_id: itemId,
-      photos: imgs, enabled: stock > 0,
-      source: 'ebay', ...specs
-    }
-
     if (existingMap[itemId]) {
-      // Update existing — preserve manual photos if no new ones
       const existing = existingMap[itemId]
+
+      // 🔒 PROTECTION ADMIN : ignorer complètement les produits admin_deleted ou admin_created
+      if (existing.admin_deleted || existing.admin_created) continue
+
       const photos = imgs.length > 0 ? imgs : (existing.photos || [])
-      toUpdate.push({ id: existing.id, ...productData, photos })
+
+      // 🔒 Si admin_price est défini, garder ce prix — ne jamais l'écraser avec le prix eBay
+      const finalPrice = existing.admin_price != null ? existing.admin_price : price
+
+      // 🔒 Si admin_oos=true, garder stock=0 — ne jamais remettre en stock depuis eBay
+      const finalStock = existing.admin_oos ? 0 : stock
+      const finalEnabled = existing.admin_oos ? existing.enabled : (stock > 0)
+
+      const productData = {
+        title, price: finalPrice, currency: 'CAD', stock: finalStock,
+        condition, category, ebay_id: itemId,
+        photos, enabled: finalEnabled,
+        source: 'ebay', ...specs
+      }
+      toUpdate.push({ id: existing.id, ...productData })
     } else {
-      // New product
+      // New product from eBay
+      const productData = {
+        title, price, currency: 'CAD', stock,
+        condition, category, ebay_id: itemId,
+        photos: imgs, enabled: stock > 0,
+        source: 'ebay', ...specs
+      }
       toInsert.push(productData)
     }
   }
 
   // 8. Apply changes
+  console.log(`   🔒 Protégés admin (ignorés): ${skippedAdmin}`)
   console.log(`   🗑  À désactiver: ${toDisable.length}`)
   console.log(`   ✏️  À mettre à jour: ${toUpdate.length}`)
   console.log(`   ➕ Nouveaux: ${toInsert.length}`)

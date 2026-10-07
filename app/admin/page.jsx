@@ -1,15 +1,17 @@
 'use client'
 import { useState, useRef } from 'react'
 
-const ADMIN_PW = 'collectible2024'
-const CATEGORIES = ['Hot Wheels','Hot Wheels Premium','Star Wars','Marvel','DC Comics','Transformers','Jurassic Park / World','WWE & Wrestling','G.I. Joe','TMNT','Power Rangers','Masters of the Universe','Sonic the Hedgehog','Pokémon','Hallmark Ornaments','Funko Pop','McFarlane Figures','Disney & Pixar','LEGO','VHS Tapes','Video Games','Video Game Figures','Diecast & Scale Models','Action Figures','Little People Collector','Dolls & Barbie','Hockey','Playmobil','Fortnite','Électroménager','Bar & Brasserie','Autres']
+const DEFAULT_PW = '1234'
+const CATEGORIES = ['Hot Wheels','Hot Wheels Premium','Matchbox','Star Wars','Marvel','DC Comics','Transformers','Jurassic Park / World','WWE & Wrestling','GI Joe','TMNT','Power Rangers','Masters of the Universe','Sonic','Pokémon','Hallmark Ornaments','Funko Pop','McFarlane Figures','Disney & Pixar','LEGO','VHS Tapes','Bluray DVD','Video Games','Diecast & Scale Models','Action Figures','Dolls & Barbie','Hockey','Apparel','Collectibles']
 const EMPTY = { title:'', description:'', price:'', currency:'CAD', condition:'New', category:'Action Figures', stock:'1', weight:'250', photos:[], enabled:true }
 
 export default function AdminPage() {
   const [auth, setAuth] = useState(false)
   const [pw, setPw] = useState('')
+  const [savedPw, setSavedPw] = useState(() => typeof window !== 'undefined' ? (localStorage.getItem('admin_pw') || DEFAULT_PW) : DEFAULT_PW)
   const [tab, setTab] = useState('products')
   const [products, setProducts] = useState([])
+  const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('all')
@@ -18,11 +20,25 @@ export default function AdminPage() {
   const [saving, setSaving] = useState(false)
   const [msg, setMsg] = useState('')
   const [uploading, setUploading] = useState(false)
+  const [showChangePw, setShowChangePw] = useState(false)
+  const [newPw, setNewPw] = useState('')
+  const [showDeleted, setShowDeleted] = useState(false)
   const fileRef = useRef()
 
   function login() {
-    if (pw === ADMIN_PW) { setAuth(true); loadProducts() }
+    const stored = typeof window !== 'undefined' ? (localStorage.getItem('admin_pw') || DEFAULT_PW) : DEFAULT_PW
+    if (pw === stored) { setAuth(true); loadProducts() }
     else alert('Mot de passe incorrect')
+  }
+
+  function changePw() {
+    if (!newPw || newPw.length < 3) return alert('Mot de passe trop court')
+    localStorage.setItem('admin_pw', newPw)
+    setSavedPw(newPw)
+    setNewPw('')
+    setShowChangePw(false)
+    setMsg('✓ Mot de passe changé !')
+    setTimeout(() => setMsg(''), 3000)
   }
 
   async function loadProducts() {
@@ -30,6 +46,14 @@ export default function AdminPage() {
     const res = await fetch('/api/admin?action=list')
     const data = await res.json()
     setProducts(data || [])
+    setLoading(false)
+  }
+
+  async function loadOrders() {
+    setLoading(true)
+    const res = await fetch('/api/admin?action=orders')
+    const data = await res.json()
+    setOrders(data || [])
     setLoading(false)
   }
 
@@ -53,9 +77,19 @@ export default function AdminPage() {
   }
 
   async function deleteProduct(id) {
-    if (!confirm('Supprimer ce produit ?')) return
+    if (!confirm('Retirer ce produit ? Il sera invisible et jamais remis en ligne par le sync eBay.')) return
     await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'delete', id }) })
     loadProducts()
+  }
+
+  async function restoreProduct(id) {
+    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'restore', id }) })
+    loadProducts()
+  }
+
+  async function setOOS(id, isOOS) {
+    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: isOOS ? 'unoos' : 'oos', id }) })
+    setProducts(prev => prev.map(p => p.id === id ? { ...p, admin_oos: !isOOS, stock: isOOS ? p.stock : 0 } : p))
   }
 
   async function toggleProduct(id, enabled) {
@@ -76,7 +110,7 @@ export default function AdminPage() {
 
   function editProduct(p) {
     setEditId(p.id)
-    setForm({ title:p.title, description:p.description||'', price:p.price.toString(), currency:p.currency, condition:p.condition, category:p.category, stock:p.stock.toString(), weight:(p.weight||250).toString(), photos:p.photos||[], enabled:p.enabled })
+    setForm({ title:p.title, description:p.description||'', price:p.price.toString(), currency:p.currency||'CAD', condition:p.condition||'New', category:p.category, stock:p.stock.toString(), weight:(p.weight||250).toString(), photos:p.photos||[], enabled:p.enabled })
     setTab('add')
   }
 
@@ -90,8 +124,10 @@ export default function AdminPage() {
   )
 
   const filtered = products.filter(p => {
+    if (!showDeleted && p.admin_deleted) return false
+    if (showDeleted && !p.admin_deleted) return false
     const ms = !search || p.title.toLowerCase().includes(search.toLowerCase()) || p.category.toLowerCase().includes(search.toLowerCase())
-    const mf = filter==='all' || (filter==='enabled'&&p.enabled) || (filter==='disabled'&&!p.enabled)
+    const mf = filter==='all' || (filter==='enabled'&&p.enabled) || (filter==='disabled'&&!p.enabled) || (filter==='manual'&&p.admin_created) || (filter==='price_lock'&&p.admin_price!=null)
     return ms && mf
   })
 
@@ -110,16 +146,28 @@ export default function AdminPage() {
   return (
     <div style={{maxWidth:1300,margin:'0 auto',padding:'24px'}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24,flexWrap:'wrap',gap:12}}>
-        <div style={{fontFamily:'Bebas Neue',fontSize:28,color:'#e8b820',letterSpacing:3}}>GESTION DES PRODUITS</div>
+        <div style={{fontFamily:'Bebas Neue',fontSize:28,color:'#e8b820',letterSpacing:3}}>PANNEAU ADMIN</div>
         <div style={{display:'flex',gap:8}}>
+          <button onClick={()=>setShowChangePw(!showChangePw)} style={{background:'#12121e',color:'#888',border:'1px solid #1c1c28',borderRadius:6,padding:'9px 14px',fontSize:12,cursor:'pointer'}}>🔑 Changer mot de passe</button>
           <button onClick={()=>{setForm(EMPTY);setEditId(null);setTab('add')}} style={{background:'#e8b820',color:'#000',border:'none',borderRadius:6,padding:'9px 18px',fontWeight:800,fontSize:13,cursor:'pointer'}}>+ Ajouter</button>
           <a href="/" style={{background:'#12121e',color:'#888',border:'1px solid #1c1c28',borderRadius:6,padding:'9px 14px',fontSize:13,textDecoration:'none'}}>← Site</a>
         </div>
       </div>
+
+      {showChangePw && (
+        <div style={{background:'#12121e',border:'1px solid #2a2a38',borderRadius:8,padding:'16px',marginBottom:16,display:'flex',gap:10,alignItems:'center',flexWrap:'wrap'}}>
+          <input type="password" value={newPw} onChange={e=>setNewPw(e.target.value)} placeholder="Nouveau mot de passe"
+            style={{flex:1,minWidth:200,padding:'9px 12px',borderRadius:6,background:'#0a0a12',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none'}}/>
+          <button onClick={changePw} style={{background:'#e8b820',color:'#000',border:'none',borderRadius:6,padding:'9px 18px',fontWeight:800,fontSize:13,cursor:'pointer'}}>Sauvegarder</button>
+          <button onClick={()=>setShowChangePw(false)} style={{background:'none',color:'#666',border:'none',cursor:'pointer',fontSize:13}}>Annuler</button>
+        </div>
+      )}
+
       {msg && <div style={{background:'rgba(74,222,128,.1)',border:'1px solid rgba(74,222,128,.3)',color:'#4ade80',padding:'10px 16px',borderRadius:8,marginBottom:16,fontWeight:600}}>{msg}</div>}
+
       <div style={{display:'flex',gap:0,marginBottom:24,borderBottom:'1px solid #1c1c28'}}>
-        {[['products',`Produits (${products.length})`],['add',editId?'Modifier':'Ajouter']].map(([t,l])=>(
-          <button key={t} onClick={()=>setTab(t)} style={{padding:'10px 20px',background:'none',border:'none',borderBottom:tab===t?'2px solid #e8b820':'2px solid transparent',color:tab===t?'#e8b820':'#666',fontWeight:tab===t?700:400,fontSize:14,cursor:'pointer'}}>{l}</button>
+        {[['products',`Produits (${products.filter(p=>!p.admin_deleted).length})`],['add',editId?'Modifier':'Ajouter'],['orders','Commandes']].map(([t,l])=>(
+          <button key={t} onClick={()=>{setTab(t); if(t==='orders'&&orders.length===0) loadOrders()}} style={{padding:'10px 20px',background:'none',border:'none',borderBottom:tab===t?'2px solid #e8b820':'2px solid transparent',color:tab===t?'#e8b820':'#666',fontWeight:tab===t?700:400,fontSize:14,cursor:'pointer'}}>{l}</button>
         ))}
       </div>
 
@@ -127,30 +175,43 @@ export default function AdminPage() {
         <div>
           <div style={{display:'flex',gap:10,marginBottom:14,flexWrap:'wrap'}}>
             <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Rechercher..." style={{flex:1,minWidth:200,padding:'8px 14px',background:'#12121e',border:'1px solid #1c1c28',borderRadius:6,color:'#eee',fontSize:13,outline:'none'}}/>
-            {[['all','Tous'],['enabled','Actifs'],['disabled','Masqués']].map(([v,l])=>(
+            {[['all','Tous'],['enabled','Actifs'],['disabled','Masqués'],['manual','Manuel'],['price_lock','Prix fixé']].map(([v,l])=>(
               <button key={v} onClick={()=>setFilter(v)} style={{padding:'8px 14px',borderRadius:6,border:'1px solid #1c1c28',background:filter===v?'#e8b820':'#12121e',color:filter===v?'#000':'#888',fontWeight:filter===v?700:400,fontSize:12,cursor:'pointer'}}>{l}</button>
             ))}
+            <button onClick={()=>setShowDeleted(!showDeleted)} style={{padding:'8px 14px',borderRadius:6,border:'1px solid #1c1c28',background:showDeleted?'rgba(220,38,38,.2)':'#12121e',color:showDeleted?'#f87171':'#888',fontSize:12,cursor:'pointer'}}>🗑️ Supprimés</button>
+            <button onClick={loadProducts} style={{padding:'8px 14px',borderRadius:6,border:'1px solid #1c1c28',background:'#12121e',color:'#888',fontSize:12,cursor:'pointer'}}>↻ Rafraîchir</button>
           </div>
+
           {loading ? <div style={{textAlign:'center',padding:60,color:'#555'}}>Chargement...</div> : (
             <div style={{display:'flex',flexDirection:'column',gap:6}}>
               {filtered.map(p=>(
-                <div key={p.id} style={{display:'flex',alignItems:'center',gap:12,background:p.enabled?'#12121e':'#0a0a10',border:`1px solid ${p.enabled?'#1c1c28':'#2a1010'}`,borderRadius:8,padding:'10px 14px',opacity:p.enabled?1:.6}}>
+                <div key={p.id} style={{display:'flex',alignItems:'center',gap:12,background:p.admin_deleted?'#1a0505':p.enabled?'#12121e':'#0a0a10',border:`1px solid ${p.admin_deleted?'#3a1010':p.enabled?'#1c1c28':'#2a1010'}`,borderRadius:8,padding:'10px 14px',opacity:p.enabled&&!p.admin_deleted?1:.7}}>
                   <div style={{width:52,height:52,borderRadius:6,overflow:'hidden',background:'#0d0d12',flexShrink:0}}>
                     {p.photos?.[0]?<img src={p.photos[0]} alt="" style={{width:'100%',height:'100%',objectFit:'contain',padding:3}}/>:<div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:22}}>🛍️</div>}
                   </div>
                   <div style={{flex:1,minWidth:0}}>
-                    <div style={{fontSize:12,fontWeight:500,color:p.enabled?'#ddd':'#555',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{p.title}</div>
+                    <div style={{fontSize:12,fontWeight:500,color:p.enabled&&!p.admin_deleted?'#ddd':'#555',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{p.title}</div>
                     <div style={{display:'flex',gap:10,marginTop:3,flexWrap:'wrap'}}>
                       <span style={{fontSize:10,color:'#555'}}>{p.category}</span>
                       <span style={{fontSize:10,color:'#e8b820',fontWeight:700}}>CA${p.price?.toFixed(2)}</span>
                       <span style={{fontSize:10,color:p.stock>0?'#4ade80':'#f87171'}}>{p.stock>0?`${p.stock} en stock`:'Rupture'}</span>
-                      {p.source==='manual'&&<span style={{fontSize:9,background:'rgba(139,92,246,.2)',color:'#a78bfa',padding:'1px 5px',borderRadius:3,fontWeight:700}}>MANUEL</span>}
+                      {p.admin_created&&<span style={{fontSize:9,background:'rgba(139,92,246,.2)',color:'#a78bfa',padding:'1px 5px',borderRadius:3,fontWeight:700}}>MANUEL</span>}
+                      {p.admin_price!=null&&<span style={{fontSize:9,background:'rgba(234,179,8,.2)',color:'#eab308',padding:'1px 5px',borderRadius:3,fontWeight:700}}>PRIX FIXÉ</span>}
+                      {p.admin_oos&&<span style={{fontSize:9,background:'rgba(251,146,60,.2)',color:'#fb923c',padding:'1px 5px',borderRadius:3,fontWeight:700}}>OOS FORCÉ</span>}
+                      {p.admin_deleted&&<span style={{fontSize:9,background:'rgba(220,38,38,.2)',color:'#f87171',padding:'1px 5px',borderRadius:3,fontWeight:700}}>RETIRÉ</span>}
                     </div>
                   </div>
                   <div style={{display:'flex',gap:6,flexShrink:0}}>
-                    <button onClick={()=>toggleProduct(p.id,p.enabled)} style={{padding:'5px 12px',borderRadius:5,border:'none',background:p.enabled?'rgba(74,222,128,.12)':'rgba(248,113,113,.12)',color:p.enabled?'#4ade80':'#f87171',fontWeight:700,fontSize:11,cursor:'pointer'}}>{p.enabled?'✓ Actif':'✗ Masqué'}</button>
-                    <button onClick={()=>editProduct(p)} style={{padding:'5px 12px',borderRadius:5,border:'1px solid #2a2a38',background:'none',color:'#aaa',fontWeight:600,fontSize:11,cursor:'pointer'}}>✏️ Modifier</button>
-                    <button onClick={()=>deleteProduct(p.id)} style={{padding:'5px 10px',borderRadius:5,border:'none',background:'rgba(220,38,38,.1)',color:'#f87171',fontWeight:700,fontSize:11,cursor:'pointer'}}>🗑️</button>
+                    {p.admin_deleted ? (
+                      <button onClick={()=>restoreProduct(p.id)} style={{padding:'5px 12px',borderRadius:5,border:'none',background:'rgba(74,222,128,.12)',color:'#4ade80',fontWeight:700,fontSize:11,cursor:'pointer'}}>↩ Restaurer</button>
+                    ) : (
+                      <>
+                        <button onClick={()=>toggleProduct(p.id,p.enabled)} style={{padding:'5px 12px',borderRadius:5,border:'none',background:p.enabled?'rgba(74,222,128,.12)':'rgba(248,113,113,.12)',color:p.enabled?'#4ade80':'#f87171',fontWeight:700,fontSize:11,cursor:'pointer'}}>{p.enabled?'✓ Actif':'✗ Masqué'}</button>
+                        <button onClick={()=>setOOS(p.id,p.admin_oos)} title={p.admin_oos?'Annuler OOS':'Forcer Out of Stock (visible mais épuisé, sync ne remet pas en stock)'} style={{padding:'5px 12px',borderRadius:5,border:'none',background:p.admin_oos?'rgba(251,146,60,.2)':'rgba(255,255,255,.05)',color:p.admin_oos?'#fb923c':'#666',fontWeight:700,fontSize:11,cursor:'pointer'}}>{p.admin_oos?'📦 OOS':'📦'}</button>
+                        <button onClick={()=>editProduct(p)} style={{padding:'5px 12px',borderRadius:5,border:'1px solid #2a2a38',background:'none',color:'#aaa',fontWeight:600,fontSize:11,cursor:'pointer'}}>✏️</button>
+                        <button onClick={()=>deleteProduct(p.id)} title="Retirer — invisible + jamais remis par sync" style={{padding:'5px 10px',borderRadius:5,border:'none',background:'rgba(220,38,38,.1)',color:'#f87171',fontWeight:700,fontSize:11,cursor:'pointer'}}>🚫</button>
+                      </>
+                    )}
                   </div>
                 </div>
               ))}
@@ -196,6 +257,47 @@ export default function AdminPage() {
             </button>
             <button onClick={()=>{setForm(EMPTY);setEditId(null);setTab('products')}} style={{padding:'14px 20px',background:'#12121e',color:'#888',border:'1px solid #1c1c28',borderRadius:8,fontWeight:600,fontSize:14,cursor:'pointer'}}>Annuler</button>
           </div>
+        </div>
+      )}
+
+      {tab==='orders' && (
+        <div>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+            <div style={{fontSize:13,color:'#555'}}>{orders.length} commandes récentes</div>
+            <button onClick={loadOrders} style={{padding:'8px 14px',borderRadius:6,border:'1px solid #1c1c28',background:'#12121e',color:'#888',fontSize:12,cursor:'pointer'}}>↻ Rafraîchir</button>
+          </div>
+          {loading ? <div style={{textAlign:'center',padding:60,color:'#555'}}>Chargement...</div> : (
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              {orders.map(o=>(
+                <div key={o.id} style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:'14px 16px'}}>
+                  <div style={{display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8,marginBottom:8}}>
+                    <div>
+                      <div style={{fontSize:13,fontWeight:700,color:'#ddd'}}>{o.customer} <span style={{color:'#666',fontWeight:400}}>— {o.email}</span></div>
+                      <div style={{fontSize:11,color:'#555',marginTop:2}}>{new Date(o.date).toLocaleString('fr-CA')}</div>
+                    </div>
+                    <div style={{textAlign:'right'}}>
+                      <div style={{fontSize:14,fontWeight:800,color:'#e8b820'}}>{o.currency} ${o.amount}</div>
+                      <div style={{display:'flex',gap:6,marginTop:4,justifyContent:'flex-end'}}>
+                        <span style={{fontSize:10,padding:'2px 8px',borderRadius:3,background:o.status==='paid'?'rgba(74,222,128,.15)':'rgba(248,113,113,.15)',color:o.status==='paid'?'#4ade80':'#f87171',fontWeight:700}}>{o.status==='paid'?'✓ Payé':'En attente'}</span>
+                        {o.pickup&&<span style={{fontSize:10,padding:'2px 8px',borderRadius:3,background:'rgba(139,92,246,.15)',color:'#a78bfa',fontWeight:700}}>🚗 Ramassage</span>}
+                      </div>
+                    </div>
+                  </div>
+                  {o.items.length>0&&(
+                    <div style={{borderTop:'1px solid #1c1c28',paddingTop:8}}>
+                      {o.items.map((item,i)=>(
+                        <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'#666',marginBottom:3}}>
+                          <span>× {item.qty} {item.name}</span>
+                          <span style={{color:'#aaa'}}>CA${item.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              {orders.length===0&&<div style={{textAlign:'center',padding:60,color:'#555'}}>Aucune commande trouvée</div>}
+            </div>
+          )}
         </div>
       )}
     </div>
