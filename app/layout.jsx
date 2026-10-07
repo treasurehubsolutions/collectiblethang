@@ -96,6 +96,22 @@ export default function RootLayout({ children }) {
                       <div style={{fontSize:10,color:'#555'}}>Free pickup in Mauricie · Any question</div>
                     </div>
                   </a>
+                  <a href="https://www.instagram.com/theshelfcartel/" target="_blank" rel="noopener noreferrer"
+                    style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:8,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
+                    <span style={{fontSize:16}}>📸</span>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>@theshelfcartel</div>
+                      <div style={{fontSize:10,color:'#555'}}>Follow us on Instagram</div>
+                    </div>
+                  </a>
+                  <a href="https://www.facebook.com/theshelfcartel" target="_blank" rel="noopener noreferrer"
+                    style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:8,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
+                    <span style={{fontSize:16}}>👍</span>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>The Shelf Cartel</div>
+                      <div style={{fontSize:10,color:'#555'}}>Follow us on Facebook</div>
+                    </div>
+                  </a>
                 </div>
               </div>
               <div style={{maxWidth:1300,margin:'0 auto',paddingTop:20,borderTop:'1px solid #1a1a20',display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8}}>
