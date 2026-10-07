@@ -1,26 +1,45 @@
 'use client'
 import { createContext, useContext, useState, useEffect } from 'react'
+import { useLang } from './LangProvider'
 
-const CartCtx = createContext({ items: [], total: 0, subtotal: 0, promoDiscount: 0, addItem: () => {}, removeItem: () => {}, clearCart: () => {} })
+const CartCtx = createContext({ items: [], total: 0, promoDiscount: 0, addItem: () => {}, removeItem: () => {}, clearCart: () => {} })
 export function useCart() { return useContext(CartCtx) }
 
+// Catégories éligibles à la promo 3 achetés = 1 gratuit (< 10 $)
 const PROMO_CATEGORIES = ['Hot Wheels', 'Hot Wheels Premium']
 
 export function calcPromo(items) {
+  // Flatten tous les items éligibles (répétés par qty), triés du moins cher au plus cher
   const eligible = []
   items.forEach(item => {
     if (PROMO_CATEGORIES.includes(item.category) && item.price < 10) {
-      for (let i = 0; i < item.qty; i++) eligible.push(item.price)
+      for (let i = 0; i < item.qty; i++) {
+        eligible.push(item.price)
+      }
     }
   })
+  // Trier du moins cher au plus cher
   eligible.sort((a, b) => a - b)
-  const freeCount = Math.floor(eligible.length / 3)
+  // Pour chaque groupe de 3, le premier (moins cher) est gratuit
   let discount = 0
-  for (let i = 0; i < freeCount; i++) discount += eligible[i]
+  for (let i = 0; i < eligible.length; i++) {
+    // index 0, 3, 6... = items gratuits (1 gratuit par tranche de 3)
+    if ((i + 1) % 3 === 1 && i > 0) {
+      // On prend le moins cher du groupe (index i-2 dans chaque groupe de 3)
+    }
+  }
+  // Logique correcte: pour chaque 3 items, le MOINS CHER des 3 est gratuit
+  // ex: [2, 3, 5, 2, 4, 6] → groupes de 3 (triés asc): [2,3,5] → gratuit=2 ; [2,4,6] → gratuit=2
+  // On regroupe par tranches de 3, et pour chaque tranche le premier (moins cher) est gratuit
+  const freeCount = Math.floor(eligible.length / 3)
+  for (let i = 0; i < freeCount; i++) {
+    discount += eligible[i] // Les freeCount moins chers sont gratuits
+  }
   return Math.round(discount * 100) / 100
 }
 
 export default function CartProvider({ children }) {
+  const { lang } = useLang()
   const [items, setItems] = useState([])
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -73,6 +92,7 @@ export default function CartProvider({ children }) {
   const promoDiscount = calcPromo(items)
   const total = Math.max(0, subtotal - promoDiscount)
 
+  // Compte combien d'items éligibles sont dans le panier
   const eligibleCount = items.reduce((a, i) =>
     PROMO_CATEGORIES.includes(i.category) && i.price < 10 ? a + i.qty : a, 0)
   const promoFreeCount = Math.floor(eligibleCount / 3)
@@ -93,6 +113,7 @@ export default function CartProvider({ children }) {
               <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555', fontSize: 14 }}>Votre panier est vide</div>
             ) : (
               <>
+                {/* Bannière promo */}
                 {eligibleCount > 0 && (
                   <div style={{ background: promoDiscount > 0 ? 'rgba(74,222,128,.08)' : 'rgba(201,162,39,.08)', border: `1px solid ${promoDiscount > 0 ? 'rgba(74,222,128,.3)' : 'rgba(201,162,39,.3)'}`, borderRadius: 8, padding: '10px 14px', marginBottom: 12, fontSize: 12 }}>
                     {promoDiscount > 0 ? (
@@ -137,7 +158,6 @@ export default function CartProvider({ children }) {
                     )
                   })}
                 </div>
-
                 <div style={{ borderTop: '1px solid #1c1c28', paddingTop: 16 }}>
                   {promoDiscount > 0 && (
                     <>
@@ -146,7 +166,7 @@ export default function CartProvider({ children }) {
                         <span style={{ color: '#666' }}>CA${subtotal.toFixed(2)}</span>
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10, fontSize: 12 }}>
-                        <span style={{ color: '#4ade80' }}>🎉 3 achetés = 1 gratuit</span>
+                        <span style={{ color: '#4ade80' }}>🎉 Promo 3 pour 2</span>
                         <span style={{ color: '#4ade80' }}>−CA${promoDiscount.toFixed(2)}</span>
                       </div>
                     </>
@@ -154,6 +174,15 @@ export default function CartProvider({ children }) {
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
                     <span style={{ color: '#888' }}>Total</span>
                     <span style={{ fontFamily: 'Bebas Neue', fontSize: 22, color: '#c9a227' }}>CA${total.toFixed(2)}</span>
+                  </div>
+                  <div style={{ background: '#1a1200', border: '1px solid #c9a227', borderRadius: 6, padding: '8px 12px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                    <span style={{ fontSize: 13, flexShrink: 0 }}>⚠️</span>
+                    <p style={{ margin: 0, fontSize: 11, color: '#c9a227', lineHeight: 1.5 }}>
+                      {lang === 'fr'
+                        ? <><strong>Phase de lancement :</strong> En cas d'article indisponible, un remboursement complet sera émis immédiatement sur votre carte de crédit.</>
+                        : <><strong>Launch phase:</strong> If an item is unavailable, a full refund will be issued immediately to your credit card.</>
+                      }
+                    </p>
                   </div>
                   <a href="/checkout" style={{ display: 'block', background: '#cc1100', color: '#fff', textAlign: 'center', padding: '14px', borderRadius: 8, fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
                     Passer la commande →
