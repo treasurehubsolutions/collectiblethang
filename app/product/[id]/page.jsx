@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import ProductClient from '../../../components/ProductClient'
 import Link from 'next/link'
 
+const BASE = 'https://collectiblethang.vercel.app'
+
 export async function generateMetadata({ params }) {
   try {
     const p = await getProduct(params.id)
@@ -12,6 +14,9 @@ export async function generateMetadata({ params }) {
     return {
       title: `${p.title} – ${price} | The Shelf Cartel`,
       description: `Buy ${p.title} for ${price}. ${p.description ? p.description.slice(0, 120) : 'Toys & collectibles shipped across Canada and USA.'} Shop at The Shelf Cartel.`,
+      alternates: {
+        canonical: `${BASE}/product/${params.id}`,
+      },
       openGraph: {
         title: `${p.title} – ${price}`,
         description: `${p.title} available at The Shelf Cartel. Ships Canada & USA.`,
@@ -36,8 +41,31 @@ export default async function ProductPage({ params }) {
     related = (items||[]).filter(r=>r.id!==p.id).slice(0,5)
   } catch(e) {}
 
+  const availability = p.out_of_stock ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock'
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.title,
+    description: p.description || p.title,
+    image: p.photos?.[0] || undefined,
+    sku: p.id,
+    brand: { '@type': 'Brand', name: 'The Shelf Cartel' },
+    offers: {
+      '@type': 'Offer',
+      url: `${BASE}/product/${p.id}`,
+      priceCurrency: 'CAD',
+      price: p.price.toFixed(2),
+      availability,
+      seller: { '@type': 'Organization', name: 'The Shelf Cartel' },
+    },
+  }
+
   return (
     <div style={{maxWidth:1300,margin:'0 auto',padding:'24px'}}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div style={{fontSize:12,color:'#555',marginBottom:20,display:'flex',alignItems:'center',gap:6,flexWrap:'wrap'}}>
         <Link href="/" style={{color:'#666',textDecoration:'none'}}>Home</Link>
         <span>&#8250;</span>
