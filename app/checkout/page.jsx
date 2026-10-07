@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useCart } from '../../components/CartProvider'
+import { useLang } from '../../components/LangProvider'
 import Link from 'next/link'
 
 const CA_PROVINCES = [
@@ -27,6 +28,7 @@ const inputStyle = {width:'100%',padding:'10px 14px',borderRadius:6,background:'
 const labelStyle = {display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}
 
 export default function CheckoutPage() {
+  const { lang } = useLang()
   const { items, subtotal, promoDiscount } = useCart()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -139,7 +141,10 @@ export default function CheckoutPage() {
       <div style={{background:'#1a1200',border:'1px solid #c9a227',borderRadius:8,padding:'10px 16px',marginBottom:24,display:'flex',alignItems:'flex-start',gap:10}}>
         <span style={{fontSize:16,flexShrink:0}}>⚠️</span>
         <p style={{margin:0,fontSize:13,color:'#c9a227',lineHeight:1.6}}>
-          <strong>Launch phase :</strong> Some items may be unavailable — a full refund will be issued immediately if so. &nbsp;·&nbsp; <strong>Phase de lancement :</strong> Certains produits pourraient ne pas être disponibles — un remboursement complet sera émis immédiatement.
+          {lang === 'fr'
+            ? <><strong>Phase de lancement :</strong> Certains produits pourraient ne pas être disponibles — un remboursement complet sera émis immédiatement sur votre carte de crédit.</>
+            : <><strong>Launch phase:</strong> Some items may be unavailable — a full refund will be issued immediately to your credit card.</>
+          }
         </p>
       </div>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:40}}>
