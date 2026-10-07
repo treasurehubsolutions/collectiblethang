@@ -127,7 +127,7 @@ export default function AdminPage() {
     if (!showDeleted && p.admin_deleted) return false
     if (showDeleted && !p.admin_deleted) return false
     const ms = !search || p.title.toLowerCase().includes(search.toLowerCase()) || p.category.toLowerCase().includes(search.toLowerCase())
-    const mf = filter==='all' || (filter==='enabled'&&p.enabled) || (filter==='disabled'&&!p.enabled) || (filter==='manual'&&p.admin_created) || (filter==='price_lock'&&p.admin_price!=null)
+    const mf = filter==='all' || (filter==='enabled'&&p.enabled&&!p.admin_deleted) || (filter==='disabled'&&!p.enabled&&!p.admin_deleted) || (filter==='manual'&&p.admin_created) || (filter==='price_lock'&&p.admin_price!=null)
     return ms && mf
   })
 
