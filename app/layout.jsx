@@ -78,10 +78,17 @@ export default function RootLayout({ children }) {
                   <div style={{fontSize:12,color:'#555',lineHeight:2.1}}>
                     🔒 Secure Stripe payment<br/>
                     📦 Careful packaging<br/>
-                    ⭐ 100% positive eBay feedback<br/>
                     🇨🇦 Ships from Quebec, Canada<br/>
                     ↩️ 30-day return policy
                   </div>
+                  <a href="https://www.ebay.ca/str/collectiblethang?_tab=feedback" target="_blank" rel="noopener noreferrer"
+                    style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:14,padding:'8px 12px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,textDecoration:'none'}}>
+                    <img src="https://pages.ebay.com/favicon.ico" alt="eBay" style={{width:16,height:16}}/>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:'#c9a227'}}>99.5% Positive Feedback</div>
+                      <div style={{fontSize:10,color:'#555'}}>2,200+ items sold on eBay</div>
+                    </div>
+                  </a>
                 </div>
               </div>
               <div style={{maxWidth:1300,margin:'0 auto',paddingTop:20,borderTop:'1px solid #1a1a20',display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8}}>
