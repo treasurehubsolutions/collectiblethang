@@ -5,7 +5,21 @@ import { useCart } from './CartProvider'
 import { useLang } from './LangProvider'
 import { T } from '../lib/translations'
 
-const CATS = ['Hot Wheels','Hot Wheels Premium','Star Wars','Marvel','DC Comics','Transformers','WWE & Wrestling','McFarlane Figures','VHS Tapes','Bluray DVD','Hallmark Ornaments','Deals']
+const CATS = [
+  {label:'🎭 Funko Pop',   cat:'Funko Pop'},
+  {label:'⭐ Pokémon',     cat:'Pokémon'},
+  {label:'🧱 LEGO',        cat:'LEGO'},
+  {label:'🚙 Matchbox',    cat:'Matchbox'},
+  {label:'🤖 Transformers',cat:'Transformers'},
+  {label:'🏆 WWE',         cat:'WWE & Wrestling'},
+  {label:'💀 McFarlane',   cat:'McFarlane Figures'},
+  {label:'🦕 Jurassic',    cat:'Jurassic Park / World'},
+  {label:'🎄 Hallmark',    cat:'Hallmark Ornaments'},
+  {label:'🐢 TMNT',        cat:'TMNT'},
+  {label:'🪖 GI Joe',      cat:'GI Joe'},
+  {label:'🎮 Video Games', cat:'Video Games'},
+  {label:'🔥 Deals',       cat:'DEALS'},
+]
 
 export default function Header() {
   const { items, setOpen } = useCart()
@@ -55,10 +69,10 @@ export default function Header() {
         {/* Category nav */}
         <div style={{background:'#0a0a10',borderTop:'1px solid #1c1c20',overflowX:'auto'}}>
           <div style={{maxWidth:1300,margin:'0 auto',padding:'0 16px',display:'flex',gap:0}}>
-            {CATS.map(cat=>(
-              <Link key={cat} href={cat==='Deals'?'/shop?sort=price_asc':`/shop?category=${encodeURIComponent(cat)}`}
-                style={{padding:'8px 14px',fontSize:12,color:cat==='Deals'?'#c9a227':'#888',textDecoration:'none',whiteSpace:'nowrap',borderBottom:'2px solid transparent',fontWeight:cat==='Deals'?700:400}}>
-                {cat}
+            {CATS.map(({label,cat})=>(
+              <Link key={cat} href={cat==='DEALS'?'/shop?sort=price_asc':`/shop?category=${encodeURIComponent(cat)}`}
+                style={{padding:'8px 14px',fontSize:12,color:cat==='DEALS'?'#c9a227':'#888',textDecoration:'none',whiteSpace:'nowrap',borderBottom:'2px solid transparent',fontWeight:cat==='DEALS'?700:400}}>
+                {label}
               </Link>
             ))}
           </div>
