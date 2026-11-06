@@ -17,7 +17,7 @@ export const metadata = {
   },
   robots: { index: true, follow: true },
   alternates: {
-    canonical: 'https://collectiblethang.vercel.app',
+    canonical: 'https://theshelfcartel.com',
   },
 }
 
