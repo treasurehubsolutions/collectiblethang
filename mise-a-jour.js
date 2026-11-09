@@ -15,14 +15,27 @@ const { createClient } = require('@supabase/supabase-js')
 const fs = require('fs')
 const path = require('path')
 
+// -- Les secrets sont lus dans .env.local (jamais ecrits dans ce fichier) --
+try {
+  fs.readFileSync(path.join(__dirname, '.env.local'), 'utf8').split(/\r?\n/).forEach(l => {
+    const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*?)\s*$/)
+    if (m && !(m[1] in process.env)) process.env[m[1]] = m[2].replace(/^['"]|['"]$/g, '')
+  })
+} catch (e) {}
+
 // ── CONFIG ────────────────────────────────────────────────
 const SUPABASE_URL = 'https://eptnfpvwfxloimmbzxcl.supabase.co'
-const SERVICE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwdG5mcHZ3Znhsb2ltbWJ6eGNsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDcyNDg0OCwiZXhwIjoyMDkwMzAwODQ4fQ.3IZlRA6NhxLAV3y85vmx0YzPh44PRKdTWMWtOoKk254'
+const SERVICE_KEY  = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_KEY
 
 const EBAY_APP_ID  = 'AlexAbra-Collecti-PRD-af606d196-62405c9d'
-const EBAY_DEV_ID  = '881bff2e-587b-4149-9df6-6ff133c033c2'
-const EBAY_CERT_ID = 'PRD-f606d1966eec-0cc5-4d34-9603-bea5'
-let   EBAY_TOKEN   = 'v^1.1#i^1#I^3#r^1#f^0#p^3#t^Ul4xMF82OkE2RDJCMjUwMEVBMTlCODdGNTA0ODhDOUJFNTk5NTExXzJfMSNFXjI2MA=='
+const EBAY_DEV_ID  = process.env.EBAY_DEV_ID
+const EBAY_CERT_ID = process.env.EBAY_CERT_ID
+let   EBAY_TOKEN   = process.env.EBAY_TOKEN
+
+if (!SERVICE_KEY || !EBAY_TOKEN || !EBAY_CERT_ID) {
+  console.error('Cles manquantes: ajoute SUPABASE_SECRET_KEY, EBAY_TOKEN et EBAY_CERT_ID dans .env.local')
+  process.exit(1)
+}
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY)
 

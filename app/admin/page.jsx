@@ -1,14 +1,13 @@
 'use client'
 import { useState, useRef } from 'react'
 
-const DEFAULT_PW = '1234'
 const CATEGORIES = ['Hot Wheels','Hot Wheels Premium','Matchbox','Star Wars','Marvel','DC Comics','Transformers','Jurassic Park / World','WWE & Wrestling','GI Joe','TMNT','Power Rangers','Masters of the Universe','Sonic','Pokémon','Hallmark Ornaments','Funko Pop','McFarlane Figures','Disney & Pixar','LEGO','VHS Tapes','Bluray DVD','Video Games','Diecast & Scale Models','Action Figures','Dolls & Barbie','Hockey','Apparel','Collectibles']
 const EMPTY = { title:'', description:'', price:'', currency:'CAD', condition:'New', category:'Action Figures', stock:'1', weight:'250', photos:[], enabled:true }
 
 export default function AdminPage() {
   const [auth, setAuth] = useState(false)
   const [pw, setPw] = useState('')
-  const [savedPw, setSavedPw] = useState(() => typeof window !== 'undefined' ? (localStorage.getItem('admin_pw') || DEFAULT_PW) : DEFAULT_PW)
+  const [savedPw, setSavedPw] = useState('')
   const [tab, setTab] = useState('products')
   const [products, setProducts] = useState([])
   const [orders, setOrders] = useState([])
@@ -25,25 +24,24 @@ export default function AdminPage() {
   const [showDeleted, setShowDeleted] = useState(false)
   const fileRef = useRef()
 
-  function login() {
-    const stored = typeof window !== 'undefined' ? (localStorage.getItem('admin_pw') || DEFAULT_PW) : DEFAULT_PW
-    if (pw === stored) { setAuth(true); loadProducts() }
-    else alert('Mot de passe incorrect')
+  async function login() {
+    const res = await fetch('/api/admin?action=list', { headers: { 'x-admin-pw': pw } })
+    if (res.status === 401) return alert('Mot de passe incorrect')
+    const data = await res.json()
+    setProducts(data || [])
+    setAuth(true)
   }
 
   function changePw() {
-    if (!newPw || newPw.length < 3) return alert('Mot de passe trop court')
-    localStorage.setItem('admin_pw', newPw)
-    setSavedPw(newPw)
     setNewPw('')
     setShowChangePw(false)
-    setMsg('✓ Mot de passe changé !')
-    setTimeout(() => setMsg(''), 3000)
+    setMsg('Le mot de passe se change dans Vercel (variable ADMIN_PASSWORD), puis redeployer.')
+    setTimeout(() => setMsg(''), 6000)
   }
 
   async function loadProducts() {
     setLoading(true)
-    const res = await fetch('/api/admin?action=list')
+    const res = await fetch('/api/admin?action=list', { headers: { 'x-admin-pw': pw } })
     const data = await res.json()
     setProducts(data || [])
     setLoading(false)
@@ -51,7 +49,7 @@ export default function AdminPage() {
 
   async function loadOrders() {
     setLoading(true)
-    const res = await fetch('/api/admin?action=orders')
+    const res = await fetch('/api/admin?action=orders', { headers: { 'x-admin-pw': pw } })
     const data = await res.json()
     setOrders(data || [])
     setLoading(false)
@@ -63,7 +61,7 @@ export default function AdminPage() {
     const body = { ...form, price: parseFloat(form.price), stock: parseInt(form.stock), weight: parseInt(form.weight) }
     const res = await fetch('/api/admin', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-admin-pw': pw },
       body: JSON.stringify({ action: editId ? 'update' : 'create', id: editId, product: body })
     })
     const data = await res.json()
@@ -78,22 +76,22 @@ export default function AdminPage() {
 
   async function deleteProduct(id) {
     if (!confirm('Retirer ce produit ? Il sera invisible et jamais remis en ligne par le sync eBay.')) return
-    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'delete', id }) })
+    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pw': pw }, body: JSON.stringify({ action: 'delete', id }) })
     loadProducts()
   }
 
   async function restoreProduct(id) {
-    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'restore', id }) })
+    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pw': pw }, body: JSON.stringify({ action: 'restore', id }) })
     loadProducts()
   }
 
   async function setOOS(id, isOOS) {
-    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: isOOS ? 'unoos' : 'oos', id }) })
+    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pw': pw }, body: JSON.stringify({ action: isOOS ? 'unoos' : 'oos', id }) })
     setProducts(prev => prev.map(p => p.id === id ? { ...p, admin_oos: !isOOS, stock: isOOS ? p.stock : 0 } : p))
   }
 
   async function toggleProduct(id, enabled) {
-    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'toggle', id, enabled: !enabled }) })
+    await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pw': pw }, body: JSON.stringify({ action: 'toggle', id, enabled: !enabled }) })
     setProducts(prev => prev.map(p => p.id === id ? { ...p, enabled: !enabled } : p))
   }
 
@@ -101,7 +99,7 @@ export default function AdminPage() {
     setUploading(true)
     const fd = new FormData()
     fd.append('file', file)
-    const res = await fetch('/api/upload', { method: 'POST', body: fd })
+    const res = await fetch('/api/upload', { method: 'POST', headers: { 'x-admin-pw': pw }, body: fd })
     const data = await res.json()
     setUploading(false)
     if (data.url) setForm(f => ({ ...f, photos: [...f.photos, data.url] }))

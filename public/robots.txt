@@ -1,6 +1,13 @@
+# *
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /api
 
-Sitemap: https://collectiblethang.vercel.app/sitemap.xml
+# *
+User-agent: *
+Disallow: /admin
+
+# Host
+Host: https://theshelfcartel.com
+
+# Sitemaps
+Sitemap: https://theshelfcartel.com/sitemap.xml

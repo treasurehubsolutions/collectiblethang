@@ -6,6 +6,7 @@ import TrustBar from '../components/TrustBar'
 import LangProvider from '../components/LangProvider'
 
 export const metadata = {
+  metadataBase: new URL('https://theshelfcartel.com'),
   title: 'The Shelf Cartel – Toys & Collectibles | Hot Wheels Star Wars Marvel Canada',
   description: 'The Shelf Cartel — discount toys and collectibles shop based in Quebec, Canada. Hot Wheels, Star Wars, Marvel, DC Comics, Transformers, LEGO, VHS, DVD, Action Figures. Ships Canada & USA.',
   keywords: 'the shelf cartel, theshelfcartel, hot wheels, star wars, marvel, dc comics, transformers, lego, action figures, vhs, dvd, collectibles, toys canada, quebec, discount toys, cheap collectibles',
@@ -17,7 +18,7 @@ export const metadata = {
   },
   robots: { index: true, follow: true },
   alternates: {
-    canonical: 'https://theshelfcartel.com',
+    canonical: './',
   },
 }
 
@@ -66,7 +67,7 @@ export default function RootLayout({ children }) {
                 </div>
                 <div>
                   <div style={{fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',marginBottom:12}}>Navigation</div>
-                  {[['/', 'Home'],['/shop','Shop'],['/shop?sort=popular','Popular'],['/shop?sort=new','New Arrivals'],['/a-propos','About us'],['/livraison','Shipping & Returns']].map(([href,label])=>(
+                  {[['/', 'Home'],['/shop','Shop'],['/shop?sort=popular','Popular'],['/shop?sort=new','New Arrivals'],['/a-propos','About us'],['/blog','Blog'],['/livraison','Shipping & Returns']].map(([href,label])=>(
                     <a key={href} href={href} style={{display:'block',fontSize:13,color:'#666',marginBottom:6,textDecoration:'none'}}>{label}</a>
                   ))}
                 </div>

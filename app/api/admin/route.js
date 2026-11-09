@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server'
 import { getAdminClient } from '../../../lib/supabase'
+import { isAdmin } from '../../../lib/adminAuth'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(req) {
+  if (!isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const { searchParams } = new URL(req.url)
   const action = searchParams.get('action')
   const supabase = getAdminClient()
@@ -34,6 +36,7 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
+  if (!isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const body = await req.json()
   const { action, id, product, enabled } = body
   const supabase = getAdminClient()

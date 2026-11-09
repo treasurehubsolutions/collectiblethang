@@ -3,7 +3,7 @@ export const fetchCache = 'force-no-store'
 export const revalidate = 0
 import { createClient } from '@supabase/supabase-js'
 
-const SITE_URL = 'https://collectiblethang.vercel.app'
+const SITE_URL = 'https://theshelfcartel.com'
 const DEFAULT_CONDITION = 'new'
 
 let _cache = null

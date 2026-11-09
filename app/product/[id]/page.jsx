@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import ProductClient from '../../../components/ProductClient'
 import Link from 'next/link'
 
-const BASE = 'https://collectiblethang.vercel.app'
+const BASE = 'https://theshelfcartel.com'
 
 export async function generateMetadata({ params }) {
   try {

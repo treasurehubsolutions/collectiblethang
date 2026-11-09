@@ -45,7 +45,7 @@ export default function ProductClient({ product: p }) {
             {photos.map((ph,i) => (
               <div key={i} onClick={() => setMainImg(i)}
                 style={{width:60,height:60,borderRadius:6,overflow:'hidden',background:'#0f0f1c',border:`2px solid ${i===mainImg?m.color:'#1c1c30'}`,cursor:'pointer',flexShrink:0}}>
-                <img src={ph} alt="" style={{width:'100%',height:'100%',objectFit:'contain',padding:4}}/>
+                <img src={ph} alt={`${p.title} - photo ${i+1}`} style={{width:'100%',height:'100%',objectFit:'contain',padding:4}}/>
               </div>
             ))}
           </div>

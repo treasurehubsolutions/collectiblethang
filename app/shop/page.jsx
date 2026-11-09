@@ -4,6 +4,23 @@ import Image from 'next/image'
 import { getProducts, getCategories, getCatMeta } from '../../lib/products'
 import AddToCartBtn from '../../components/AddToCartBtn'
 
+export async function generateMetadata({ searchParams }) {
+  const category = searchParams?.category || ''
+  const BASE = 'https://theshelfcartel.com'
+  if (!category) {
+    return {
+      title: 'Shop Toys & Collectibles in Canada | The Shelf Cartel',
+      description: 'Shop Hot Wheels, Star Wars, Marvel, Funko Pop, LEGO and more. Carefully inspected collectibles shipped from Quebec to Canada and the USA.',
+      alternates: { canonical: `${BASE}/shop` },
+    }
+  }
+  return {
+    title: `${category} for Sale in Canada | The Shelf Cartel`,
+    description: `Shop ${category} collectibles at The Shelf Cartel. Real photos, honest condition, fast shipping from Quebec to Canada and the USA. 30-day returns.`,
+    alternates: { canonical: `${BASE}/shop?category=${encodeURIComponent(category)}` },
+  }
+}
+
 export default async function ShopPage({ searchParams }) {
   const category = searchParams?.category || ''
   const search = searchParams?.search || ''
@@ -54,6 +71,11 @@ export default async function ShopPage({ searchParams }) {
         <h1 style={{fontFamily:'Bebas Neue',fontSize:20,letterSpacing:1.5,color:'#fff',marginBottom:12}}>
           {meta.emoji} {category}
         </h1>
+      )}
+      {meta && (
+        <p style={{color:'#9a9ab0',fontSize:14,lineHeight:1.6,marginBottom:16,maxWidth:820}}>
+          Browse our {category} collection: authentic collectibles, carefully inspected, photographed and packed with care. Every listing shows the real condition and real photos. Shipping from Quebec to Canada and the USA, with a 30-day return policy.
+        </p>
       )}
 
       {/* Product grid — full width, no sidebar */}

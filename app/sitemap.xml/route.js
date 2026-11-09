@@ -10,7 +10,7 @@ export async function GET() {
   console.log('[sitemap] supabaseUrl=', supabaseUrl ? 'OK' : 'MISSING')
   console.log('[sitemap] supabaseKey=', supabaseKey ? 'OK' : 'MISSING')
 
-  const baseUrl = 'https://collectiblethang.vercel.app'
+  const baseUrl = 'https://theshelfcartel.com'
   const now = new Date().toISOString()
 
   const staticUrls = [
@@ -18,6 +18,9 @@ export async function GET() {
     `<url><loc>${baseUrl}/shop</loc><lastmod>${now}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`,
     `<url><loc>${baseUrl}/a-propos</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>`,
     `<url><loc>${baseUrl}/livraison</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>`,
+    `<url><loc>${baseUrl}/blog</loc><lastmod>${now}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/guide-debuter-collection-hot-wheels</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/returns</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,
   ]
 
   let dynamicUrls = []
@@ -34,6 +37,7 @@ export async function GET() {
       const { data, error } = await supabase
         .from('products')
         .select('id')
+        .eq('enabled', true)
         .limit(5000)
 
       console.log('[sitemap] rows=', data?.length, 'error=', error?.message || 'none')
