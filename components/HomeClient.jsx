@@ -111,7 +111,7 @@ export default function HomeClient() {
             </div>
           </div>
           <div style={{display:'flex',border:'1px solid rgba(201,162,39,.15)',borderRadius:12,overflow:'hidden',background:'rgba(201,162,39,.03)'}}>
-            {[['1 893+','Items in stock'],['10 000+','Real photos'],['99.6%','Positive feedback'],['CA','Canada & USA']].map(([n,l])=>(
+            {[['99.6%','Positive feedback'],['CA','Canada & USA']].map(([n,l])=>(
               <div key={l} style={{padding:'20px 24px',textAlign:'center',borderRight:'1px solid rgba(201,162,39,.1)'}}>
                 <div style={{fontFamily:'Bebas Neue',fontSize:26,color:'#c9a227',letterSpacing:1}}>{n}</div>
                 <div style={{fontSize:10,color:'#555',textTransform:'uppercase',letterSpacing:'0.08em',marginTop:4}}>{l}</div>

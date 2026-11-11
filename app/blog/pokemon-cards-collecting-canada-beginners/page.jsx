@@ -65,7 +65,7 @@ export default function Article() {
         </section>
       ))}
       <h2 style={h2}>Shop Pokémon in Canada</h2>
-      <p style={p}>Browse our current <Link href="/shop?category=Pok%C3%A9mon" style={a}>Pokémon</Link> selection at The Shelf Cartel, or check the <Link href="/shop" style={a}>full shop</Link> for more collectibles, with real photos, honest condition and shipping across Canada and the USA.</p>
+      <p style={p}>Browse our current <Link href="/shop?category=Pok%C3%A9mon" style={a}>Pokémon</Link> selection at The Shelf Cartel, or check the <Link href="/shop" style={a}>full shop</Link> for more collectibles, with honest condition and shipping across Canada and the USA.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one character or set, check condition in the photos and compare recent sold prices before you buy.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>

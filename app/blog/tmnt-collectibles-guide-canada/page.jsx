@@ -67,7 +67,7 @@ export default function Article() {
         <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Hot Wheels TMNT Party Wagon: check the card and the paint.</figcaption>
       </figure>
       <h2 style={h2}>Shop TMNT and Collectibles in Canada</h2>
-      <p style={p}>Browse our current <Link href="/shop?category=TMNT" style={{ color: '#e8b820' }}>TMNT</Link> selection, with real photos, honest condition and shipping across Canada and the USA. New items arrive every week.</p>
+      <p style={p}>Browse our current <Link href="/shop?category=TMNT" style={{ color: '#e8b820' }}>TMNT</Link> selection, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one lane, check the scale and the accessories, and buy from a seller who shows real photos.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/jurassic-park-world-collectibles-guide-canada" style={{ color: '#e8b820' }}>Jurassic Park and Jurassic World Collectibles Guide</Link></li></ul>

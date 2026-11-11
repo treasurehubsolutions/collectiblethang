@@ -16,9 +16,22 @@ export async function generateMetadata({ searchParams }) {
   }
   return {
     title: `${category} for Sale in Canada | The Shelf Cartel`,
-    description: `Shop ${category} collectibles at The Shelf Cartel. Real photos, honest condition, fast shipping from Quebec to Canada and the USA. 30-day returns.`,
+    description: `Shop ${category} collectibles at The Shelf Cartel. Honest condition, fast shipping from Quebec to Canada and the USA. 30-day returns.`,
     alternates: { canonical: `${BASE}/shop?category=${encodeURIComponent(category)}` },
   }
+}
+
+const CAT_TEXT = {
+  'Hot Wheels': 'Looking for Hot Wheels in Canada? Browse mainline cars, treasure hunts and loose and carded finds, each listed with an honest condition grade. Perfect for starting a collection or filling the gaps in one.',
+  'Hot Wheels Premium': 'Hot Wheels Premium cars (Car Culture, Boulevard, Pop Culture and more) feature metal bases and rubber tires for a more detailed, collector-grade display piece. Check the card and the series name in each listing before you buy.',
+  'Funko Pop': 'Shop Funko Pop vinyl figures in Canada, from popular franchises to hard-to-find pieces. Box condition matters to collectors, so every listing shows the real box in the photos and notes any wear.',
+  'Star Wars': 'Star Wars figures, vehicles and collectibles from vintage to modern lines. Each listing notes the condition, packaging and completeness so you know exactly what is coming to your door.',
+  'Marvel': 'Marvel collectibles for fans and collectors: action figures, vinyl figures and more featuring heroes and villains from the comics and films. Honest condition on every item.',
+  'LEGO': 'Shop LEGO sets and pieces in Canada. Listings state whether a set is sealed, open box or used, so you can buy with confidence for building, gifting or collecting.',
+  'Matchbox': 'Matchbox die-cast vehicles for collectors of all ages, from everyday models to special series. Carefully inspected, photographed and shipped with care.',
+  'Transformers': 'Transformers figures from classic Generation 1 styles to modern lines. Check each listing for condition, accessories and completeness before you add it to your collection.',
+  'Pokémon': 'Pokémon collectibles and merchandise for trainers and collectors. Each item is described with its real condition and photographed so you see exactly what you are buying.',
+  'DEALS': 'Deals on toys and collectibles: bundles, lots and discounted pieces for budget-minded collectors. Quantities are limited, so check back often for new additions.',
 }
 
 export default async function ShopPage({ searchParams }) {
@@ -74,7 +87,7 @@ export default async function ShopPage({ searchParams }) {
       )}
       {meta && (
         <p style={{color:'#9a9ab0',fontSize:14,lineHeight:1.6,marginBottom:16,maxWidth:820}}>
-          Browse our {category} collection: authentic collectibles, carefully inspected, photographed and packed with care. Every listing shows the real condition and real photos. Shipping from Quebec to Canada and the USA, with a 30-day return policy.
+          {CAT_TEXT[category] || `Browse our ${category} collection: authentic collectibles, carefully inspected, photographed and packed with care.`} Every listing shows the real condition. Shipping from Quebec to Canada and the USA, with a 30-day return policy.
         </p>
       )}
 

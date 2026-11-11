@@ -67,7 +67,7 @@ export default function Article() {
         <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A carded Matchbox Collectors car: the series number is printed on the card.</figcaption>
       </figure>
       <h2 style={h2}>Shop Matchbox in Canada</h2>
-      <p style={p}>You can browse our current selection of <Link href="/shop?category=Matchbox" style={{ color: '#e8b820' }}>Matchbox</Link> cars at The Shelf Cartel, with real photos, honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
+      <p style={p}>You can browse our current selection of <Link href="/shop?category=Matchbox" style={{ color: '#e8b820' }}>Matchbox</Link> cars at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick a theme, check the base and the card, then compare with recent sold prices before you buy.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>How to Start a Hot Wheels Collection</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul>

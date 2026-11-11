@@ -67,7 +67,7 @@ export default function Article() {
         <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A first-in-series ornament: the series number helps you track your set.</figcaption>
       </figure>
       <h2 style={h2}>Shop Hallmark Ornaments in Canada</h2>
-      <p style={p}>You can browse our current selection of <Link href="/shop?category=Hallmark%20Ornaments" style={{ color: '#e8b820' }}>Hallmark Ornaments</Link> at The Shelf Cartel, with real photos, honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
+      <p style={p}>You can browse our current selection of <Link href="/shop?category=Hallmark%20Ornaments" style={{ color: '#e8b820' }}>Hallmark Ornaments</Link> at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: choose a theme, check the year and the box, and order early so your ornaments arrive before the holidays.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/lego-buying-guide-collectors-canada" style={{ color: '#e8b820' }}>LEGO Buying Guide for Collectors</Link></li></ul>

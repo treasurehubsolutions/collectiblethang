@@ -15,8 +15,8 @@ const SECTIONS = [
   {
     t: ['Products and condition', 'Produits et état'],
     b: [
-      'We sell toys and collectibles, new and pre-owned. Each listing shows real photos and states the condition. Colours may vary slightly depending on your screen. Stock is limited and an item may sell out before your order is confirmed; if so we will refund you in full.',
-      'Nous vendons des jouets et articles de collection, neufs et d’occasion. Chaque fiche présente de vraies photos et indique l’état. Les couleurs peuvent varier légèrement selon votre écran. Les quantités sont limitées et un article peut être vendu avant la confirmation de votre commande; le cas échéant, nous vous remboursons en totalité.',
+      'We sell toys and collectibles, new and pre-owned. Each listing shows photos and states the condition. Colours may vary slightly depending on your screen. Stock is limited and an item may sell out before your order is confirmed; if so we will refund you in full.',
+      'Nous vendons des jouets et articles de collection, neufs et d’occasion. Chaque fiche présente des photos et indique l’état. Les couleurs peuvent varier légèrement selon votre écran. Les quantités sont limitées et un article peut être vendu avant la confirmation de votre commande; le cas échéant, nous vous remboursons en totalité.',
     ],
   },
   {

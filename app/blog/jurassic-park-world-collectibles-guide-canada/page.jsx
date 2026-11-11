@@ -67,7 +67,7 @@ export default function Article() {
         <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Jurassic World Danger Pack: confirm the contents and the features listed on the box.</figcaption>
       </figure>
       <h2 style={h2}>Shop Jurassic Park and Jurassic World in Canada</h2>
-      <p style={p}>Browse our current <Link href="/shop?category=Jurassic%20Park%20%2F%20World" style={{ color: '#e8b820' }}>Jurassic Park / World</Link> selection, with real photos, honest condition and shipping across Canada and the USA. New items arrive every week.</p>
+      <p style={p}>Browse our current <Link href="/shop?category=Jurassic%20Park%20%2F%20World" style={{ color: '#e8b820' }}>Jurassic Park / World</Link> selection, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one lane, check the size and the packaging, and buy from a seller who shows real photos.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>Transformers and DC Multiverse Collecting Guide</Link></li></ul>

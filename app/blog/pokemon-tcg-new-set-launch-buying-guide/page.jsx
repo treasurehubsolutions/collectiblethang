@@ -85,7 +85,7 @@ export default function Article() {
         </section>
       ))}
       <h2 style={h2}>Shop Pokémon in Canada</h2>
-      <p style={p}>Browse our current <Link href="/shop?category=Pok%C3%A9mon" style={{ color: '#e8b820' }}>Pokémon</Link> selection, from Elite Trainer Boxes to figures, with real photos, honest condition and shipping across Canada and the USA. You can also explore the whole <Link href="/shop" style={{ color: '#e8b820' }}>shop</Link>, and new items arrive every week. For exact release dates and product contents, always check the official Pokémon announcements.</p>
+      <p style={p}>Browse our current <Link href="/shop?category=Pok%C3%A9mon" style={{ color: '#e8b820' }}>Pokémon</Link> selection, from Elite Trainer Boxes to figures, with honest condition and shipping across Canada and the USA. You can also explore the whole <Link href="/shop" style={{ color: '#e8b820' }}>shop</Link>, and new items arrive every week. For exact release dates and product contents, always check the official Pokémon announcements.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick your goal (packs, deck or collection), choose the matching format, and check the seal and the photos before you buy.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>

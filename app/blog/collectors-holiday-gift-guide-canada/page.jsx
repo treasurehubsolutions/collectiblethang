@@ -65,7 +65,7 @@ export default function Article() {
         <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A sealed Funko Pop: check the box before you order.</figcaption>
       </figure>
       <h2 style={h2}>Shop collectibles in Canada</h2>
-      <p style={p}>Browse our current selection of <Link href="/shop?category=Hot%20Wheels" style={a}>Hot Wheels</Link>, <Link href="/shop?category=Funko%20Pop" style={a}>Funko Pop</Link>, <Link href="/shop?category=LEGO" style={a}>LEGO</Link>, <Link href="/shop?category=Star%20Wars" style={a}>Star Wars</Link> and <Link href="/shop?category=Marvel" style={a}>Marvel</Link> at The Shelf Cartel, with real photos, honest condition and shipping across Canada and the USA. You can also check the <Link href="/shop" style={a}>full shop</Link> for deals.</p>
+      <p style={p}>Browse our current selection of <Link href="/shop?category=Hot%20Wheels" style={a}>Hot Wheels</Link>, <Link href="/shop?category=Funko%20Pop" style={a}>Funko Pop</Link>, <Link href="/shop?category=LEGO" style={a}>LEGO</Link>, <Link href="/shop?category=Star%20Wars" style={a}>Star Wars</Link> and <Link href="/shop?category=Marvel" style={a}>Marvel</Link> at The Shelf Cartel, with honest condition and shipping across Canada and the USA. You can also check the <Link href="/shop" style={a}>full shop</Link> for deals.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one theme per person, check the condition in the photos and order a few weeks before the holidays.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>

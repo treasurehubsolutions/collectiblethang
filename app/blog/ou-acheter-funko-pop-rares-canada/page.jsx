@@ -59,7 +59,7 @@ export default function Article() {
         </section>
       ))}
       <h2 style={h2}>Shop Funko Pop in Canada</h2>
-      <p style={p}>Browse our current <Link href="/shop?category=Funko%20Pop" style={{ color: '#e8b820' }}>Funko Pop</Link> selection at The Shelf Cartel, with real photos, honest condition and shipping across Canada and the USA. New items arrive every week.</p>
+      <p style={p}>Browse our current <Link href="/shop?category=Funko%20Pop" style={{ color: '#e8b820' }}>Funko Pop</Link> selection at The Shelf Cartel, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick the exact character you want, check the box in the photos, and compare recent sold prices before you buy.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>

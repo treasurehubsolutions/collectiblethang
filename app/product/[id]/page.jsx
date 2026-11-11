@@ -6,22 +6,41 @@ import Link from 'next/link'
 
 const BASE = 'https://theshelfcartel.com'
 
+function shortTitle(t, max = 60) {
+  const s = String(t || '').replace(/\s+/g, ' ').trim()
+  if (s.length <= max) return s
+  const cut = s.slice(0, max)
+  const i = cut.lastIndexOf(' ')
+  return (i > 30 ? cut.slice(0, i) : cut).replace(/[\s,\-–|:]+$/, '')
+}
+
 export async function generateMetadata({ params }) {
   try {
     const p = await getProduct(params.id)
-    if (!p) return {}
-    const price = `CA$${p.price.toFixed(2)}`
+    if (!p) return { robots: { index: false, follow: false } }
+    const price = `CA$${Number(p.price).toFixed(2)}`
+    const url = `${BASE}/product/${params.id}`
+    const desc = `Buy ${p.title} for ${price}. ${p.description ? String(p.description).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120) : 'Toys & collectibles shipped across Canada and USA.'} Shop at The Shelf Cartel.`
     return {
-      title: `${p.title} – ${price} | The Shelf Cartel`,
-      description: `Buy ${p.title} for ${price}. ${p.description ? p.description.slice(0, 120) : 'Toys & collectibles shipped across Canada and USA.'} Shop at The Shelf Cartel.`,
+      title: `${shortTitle(p.title)} | The Shelf Cartel`,
+      description: desc,
       alternates: {
-        canonical: `${BASE}/product/${params.id}`,
+        canonical: url,
       },
       openGraph: {
         title: `${p.title} – ${price}`,
         description: `${p.title} available at The Shelf Cartel. Ships Canada & USA.`,
-        images: p.photos?.[0] ? [{ url: p.photos[0] }] : [],
+        url,
+        siteName: 'The Shelf Cartel',
+        locale: 'en_CA',
+        images: p.photos?.[0] ? [{ url: p.photos[0], alt: p.title }] : [],
         type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${shortTitle(p.title, 70)} – ${price}`,
+        description: `${p.title} at The Shelf Cartel. Ships Canada & USA.`,
+        images: p.photos?.[0] ? [p.photos[0]] : [],
       },
     }
   } catch(e) {
