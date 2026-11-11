@@ -8,8 +8,8 @@ const SECTIONS = [
   {
     t: ['About these terms', 'À propos de ces conditions'],
     b: [
-      'These terms apply to purchases made on theshelfcartel.com, an online shop operated from Quebec, Canada under the name The Shelf Cartel (also selling on eBay as collectiblethang). By placing an order you agree to them.',
-      'Ces conditions s’appliquent aux achats faits sur theshelfcartel.com, une boutique en ligne exploitée du Québec, Canada, sous le nom The Shelf Cartel (aussi présente sur eBay sous collectiblethang). En passant une commande, vous les acceptez.',
+      'These terms apply to purchases made on theshelfcartel.com, an online shop operated from Quebec, Canada under the name The Shelf Cartel (also selling on eBay as theshelfcartel). By placing an order you agree to them.',
+      'Ces conditions s’appliquent aux achats faits sur theshelfcartel.com, une boutique en ligne exploitée du Québec, Canada, sous le nom The Shelf Cartel (aussi présente sur eBay sous theshelfcartel). En passant une commande, vous les acceptez.',
     ],
   },
   {

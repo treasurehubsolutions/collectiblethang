@@ -38,7 +38,7 @@ export default function ContactPage() {
       <div style={box}>
         <h2 style={h2}>{en ? 'Find us elsewhere' : 'Nous trouver ailleurs'}</h2>
         <p style={p}>
-          <a href="https://www.ebay.ca/str/collectiblethang" target="_blank" rel="noopener noreferrer" style={{color:'#e8b820'}}>eBay (collectiblethang)</a>{' · '}
+          <a href="https://www.ebay.ca/str/collectiblethang" target="_blank" rel="noopener noreferrer" style={{color:'#e8b820'}}>eBay (theshelfcartel)</a>{' · '}
           <a href="https://www.instagram.com/theshelfcartel/" target="_blank" rel="noopener noreferrer" style={{color:'#e8b820'}}>Instagram</a>{' · '}
           <a href="https://www.facebook.com/theshelfcartel" target="_blank" rel="noopener noreferrer" style={{color:'#e8b820'}}>Facebook</a>
         </p>

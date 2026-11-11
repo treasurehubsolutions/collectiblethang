@@ -8,8 +8,8 @@ const SECTIONS = [
   {
     t: ['Who we are', 'Qui nous sommes'],
     b: [
-      'The Shelf Cartel (theshelfcartel.com) is an online shop based in Quebec, Canada, selling toys and collectibles. We also sell on eBay under the store name collectiblethang. This policy explains what personal information we collect, why, and your rights.',
-      'The Shelf Cartel (theshelfcartel.com) est une boutique en ligne du Québec, Canada, qui vend des jouets et articles de collection. Nous vendons aussi sur eBay sous le nom de boutique collectiblethang. Cette politique explique quels renseignements personnels nous recueillons, pourquoi, et quels sont vos droits.',
+      'The Shelf Cartel (theshelfcartel.com) is an online shop based in Quebec, Canada, selling toys and collectibles. We also sell on eBay under the store name theshelfcartel. This policy explains what personal information we collect, why, and your rights.',
+      'The Shelf Cartel (theshelfcartel.com) est une boutique en ligne du Québec, Canada, qui vend des jouets et articles de collection. Nous vendons aussi sur eBay sous le nom de boutique theshelfcartel. Cette politique explique quels renseignements personnels nous recueillons, pourquoi, et quels sont vos droits.',
     ],
   },
   {
