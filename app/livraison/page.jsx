@@ -57,8 +57,8 @@ export default function LivraisonPage() {
       <S title={en ? '↩️ Return Policy' : '↩️ Politique de retour'}>
         <p style={{fontSize:14,color:'#888',lineHeight:1.8,marginBottom:16}}>
           {en
-            ? 'Returns accepted within 30 days of receiving your order. Items must be new, unopened, unused, and in original condition. Returns accepted for both defective and non-defective items (change of mind included). Method: by post.'
-            : "Retours acceptés dans les 30 jours suivant la réception de votre commande. Les articles doivent être neufs, non ouverts, non utilisés et dans leur état d'origine. Retours acceptés pour les articles défectueux ET non défectueux (changement d'avis inclus). Méthode : par envoi postal."}
+            ? 'Returns accepted within 30 days of receiving your order. Items must be new, unopened, unused, and in original condition. Returns accepted for both defective and non-defective items (change of mind included). Method: by post. To start a return, email us first; we reply within 24 hours with the return instructions and address. Refunds are issued to the original payment method within 3–5 business days of receiving the returned item.'
+            : "Retours acceptés dans les 30 jours suivant la réception de votre commande. Les articles doivent être neufs, non ouverts, non utilisés et dans leur état d'origine. Retours acceptés pour les articles défectueux ET non défectueux (changement d'avis inclus). Méthode : par envoi postal. Pour amorcer un retour, écrivez-nous d'abord; nous répondons dans les 24 heures avec les instructions et l'adresse de retour. Les remboursements sont émis au mode de paiement d'origine dans les 3 à 5 jours ouvrables suivant la réception de l'article retourné."}
         </p>
         {[
           ['✅',
@@ -85,9 +85,9 @@ export default function LivraisonPage() {
             ? 'Questions about your order, a return, or anything else? We reply within 24 hours.'
             : 'Questions sur votre commande, un retour ou autre chose ? Nous répondons dans les 24 heures.'}
         </p>
-        <a href="mailto:treasurehubsolutions@gmail.com"
+        <a href="mailto:theshelfcartel@gmail.com"
           style={{display:'inline-block',background:'#e8b820',color:'#000',padding:'10px 20px',borderRadius:6,fontWeight:700,fontSize:13,textDecoration:'none',marginRight:12}}>
-          ✉️ treasurehubsolutions@gmail.com
+          ✉️ theshelfcartel@gmail.com
         </a>
       </S>
     </div>

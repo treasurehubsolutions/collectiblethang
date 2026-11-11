@@ -15,7 +15,7 @@ export default function ReturnsPage() {
       </div>
 
       <h1 style={{fontFamily:'Bebas Neue',fontSize:36,color:'#fff',letterSpacing:2,marginBottom:8}}>Return Policy</h1>
-      <p style={{color:'#555',fontSize:13,marginBottom:40}}>Last updated: October 2024</p>
+      <p style={{color:'#555',fontSize:13,marginBottom:40}}>Last updated: November 2026</p>
 
       <section style={{marginBottom:32}}>
         <h2 style={{color:'#fff',fontSize:18,fontWeight:700,marginBottom:12}}>30-Day Return Window</h2>

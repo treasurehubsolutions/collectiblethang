@@ -14,7 +14,7 @@ export default function AboutPage() {
       <p style={{fontSize:15,color:'#888',lineHeight:1.8,marginBottom:16}}>{tx.aboutP2}</p>
       <p style={{fontSize:15,color:'#888',lineHeight:1.8,marginBottom:40}}>{tx.aboutP3}</p>
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(190px,1fr))',gap:16,marginBottom:40}}>
-        {[['1 500+','Items / Articles'],['99.5%','Positive Feedback'],['9 000+','Real Photos'],['30 days','Return Policy']].map(([n,l])=>(
+        {[['1 893+','Items / Articles'],['99.5%','Positive Feedback'],['10 000+','Real Photos'],['30 days','Return Policy']].map(([n,l])=>(
           <div key={n} style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:10,padding:'24px',textAlign:'center'}}>
             <div style={{fontFamily:'Bebas Neue',fontSize:36,color:'#e8b820',letterSpacing:1}}>{n}</div>
             <div style={{fontSize:11,color:'#666',marginTop:4}}>{l}</div>
