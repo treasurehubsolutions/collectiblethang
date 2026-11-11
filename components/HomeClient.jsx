@@ -43,7 +43,7 @@ function ProductCard({ p }) {
       <Link href={`/product/${p.id}`} style={{textDecoration:'none'}}>
         <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
           {p.photos?.[0]
-            ? <img src={p.photos[0]} alt={p.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading='lazy'/>
+            ? <img src={p.photos[0]} alt={p.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading='lazy' decoding='async' width={300} height={300}/>
             : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>{m.emoji}</div>}
           {isNew&&<span style={{position:'absolute',bottom:4,left:4,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>NEW</span>}
         </div>
@@ -111,7 +111,7 @@ export default function HomeClient() {
             </div>
           </div>
           <div style={{display:'flex',border:'1px solid rgba(201,162,39,.15)',borderRadius:12,overflow:'hidden',background:'rgba(201,162,39,.03)'}}>
-            {[['1 893+','Items in stock'],['10 000+','Real photos'],['99.5%','Positive feedback'],['CA','Canada & USA']].map(([n,l])=>(
+            {[['1 893+','Items in stock'],['10 000+','Real photos'],['99.6%','Positive feedback'],['CA','Canada & USA']].map(([n,l])=>(
               <div key={l} style={{padding:'20px 24px',textAlign:'center',borderRight:'1px solid rgba(201,162,39,.1)'}}>
                 <div style={{fontFamily:'Bebas Neue',fontSize:26,color:'#c9a227',letterSpacing:1}}>{n}</div>
                 <div style={{fontSize:10,color:'#555',textTransform:'uppercase',letterSpacing:'0.08em',marginTop:4}}>{l}</div>

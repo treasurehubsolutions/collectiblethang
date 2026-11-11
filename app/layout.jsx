@@ -94,7 +94,7 @@ export default function RootLayout({ children }) {
                 <div style={{display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
                   <a href="https://www.ebay.ca/str/collectiblethang?_tab=feedback" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
                     <img src="https://pages.ebay.com/favicon.ico" alt="eBay" style={{width:12,height:12}}/>
-                    <span>⭐ 99.5% on eBay</span>
+                    <span>⭐ 99.6% on eBay</span>
                   </a>
                   <a href="https://www.instagram.com/theshelfcartel/" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
                     <img src="https://www.instagram.com/favicon.ico" alt="Instagram" style={{width:13,height:13}}/>
