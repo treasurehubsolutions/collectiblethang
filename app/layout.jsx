@@ -86,6 +86,7 @@ export default function RootLayout({ children }) {
                     ↩️ 30-day return policy
                   </div>
                   <a href="/contact" style={{display:'block',fontSize:13,color:'#666',marginTop:12,textDecoration:'none'}}>✉️ Contact Us</a>
+                  <a href="https://m.me/theshelfcartel" target="_blank" rel="noopener noreferrer" style={{display:'block',fontSize:13,color:'#666',marginTop:8,textDecoration:'none'}}>💬 Contact us on Messenger</a>
                 </div>
               </div>
               <div style={{maxWidth:1300,margin:'0 auto',paddingTop:20,borderTop:'1px solid #1a1a20',display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8,alignItems:'center'}}>
@@ -99,13 +100,17 @@ export default function RootLayout({ children }) {
                     <img src="https://www.instagram.com/favicon.ico" alt="Instagram" style={{width:13,height:13}}/>
                     Instagram
                   </a>
-                  <a href="https://www.facebook.com/theshelfcartel" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
+                  <a href="https://m.me/theshelfcartel" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
                     <img src="https://www.facebook.com/favicon.ico" alt="Facebook" style={{width:13,height:13}}/>
-                    Facebook
+                    Contact us on Messenger
                   </a>
                 </div>
               </div>
             </footer>
+            <a href="https://m.me/theshelfcartel" target="_blank" rel="noopener noreferrer" aria-label="Contact us on Messenger" title="Contact us on Messenger"
+              style={{position:'fixed',right:20,bottom:20,zIndex:60,width:56,height:56,borderRadius:'50%',background:'linear-gradient(135deg,#00b2ff,#006aff 60%,#a033ff)',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 16px rgba(0,0,0,.45)',textDecoration:'none'}}>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.2 5.42 3.15 7.16.16.14.26.35.27.57l.05 1.78c.02.57.6.94 1.12.71l1.98-.87c.17-.07.35-.09.52-.05.91.25 1.88.38 2.9.38 5.64 0 10-4.13 10-9.7S17.64 2 12 2zm6 7.46l-2.94 4.66c-.47.74-1.47.93-2.18.4l-2.34-1.75a.6.6 0 0 0-.72 0l-3.16 2.4c-.42.32-.97-.18-.69-.63l2.94-4.66c.47-.74 1.47-.93 2.18-.4l2.34 1.75c.21.16.5.16.72 0l3.16-2.4c.42-.32.97.18.69.63z"/></svg>
+            </a>
           </CartProvider>
         </LangProvider>
       </body>

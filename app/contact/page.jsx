@@ -28,6 +28,16 @@ export default function ContactPage() {
         </p>
       </div>
       <div style={box}>
+        <h2 style={h2}>{en ? 'Contact us on Messenger' : 'Contactez-nous sur Messenger'}</h2>
+        <p style={{...p,marginBottom:12}}>
+          {en ? 'Send us a message on Messenger. We reply within 24 hours.' : 'Écrivez-nous sur Messenger. Nous répondons dans les 24 heures.'}
+        </p>
+        <a href="https://m.me/theshelfcartel" target="_blank" rel="noopener noreferrer"
+          style={{display:'inline-block',background:'#1877f2',color:'#fff',padding:'10px 20px',borderRadius:6,fontWeight:700,fontSize:13,textDecoration:'none'}}>
+          💬 {en ? 'Contact us on Messenger' : 'Contactez-nous sur Messenger'}
+        </a>
+      </div>
+      <div style={box}>
         <h2 style={h2}>{en ? 'Orders, shipping and returns' : 'Commandes, livraison et retours'}</h2>
         <p style={p}>
           {en ? 'Delivery times, shipping rates and our 30-day return policy are on the ' : 'Les délais, frais de livraison et notre politique de retour de 30 jours sont sur la page '}
