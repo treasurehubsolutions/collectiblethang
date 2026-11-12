@@ -9,6 +9,9 @@ const nextConfig = {
         destination: 'https://theshelfcartel.com/:path*',
         permanent: true,
       },
+      { source: '/shipping', destination: '/livraison', permanent: true },
+      { source: '/shipping-policy', destination: '/livraison', permanent: true },
+      { source: '/privacy', destination: '/privacy-policy', permanent: true },
     ]
   },
 }
