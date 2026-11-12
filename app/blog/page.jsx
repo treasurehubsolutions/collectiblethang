@@ -82,6 +82,21 @@ const posts = [
     title: 'Teenage Mutant Ninja Turtles Collectibles: Figures, Hot Wheels and Smart Buying',
     excerpt: 'Pick a lane, check the scale, accessories and packaging, and buy TMNT figures and vehicles with confidence.',
   },
+  {
+    href: '/blog/video-game-collectibles-guide-canada',
+    title: 'Video Game Collectibles: Figures from Zelda Season to Sonic, PlayStation and Mortal Kombat',
+    excerpt: 'Pick a franchise, check the scale and accessories, and buy video game figures with confidence this holiday season.',
+  },
+  {
+    href: '/blog/hockey-collectibles-guide-canada',
+    title: 'Hockey Collectibles in Canada: Bobbleheads, NHL Figures and Cards for Fans',
+    excerpt: 'Pick a team or era, check condition and packaging, and buy hockey bobbleheads, figures and cards with confidence.',
+  },
+  {
+    href: '/blog/vhs-tapes-collecting-guide-canada',
+    title: 'VHS Tapes and DVDs for Collectors in Canada: Condition, Language and Smart Buying',
+    excerpt: 'Check the tape and the case, understand English and French editions, buy lots wisely and store your movies.',
+  },
 ]
 
 export default function Blog() {

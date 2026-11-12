@@ -34,6 +34,9 @@ export async function GET() {
     `<url><loc>${baseUrl}/blog/transformers-dc-multiverse-collecting-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/blog/jurassic-park-world-collectibles-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/blog/tmnt-collectibles-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/video-game-collectibles-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/hockey-collectibles-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/vhs-tapes-collecting-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/returns</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,
   ]
 
