@@ -22,6 +22,9 @@ export default function AdminPage() {
   const [showChangePw, setShowChangePw] = useState(false)
   const [newPw, setNewPw] = useState('')
   const [showDeleted, setShowDeleted] = useState(false)
+  const [traffic, setTraffic] = useState(null)
+  const [tDays, setTDays] = useState(30)
+  const [tLoading, setTLoading] = useState(false)
   const fileRef = useRef()
 
   async function login() {
@@ -53,6 +56,15 @@ export default function AdminPage() {
     const data = await res.json()
     setOrders(data || [])
     setLoading(false)
+  }
+
+  async function loadTraffic(days = tDays) {
+    setTLoading(true)
+    try {
+      const res = await fetch('/api/admin?action=traffic&days=' + days, { headers: { 'x-admin-pw': pw } })
+      setTraffic(await res.json())
+    } catch (e) { setTraffic({ error: 'network' }) }
+    setTLoading(false)
   }
 
   async function saveProduct() {
@@ -164,8 +176,8 @@ export default function AdminPage() {
       {msg && <div style={{background:'rgba(74,222,128,.1)',border:'1px solid rgba(74,222,128,.3)',color:'#4ade80',padding:'10px 16px',borderRadius:8,marginBottom:16,fontWeight:600}}>{msg}</div>}
 
       <div style={{display:'flex',gap:0,marginBottom:24,borderBottom:'1px solid #1c1c28'}}>
-        {[['products',`Produits (${products.filter(p=>!p.admin_deleted).length})`],['add',editId?'Modifier':'Ajouter'],['orders','Commandes']].map(([t,l])=>(
-          <button key={t} onClick={()=>{setTab(t); if(t==='orders'&&orders.length===0) loadOrders()}} style={{padding:'10px 20px',background:'none',border:'none',borderBottom:tab===t?'2px solid #e8b820':'2px solid transparent',color:tab===t?'#e8b820':'#666',fontWeight:tab===t?700:400,fontSize:14,cursor:'pointer'}}>{l}</button>
+        {[['products',`Produits (${products.filter(p=>!p.admin_deleted).length})`],['add',editId?'Modifier':'Ajouter'],['orders','Commandes'],['traffic','Trafic']].map(([t,l])=>(
+          <button key={t} onClick={()=>{setTab(t); if(t==='orders'&&orders.length===0) loadOrders(); if(t==='traffic'&&!traffic) loadTraffic()}} style={{padding:'10px 20px',background:'none',border:'none',borderBottom:tab===t?'2px solid #e8b820':'2px solid transparent',color:tab===t?'#e8b820':'#666',fontWeight:tab===t?700:400,fontSize:14,cursor:'pointer'}}>{l}</button>
         ))}
       </div>
 
@@ -255,6 +267,83 @@ export default function AdminPage() {
             </button>
             <button onClick={()=>{setForm(EMPTY);setEditId(null);setTab('products')}} style={{padding:'14px 20px',background:'#12121e',color:'#888',border:'1px solid #1c1c28',borderRadius:8,fontWeight:600,fontSize:14,cursor:'pointer'}}>Annuler</button>
           </div>
+        </div>
+      )}
+
+      {tab==='traffic' && (
+        <div>
+          <div style={{display:'flex',gap:8,alignItems:'center',marginBottom:16,flexWrap:'wrap'}}>
+            {[1,7,30,90].map(d=>(
+              <button key={d} onClick={()=>{setTDays(d);loadTraffic(d)}} style={{padding:'8px 14px',borderRadius:6,border:'1px solid #1c1c28',background:tDays===d?'#e8b820':'#12121e',color:tDays===d?'#000':'#888',fontSize:12,fontWeight:700,cursor:'pointer'}}>{d===1?'24 h':d+' jours'}</button>
+            ))}
+            <button onClick={()=>loadTraffic()} style={{padding:'8px 14px',borderRadius:6,border:'1px solid #1c1c28',background:'#12121e',color:'#888',fontSize:12,cursor:'pointer'}}>↻ Rafraîchir</button>
+          </div>
+          {tLoading && <div style={{textAlign:'center',padding:60,color:'#555'}}>Chargement...</div>}
+          {!tLoading && traffic?.error && (
+            <div style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:16,color:'#aaa',fontSize:13,lineHeight:1.7}}>
+              {traffic.error==='table'
+                ? <>La table <b>page_views</b> n'existe pas encore dans Supabase. Ouvre Supabase &gt; SQL Editor et colle le contenu du fichier <b>sql-page-views.sql</b> (dossier Agent), puis clique Rafraîchir.</>
+                : <>Impossible de charger le trafic. Réessaie.</>}
+            </div>
+          )}
+          {!tLoading && traffic && !traffic.error && (() => {
+            const t = traffic
+            const maxDay = Math.max(1, ...t.byDay.map(d=>d.views))
+            const maxHour = Math.max(1, ...t.byHour.map(h=>h.views))
+            let names = null
+            try { names = new Intl.DisplayNames(['fr'], { type: 'region' }) } catch (e) {}
+            const cName = c => c === '??' ? 'Inconnu' : (names ? (names.of(c) || c) : c)
+            const Card = ({label, value}) => (
+              <div style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:'14px 16px',flex:'1 1 140px'}}>
+                <div style={{fontSize:11,color:'#666',textTransform:'uppercase',letterSpacing:'.08em'}}>{label}</div>
+                <div style={{fontSize:26,fontWeight:800,color:'#e8b820',marginTop:4}}>{value}</div>
+              </div>
+            )
+            const Table = ({title, rows, nameFn}) => (
+              <div style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:'14px 16px',flex:'1 1 280px'}}>
+                <div style={{fontSize:12,fontWeight:700,color:'#e8b820',marginBottom:10,textTransform:'uppercase',letterSpacing:'.08em'}}>{title}</div>
+                {rows.length===0 && <div style={{fontSize:12,color:'#555'}}>Aucune donnée</div>}
+                {rows.map(r=>(
+                  <div key={r.key} style={{display:'flex',justifyContent:'space-between',gap:8,fontSize:12,color:'#bbb',padding:'4px 0',borderBottom:'1px solid #1a1a28'}}>
+                    <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{nameFn?nameFn(r.key):r.key}</span>
+                    <span style={{color:'#888',whiteSpace:'nowrap'}}>{r.visitors} visiteurs · {r.views} pages</span>
+                  </div>
+                ))}
+              </div>
+            )
+            return (
+              <div style={{display:'flex',flexDirection:'column',gap:14}}>
+                <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+                  <Card label="Visiteurs" value={t.visitors}/>
+                  <Card label="Pages vues" value={t.views}/>
+                  <Card label="Pages / visiteur" value={t.visitors?(t.views/t.visitors).toFixed(1):'0'}/>
+                </div>
+                <div style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:'14px 16px'}}>
+                  <div style={{fontSize:12,fontWeight:700,color:'#e8b820',marginBottom:10,textTransform:'uppercase',letterSpacing:'.08em'}}>Par jour (heure de Montréal)</div>
+                  <div style={{display:'flex',alignItems:'flex-end',gap:3,height:90}}>
+                    {t.byDay.map(d=>(<div key={d.key} title={d.key+' : '+d.visitors+' visiteurs, '+d.views+' pages'} style={{flex:1,minWidth:3,background:'#e8b820',height:Math.max(3,Math.round(d.views/maxDay*90)),borderRadius:2}}/>))}
+                    {t.byDay.length===0 && <div style={{fontSize:12,color:'#555'}}>Aucune visite enregistrée pour l'instant.</div>}
+                  </div>
+                </div>
+                <div style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:'14px 16px'}}>
+                  <div style={{fontSize:12,fontWeight:700,color:'#e8b820',marginBottom:10,textTransform:'uppercase',letterSpacing:'.08em'}}>Par heure de la journée (heure de Montréal)</div>
+                  <div style={{display:'flex',alignItems:'flex-end',gap:3,height:90}}>
+                    {t.byHour.map(h=>(<div key={h.key} title={h.key+' h : '+h.views+' pages'} style={{flex:1,background:'#4ade80',height:Math.max(3,Math.round(h.views/maxHour*90)),borderRadius:2}}/>))}
+                  </div>
+                  <div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'#555',marginTop:4}}><span>0 h</span><span>6 h</span><span>12 h</span><span>18 h</span><span>23 h</span></div>
+                </div>
+                <div style={{display:'flex',gap:14,flexWrap:'wrap'}}>
+                  <Table title="Sources" rows={t.bySource}/>
+                  <Table title="Pays" rows={t.byCountry} nameFn={cName}/>
+                </div>
+                <div style={{display:'flex',gap:14,flexWrap:'wrap'}}>
+                  <Table title="Pages les plus vues" rows={t.byPage}/>
+                  <Table title="Appareils" rows={t.byDevice}/>
+                </div>
+                <div style={{fontSize:11,color:'#555'}}>Compteur anonyme (aucune IP ni cookie); les robots sont ignorés. Les visites de /admin ne sont pas comptées.</div>
+              </div>
+            )
+          })()}
         </div>
       )}
 

@@ -32,6 +32,44 @@ export async function GET(req) {
     return NextResponse.json(orders)
   }
 
+  if (action === 'traffic') {
+    const days = Math.min(Math.max(parseInt(searchParams.get('days')) || 30, 1), 90)
+    const since = new Date(Date.now() - days * 86400000).toISOString()
+    const rows = []
+    for (let from = 0; from < 50000; from += 1000) {
+      const { data, error } = await supabase.from('page_views')
+        .select('created_at, path, country, source, device, sid')
+        .gte('created_at', since).order('created_at', { ascending: true }).range(from, from + 999)
+      if (error) return NextResponse.json({ error: 'table', message: error.message })
+      if (!data || data.length === 0) break
+      rows.push(...data)
+      if (data.length < 1000) break
+    }
+    const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hourCycle: 'h23' })
+    const agg = () => ({ views: 0, sids: new Set() })
+    const bump = (m, k, sid) => { const a = m[k] || (m[k] = agg()); a.views++; if (sid) a.sids.add(sid) }
+    const byDay = {}, byHour = {}, byCountry = {}, bySource = {}, byPage = {}, byDevice = {}
+    const allSids = new Set()
+    for (const r of rows) {
+      const parts = Object.fromEntries(fmt.formatToParts(new Date(r.created_at)).map(x => [x.type, x.value]))
+      bump(byDay, `${parts.year}-${parts.month}-${parts.day}`, r.sid)
+      bump(byHour, String(parseInt(parts.hour)), r.sid)
+      bump(byCountry, r.country || '??', r.sid)
+      bump(bySource, r.source || 'Direct', r.sid)
+      bump(byPage, r.path, r.sid)
+      bump(byDevice, r.device || '?', r.sid)
+      if (r.sid) allSids.add(r.sid)
+    }
+    const out = m => Object.entries(m).map(([k, a]) => ({ key: k, views: a.views, visitors: a.sids.size })).sort((a, b) => b.views - a.views)
+    const hours = Array.from({ length: 24 }, (_, h) => ({ key: String(h), views: byHour[h]?.views || 0 }))
+    return NextResponse.json({
+      days, views: rows.length, visitors: allSids.size,
+      byDay: out(byDay).sort((a, b) => a.key.localeCompare(b.key)),
+      byHour: hours, byCountry: out(byCountry).slice(0, 15), bySource: out(bySource).slice(0, 15),
+      byPage: out(byPage).slice(0, 15), byDevice: out(byDevice),
+    })
+  }
+
   return NextResponse.json([])
 }
 

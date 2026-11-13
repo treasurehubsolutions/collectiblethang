@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import CartProvider from '../components/CartProvider'
 import TrustBar from '../components/TrustBar'
 import LangProvider from '../components/LangProvider'
+import Tracker from '../components/Tracker'
 
 export const metadata = {
   metadataBase: new URL('https://theshelfcartel.com'),
@@ -49,6 +50,7 @@ export default function RootLayout({ children }) {
           fbq('init', '2748276305566340');
           fbq('track', 'PageView');`}
         </Script>
+        <Tracker/>
         <LangProvider>
           <CartProvider>
             <Header/>
