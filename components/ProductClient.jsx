@@ -37,7 +37,7 @@ export default function ProductClient({ product: p }) {
       <div>
         <div style={{aspectRatio:'1',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:12,overflow:'hidden',marginBottom:10,position:'relative'}}>
           {photos[mainImg]
-            ? <img src={photos[mainImg]} alt={p.title} style={{width:'100%',height:'100%',objectFit:'contain',padding:16}}/>
+            ? <img src={photos[mainImg]} alt={`${p.title} - ${p.category} collectible`} width={800} height={800} style={{width:'100%',height:'100%',objectFit:'contain',padding:16}}/>
             : <div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:80}}>{m.emoji}</div>}
         </div>
         {photos.length > 1 && (
@@ -45,7 +45,7 @@ export default function ProductClient({ product: p }) {
             {photos.map((ph,i) => (
               <div key={i} onClick={() => setMainImg(i)}
                 style={{width:60,height:60,borderRadius:6,overflow:'hidden',background:'#0f0f1c',border:`2px solid ${i===mainImg?m.color:'#1c1c30'}`,cursor:'pointer',flexShrink:0}}>
-                <img src={ph} alt={`${p.title} - photo ${i+1}`} style={{width:'100%',height:'100%',objectFit:'contain',padding:4}}/>
+                <img src={ph} alt={`${p.title} - photo ${i+1}`} width={60} height={60} loading="lazy" style={{width:'100%',height:'100%',objectFit:'contain',padding:4}}/>
               </div>
             ))}
           </div>

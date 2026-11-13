@@ -61,12 +61,27 @@ export default async function ProductPage({ params }) {
   } catch(e) {}
 
   const availability = p.out_of_stock ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock'
+  const cond = String(p.condition || '')
+  const itemCondition = /new|sealed|mint/i.test(cond) ? 'https://schema.org/NewCondition'
+    : /used|pre-owned|loose|good|fair/i.test(cond) ? 'https://schema.org/UsedCondition'
+    : undefined
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE },
+      { '@type': 'ListItem', position: 2, name: 'Shop', item: `${BASE}/shop` },
+      { '@type': 'ListItem', position: 3, name: p.category, item: `${BASE}/shop?category=${encodeURIComponent(p.category)}` },
+      { '@type': 'ListItem', position: 4, name: p.title, item: `${BASE}/product/${p.id}` },
+    ],
+  }
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: p.title,
     description: p.description || p.title,
-    image: p.photos?.[0] || undefined,
+    image: (p.photos && p.photos.length) ? p.photos.slice(0, 6) : undefined,
+    category: p.category || undefined,
     sku: p.id,
     brand: { '@type': 'Brand', name: 'The Shelf Cartel' },
     offers: {
@@ -75,6 +90,7 @@ export default async function ProductPage({ params }) {
       priceCurrency: 'CAD',
       price: p.price.toFixed(2),
       availability,
+      ...(itemCondition ? { itemCondition } : {}),
       seller: { '@type': 'Organization', name: 'The Shelf Cartel' },
     },
   }
@@ -84,6 +100,10 @@ export default async function ProductPage({ params }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <div style={{fontSize:12,color:'#555',marginBottom:20,display:'flex',alignItems:'center',gap:6,flexWrap:'wrap'}}>
         <Link href="/" style={{color:'#666',textDecoration:'none'}}>Home</Link>
