@@ -10,3 +10,6 @@ node_modules/
 # Fichier agent (contient des cles)
 CLAUDE.md
 Agent/
+.api-sync-state.json
+.api-pages-cache.json
+sync-log.txt
