@@ -30,6 +30,9 @@ const sections = [
     'The photos: always buy from sellers who show real photos of the actual item, not stock images.'] },
   { h: '4. Store your cars properly', p: ['Protect your cars from sunlight, humidity and crushing. Protector cases for carded cars and simple display shelves for loose ones are inexpensive and keep your collection in good shape.'] },
   { h: '5. Buy smart: lots, singles and fair prices', p: ['Lots can be a great way to build a collection fast, but check what is really inside and compare prices with recent sold listings before you buy. Singles let you target exactly the models you want. A fair price, clear photos and honest condition notes are the signs of a seller you can trust.'] },
+  { h: '6. Loose cars or carded cars?', p: ['Carded cars protect the package and are the safer choice if condition or resale matters to you. Loose cars cost less, are easy to display and are great when you simply love the casting. Many beginners mix both: carded for the pieces they care most about, loose for the rest.'] },
+  { h: '7. Set a budget and a pace', p: ['It is easy to overspend in the first weeks. Decide how much you want to spend each month and stick to your theme. A slow, steady collection is more satisfying than a pile of random cars, and it gives you time to learn what a fair price looks like.'] },
+  { h: '8. Build a wish list and track what you own', p: ['Keep a simple list with the casting name, the series, the year and whether you own it loose or carded. It helps you spot a good deal quickly and stops you from buying the same car twice.'] },
 ]
 
 export default function Article() {
@@ -40,7 +43,7 @@ export default function Article() {
     description: DESC,
     image: [IMG],
     datePublished: '2026-11-09',
-    dateModified: '2026-11-10',
+    dateModified: '2026-11-13',
     mainEntityOfPage: `${BASE}/blog/guide-debuter-collection-hot-wheels`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },

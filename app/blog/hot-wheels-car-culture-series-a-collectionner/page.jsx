@@ -27,6 +27,9 @@ const sections = [
     'Card and blister condition: soft corners and dents lower the value.'] },
   { h: '4. What to look for in a series worth collecting', p: ['A good Car Culture series has a clear theme, real-car castings you recognize, and metal bodies with rubber tires and detailed paint. Pick the themes you actually like, whether that is Japanese classics, American muscle or race-day transport, because a collection built around your taste is easier to finish and more fun to display.'] },
   { h: '5. Buy smart and protect your cars', p: ['Compare recent sold listings for the exact casting before you pay, and ask for real photos of the item you will receive. Keep carded cars in protective cases and store loose cars away from heat and direct sun. If you are just starting out, our guide on how to tell Premium from mainline will help you spot what you are holding.'] },
+  { h: '6. Loose cars versus complete sets', p: ['Carded sets keep the card art and the series name intact, which is why many collectors prefer them when they want to finish a theme or resell later. Loose cars cost less and are perfect for display if you only love one casting. If you buy loose, check that the rubber tires are clean and the paint and tampos are sharp, since these wear first.'] },
+  { h: '7. Store and display your collection', p: ['Keep Car Culture cars out of direct sun and away from humidity, which fade paint and can yellow plastic. Carded cars stay crisp in clear protective cases, and the full five-car set looks best displayed together so the theme reads at a glance. Loose cars fit well in a shallow case with one space per car.'] },
+  { h: '8. Build a wish list and track what you own', p: ['Write down the series name, the casting, the year and whether you own it loose or carded. A simple list shows you which themes are still missing a car, helps you spot a good deal quickly and stops you from buying the same casting twice.'] },
 ]
 
 export default function Article() {
@@ -36,7 +39,8 @@ export default function Article() {
     headline: TITLE,
     description: DESC,
     image: [IMG1, IMG2],
-    dateModified: '2026-11-11',
+    datePublished: '2026-11-10',
+    dateModified: '2026-11-13',
     mainEntityOfPage: `${BASE}/blog/hot-wheels-car-culture-series-a-collectionner`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -66,7 +70,7 @@ export default function Article() {
         <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Vintage Racing Car Culture Corvette: check the card and the paint.</figcaption>
       </figure>
       <h2 style={h2}>Shop Hot Wheels Premium in Canada</h2>
-      <p style={p}>Browse our current <Link href="/shop?category=Hot%20Wheels%20Premium" style={{ color: '#e8b820' }}>Hot Wheels Premium</Link> and <Link href="/shop?category=Hot%20Wheels" style={{ color: '#e8b820' }}>Hot Wheels</Link> selection, with honest condition and shipping across Canada and the USA. You can also read <Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link> and the <Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>beginner’s guide</Link>.</p>
+      <p style={p}>Browse our current <Link href="/shop?category=Hot%20Wheels%20Premium" style={{ color: '#e8b820' }}>Hot Wheels Premium</Link> and <Link href="/shop?category=Hot%20Wheels" style={{ color: '#e8b820' }}>Hot Wheels</Link> selection, with honest condition and shipping across Canada and the USA. You can also read <Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link> the <Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>beginner’s guide</Link> and our <Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Treasure Hunt guide</Link>.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one theme you love, read the series name on the card, and compare recent sold prices before you buy.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Hot Wheels Treasure Hunts: How to Spot a Regular or Super Treasure Hunt</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul>

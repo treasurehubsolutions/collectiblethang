@@ -24,6 +24,8 @@ const sections = [
   { h: '3. Funko Pop: the box matters', p: ['For Funko Pop, the condition of the box is part of the gift. Look for sharp corners, a clean window and no creases. Choose characters from a franchise the person loves, and ask for photos of the actual box before you order. A protective case makes a nice add-on.'] },
   { h: '4b. Gamers on your list', p: ['Video game fans love figures from PlayStation, Sonic, Mortal Kombat and Nintendo franchises, and the Zelda 40th anniversary has them in a collecting mood. Check the scale and the accessories before you order. See our video game collectibles guide for the details.'] },
   { h: '4. LEGO, Star Wars and Marvel', p: ['LEGO sets are ideal for people who like to build, while Star Wars and Marvel figures suit fans who like to display characters. Pick a character, ship or team from a movie or series they enjoy. For older or discontinued pieces, compare the price with recent sold listings so you know it is fair.'] },
+  { h: '4c. Hockey, wrestling and DC fans', p: ['Sports and pop culture fans are easy to shop for once you know their team or character. Hockey bobbleheads and vintage NHL figures suit fans of a favourite club, wrestling figures suit anyone who grew up with the ring, and McFarlane DC figures suit fans of Batman and the wider DC universe. Our hockey, WWE and DC Multiverse guides explain what to check before you order.'] },
+  { h: '4d. Movie nights and nostalgia', p: ['VHS tapes and DVDs make a fun, low-cost gift for someone who loves classic films or a long-running TV show. Check the language (English or French), ask whether the tape or disc was tested and look for clear photos of the case. Our VHS and DVD guide covers the details.'] },
   { h: '5. Think about condition and gift presentation', p: ['Decide first if the gift is meant to be opened or kept sealed. A carded or boxed item should arrive in the same shape you saw in the photos, so check the description for any wear. A short note with the gift explaining why you picked it often means as much as the item itself.'] },
   { h: '6. Order early and keep it simple', p: ['Holiday shipping can be slow, so order a few weeks ahead. If you are buying for several people, a few small items, such as a Hot Wheels car, a Funko Pop and a small lot, can make a more fun package than a single big purchase. Keep a budget per person and write down who gets what.'] },
 ]
@@ -36,7 +38,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-05',
-    dateModified: '2026-11-11',
+    dateModified: '2026-11-13',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -76,6 +78,10 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={a}>Transformers and DC Multiverse Collecting Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/video-game-collectibles-guide-canada" style={a}>Video Game Collectibles: Figures from Zelda Season to Sonic, PlayStation and Mortal Kombat</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hallmark-keepsake-ornaments-collecting-guide-canada" style={a}>Hallmark Keepsake Ornaments Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/hockey-collectibles-guide-canada" style={a}>Hockey Collectibles Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/wwe-wrestling-collectibles-guide-canada" style={a}>WWE and Wrestling Collectibles Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={a}>McFarlane DC Multiverse Collecting Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/vhs-tapes-collecting-guide-canada" style={a}>VHS Tapes and DVDs Collecting Guide</Link></li>
       </ul>
     </article>
   )

@@ -97,6 +97,26 @@ const posts = [
     title: 'VHS Tapes and DVDs for Collectors in Canada: Condition, Language and Smart Buying',
     excerpt: 'Check the tape and the case, understand English and French editions, buy lots wisely and store your movies.',
   },
+  {
+    href: '/blog/wwe-wrestling-collectibles-guide-canada',
+    title: 'WWE Collectibles in Canada: Elite Figures, Retro LJN and Giant Plush for Wrestling Fans',
+    excerpt: 'Know the main figure families, check packaging and condition, and build a wrestling shelf with confidence.',
+  },
+  {
+    href: '/blog/mcfarlane-dc-multiverse-collecting-guide-canada',
+    title: 'McFarlane DC Multiverse Collecting Guide: Batman, Retro Super Friends and Absolute Figures',
+    excerpt: 'Know the lines, Build-A-Figure waves and presales, check the packaging and buy DC figures with confidence.',
+  },
+  {
+    href: '/blog/gi-joe-classified-collecting-guide-canada',
+    title: 'G.I. Joe Classified Collecting Guide: Retro Cardbacks, 6 Inch Figures and Smart Buying',
+    excerpt: 'Know the Classified Series, retro cardbacks and sets, check the packaging and build a G.I. Joe shelf with confidence.',
+  },
+  {
+    href: '/blog/diecast-funko-storage-display-guide-canada',
+    title: 'How to Store and Display Die-Cast Cars and Funko Pop Figures',
+    excerpt: 'Light, humidity, protectors, shelves and safe moving: keep your die-cast and Funko Pop collection in great condition.',
+  },
 ]
 
 export default function Blog() {

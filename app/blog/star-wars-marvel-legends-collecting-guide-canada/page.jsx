@@ -27,6 +27,9 @@ const sections = [
     'Build-A-Figure waves: check that the part you need is actually included.'] },
   { h: '4. Collect by character, era or theme', p: ['A focus turns random figures into a collection. You can follow one character, one film or series, one trilogy or one team. A clear theme also helps you say no to figures that do not fit, which saves money and shelf space.'] },
   { h: '5. Buy smart and watch for reissues', p: ['Compare the price with recent sold listings for the exact figure, and be careful with listings that use only stock photos. Popular figures are often reissued, so a high price today is not always a long-term bargain. We offer shipping across Canada and the USA, with careful packing for boxed figures.'] },
+  { h: '6. Carded, boxed or loose: choose your style', p: ['Some collectors keep every figure sealed, others open them to pose and play. Neither is wrong, but the choice affects price and storage. Sealed figures usually cost more and need careful protection, while loose figures are cheaper, easier to display with their accessories and fun to rearrange. If you are unsure, buy one of each and see which you enjoy more.'] },
+  { h: '7. Display and protect your figures', p: ['Direct sunlight fades paint and yellows plastic, so keep your shelf away from windows. A glass cabinet or a shelf with a dust cover keeps loose figures clean. For carded figures, clear protective cases keep the corners sharp and the bubble safe. Store extra accessories in small labeled bags so nothing gets lost when you change a pose.'] },
+  { h: '8. Build a wish list and track what you own', p: ['A simple list of the figures you want, with the line, the wave and the character name, stops impulse buys and duplicates. Keep a second list of what you already own, with the condition and what you paid. When a figure you are hunting appears, you can compare the price quickly and act with confidence instead of guessing.'] },
 ]
 
 export default function Article() {
@@ -37,7 +40,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-10',
-    dateModified: '2026-11-10',
+    dateModified: '2026-11-12',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -70,7 +73,7 @@ export default function Article() {
       <p style={p}>You can browse our current selection of <Link href="/shop?category=Star Wars" style={{ color: '#e8b820' }}>Star Wars</Link> and <Link href="/shop?category=Marvel" style={{ color: '#e8b820' }}>Marvel</Link> figures at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick a scale, check the box and the figure, then compare with recent sold prices before you buy.</p>
       <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={{ color: '#e8b820' }}>Where to Buy Rare Funko Pop Figures in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={{ color: '#e8b820' }}>Where to Buy Rare Funko Pop Figures in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>McFarlane DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul>
     </article>
   )
 }

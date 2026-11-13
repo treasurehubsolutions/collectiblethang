@@ -27,6 +27,9 @@ const sections = [
     'Base: casting name, year and country of manufacture should be sharp and readable.'] },
   { h: '4. Build a collection with a theme', p: ['A theme turns random cars into a collection. Popular ideas include a single brand (Porsche, Toyota), a type of vehicle (delivery trucks, 4x4s, emergency vehicles), a country series or one complete numbered set. A clear theme also helps you say no to cars that do not fit, which saves money.'] },
   { h: '5. Buy smart and combine shipping', p: ['Compare the price with recent sold listings for the exact casting and year, and be careful with listings that use only stock photos. Small cars are cheap to ship, so buying several together can save a lot on postage. We offer combined shipping across Canada and the USA on many Matchbox cars.'] },
+  { h: '6. Loose lots versus single cars', p: ['Lots of loose cars are a cheap way to discover what you like, but they usually mix condition levels and a few duplicates. Single cars cost more per piece and let you choose exactly the casting you want. A good approach is to buy singles for the cars that matter to your theme and lots for fun, trading and filling gaps.'] },
+  { h: '7. Store and display your cars', p: ['Keep cars away from direct sun and humidity, which fade paint and can yellow plastic blisters. Loose cars look great in a shallow display case or a compartment box, each in its own space so they do not chip each other. For carded cars, clear protective cases keep the corners sharp and the card flat.'] },
+  { h: '8. Build a wish list and track what you own', p: ['Keep a simple list with the casting name, the year, the series number and whether you own it loose or carded. When you see a good deal, you will know right away whether it fills a gap. A wish list also protects you from buying the same casting twice.'] },
 ]
 
 export default function Article() {
@@ -37,7 +40,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-10',
-    dateModified: '2026-11-10',
+    dateModified: '2026-11-12',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -70,7 +73,7 @@ export default function Article() {
       <p style={p}>You can browse our current selection of <Link href="/shop?category=Matchbox" style={{ color: '#e8b820' }}>Matchbox</Link> cars at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick a theme, check the base and the card, then compare with recent sold prices before you buy.</p>
       <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>How to Start a Hot Wheels Collection</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>How to Start a Hot Wheels Collection</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Hot Wheels Treasure Hunt Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul>
     </article>
   )
 }

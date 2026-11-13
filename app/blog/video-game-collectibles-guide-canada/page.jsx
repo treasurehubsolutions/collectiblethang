@@ -34,6 +34,8 @@ const sections = [
   { h: '6. Display and protect your collection', p: ['Direct sunlight fades paint and yellows plastic, so keep figures away from windows. Use a closed cabinet or acrylic cases to limit dust, wipe loose figures gently with a soft dry brush, and never store them in a hot attic or a damp basement. For boxed pieces, a clear protective case keeps corners sharp and the window clean.', 'Stands help a lot with top-heavy figures. Small posing stands and clear risers also let you build a layered display, with a tall character at the back and smaller ones in front.'] },
   { h: '7. Set a simple budget and a wish list', p: ['Decide what you can spend per month before you start browsing. Write a short wish list of three to five figures, ranked by how much you want them, and buy one at a time. This avoids impulse purchases and makes it easier to wait for a fair price instead of overpaying for hype.', 'Remember to add shipping to your total. Buying several figures from the same seller in one order usually saves on delivery and gives you one parcel to track.'] },
   { h: '8. Buy smart during the holiday rush', p: ['New releases and anniversary editions get scalped and overpriced. Compare recent sold prices instead of listing prices, skip anything that sounds too good to be true, and order early so your gift arrives before the holidays.'] },
+  { h: '9. Read the listing like a collector', p: ['Check the title for the franchise, character, brand and scale, then compare it with the photos. Make sure the figure in the pictures is the one described, and look for the manufacturer name on the box or the base. If something is unclear, ask the seller before you order. A good seller will happily send extra photos of the accessories, the back of the box and any flaws.'] },
+  { h: '10. Gift ideas for every kind of gamer', p: ['Match the gift to the player. A fan of a single franchise will love one more character from that series, a retro gamer will enjoy a loose figure or a piece of gaming decor, and a younger player will often prefer a colourful Sonic or Nintendo figure over a serious display piece. For a small budget, one loose figure with all its accessories makes a thoughtful stocking stuffer. Check the return policy and the shipping time if you are buying close to a holiday.'] },
 ]
 
 export default function Article() {
@@ -44,7 +46,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2, IMG3],
     datePublished: '2026-11-11',
-    dateModified: '2026-11-12',
+    dateModified: '2026-11-13',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },

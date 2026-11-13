@@ -24,6 +24,9 @@ const sections = [
     'Plastic base and plastic wheels: most likely mainline.',
     'Series name on the card: the final answer.'] },
   { h: '5. Watch out for fakes and swapped cars', p: ['Always buy from sellers who show real photos of the actual item. For carded cars, check that the card is not re-sealed, that the printing is sharp, and that the car inside matches the picture on the package. For loose cars, look at the base for the Hot Wheels name, the casting name and the production details.'] },
+  { h: '6. Loose cars versus carded cars', p: ['Carded cars keep the package in good shape and are the safer choice when you care about condition or plan to resell. Loose cars cost less, are easy to display and are perfect when you simply love the casting. Check that a loose Premium car still has its rubber tires and sharp paint, since these are the first things to wear.'] },
+  { h: '7. Store and display your cars', p: ['Keep cars away from direct sun and humidity, which fade paint and can yellow plastic. Loose cars look great in a shallow case or a compartment box, each in its own space. Carded cars stay crisp in clear protective cases, and Premium cards in particular show every bent corner.'] },
+  { h: '8. Build a wish list and track what you own', p: ['Keep a simple list with the casting name, the series, the year and whether you own it Premium or mainline, loose or carded. It helps you spot a good deal quickly and stops you from buying the same casting twice.'] },
 ]
 
 export default function Article() {
@@ -33,7 +36,8 @@ export default function Article() {
     headline: TITLE,
     description: DESC,
     image: [IMGP],
-    dateModified: '2026-11-10',
+    datePublished: '2026-11-10',
+    dateModified: '2026-11-13',
     mainEntityOfPage: `${BASE}/blog/hot-wheels-premium-vs-mainline`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },

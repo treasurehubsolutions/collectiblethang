@@ -28,6 +28,9 @@ const sections = [
     after: 'If a car in a mainline pack has rubber tires and a deep metallic finish, check the card and the logo carefully.' },
   { h: '4. Check the card and the condition', p: ['For carded cars, the card matters as much as the car. Look for bent corners, creases, dents in the blister and signs that the pack has been opened and re-sealed. Condition changes what collectors are willing to pay, so ask for clear photos of the real item.'] },
   { h: '5. Buy smart and avoid fakes', p: ['Because Treasure Hunts are popular, some sellers try to pass off regular cars as special ones. Always compare the car with photos of the real casting and series, check that the paint and the logo look clean and sharp, and compare the price with recent sold listings. If a deal looks too good to be true, ask for more pictures before you buy.'] },
+  { h: '6. Loose cars and lots: what to check', p: ['Loose cars are cheaper, but there is no card to help you, so the car itself must tell the story. Look for the Treasure Hunt logo on the body, check whether the wheels are rubber, and ask for photos of the base and the paint up close. When you buy a lot, ask for a clear picture of every car, because a special one can be hidden in the middle of a pile. Chips, scratches and bent axles lower the value, so note them before you pay.'] },
+  { h: '7. Store and display your finds', p: ['Keep carded cars upright or flat in a protective case so the corners stay sharp and the blister does not crack. Avoid direct sun, which fades the card and the paint, and avoid damp places that can warp cardboard. If you open a car, keep the card and bubble if you may sell it later. A small display case turns a few special cars into a proper shelf piece.'] },
+  { h: '8. Build a Treasure Hunt wish list', p: ['Write down the castings and years you want, then check each car against clear photos before you buy. A simple list keeps you from paying too much for a car you do not really need, and it helps you recognise a fair price when one appears. Be patient: the best finds usually show up when you are not in a hurry.'] },
 ]
 
 export default function Article() {
@@ -37,7 +40,8 @@ export default function Article() {
     headline: TITLE,
     description: DESC,
     image: ['https://i.ebayimg.com/images/g/vigAAeSw8cpoM3n0/s-l1600.jpg'],
-    dateModified: '2026-11-10',
+    datePublished: '2026-11-10',
+    dateModified: '2026-11-12',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -66,7 +70,7 @@ export default function Article() {
       <p style={p}>You can browse our current selection of <Link href="/shop?category=Hot%20Wheels" style={{ color: '#e8b820' }}>Hot Wheels</Link> and <Link href="/shop?category=Hot%20Wheels%20Premium" style={{ color: '#e8b820' }}>Hot Wheels Premium</Link> at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: check the card for the flame or TH logo, look at the tires and the paint, then compare with recent sold prices before you buy.</p>
       <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>How to Start a Hot Wheels Collection</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-car-culture-series-a-collectionner" style={{ color: '#e8b820' }}>Hot Wheels Car Culture: Series Worth Collecting</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/pokemon-tcg-new-set-launch-buying-guide" style={{ color: '#e8b820' }}>New Pokémon TCG Set: How to Buy Smart on Launch Season</Link></li></ul>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>How to Start a Hot Wheels Collection</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-car-culture-series-a-collectionner" style={{ color: '#e8b820' }}>Hot Wheels Car Culture: Series Worth Collecting</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>McFarlane DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/pokemon-tcg-new-set-launch-buying-guide" style={{ color: '#e8b820' }}>New Pokémon TCG Set: How to Buy Smart on Launch Season</Link></li></ul>
     </article>
   )
 }

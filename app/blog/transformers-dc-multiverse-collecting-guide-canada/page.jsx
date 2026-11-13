@@ -27,6 +27,9 @@ const sections = [
     'Figure: loose joints, paint rubs, stress marks on plastic and, for Transformers, parts that transform smoothly.'] },
   { h: '4. Understand reissues, exclusives and errors', p: ['Vintage reissues copy an older toy but are new products, and the box usually says so. Exclusives are tied to a retailer or an event, and a Collector Edition or Gold Label figure often has a small marking on the box. Factory errors, such as a figure assembled with the wrong part, can interest some collectors, but they need clear photos and an honest description.'] },
   { h: '5. Buy from a seller who packs and ships with care', p: ['Boxed action figures are easy to damage in transit. Choose sellers who describe the condition honestly, show real photos and ship with tracking. We ship across Canada and the USA and pack carded and boxed figures to protect the corners and the card.'] },
+  { h: '6. Loose, carded or boxed: pick your rule', p: ['Many collectors keep one rule for the whole shelf. Carded and boxed figures protect the packaging, while loose figures let you pose and transform them freely. Neither choice is wrong, but mixing them without a plan makes a collection look uneven and makes it harder to describe what you own. A loose figure should still be complete, with every accessory that came in the box.'] },
+  { h: '7. Display, dust and sunlight', p: ['Sunlight fades paint and yellows plastic and card, so keep your shelf away from windows. A glass cabinet or a covered shelf keeps dust off the joints, and a few stands help heavier figures stay balanced. For Transformers, leave a figure in the mode you want to show and avoid forcing joints that feel tight.'] },
+  { h: '8. Build a wish list and track what you own', p: ['Write down the lines, characters and scales you want, and keep a short list of what you already own with the condition. It prevents duplicates and helps you recognize a fair price when a figure you have been waiting for appears.'] },
 ]
 
 export default function Article() {
@@ -37,7 +40,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-10',
-    dateModified: '2026-11-10',
+    dateModified: '2026-11-12',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -70,7 +73,7 @@ export default function Article() {
       <p style={p}>You can browse our current selection of <Link href="/shop?category=Transformers" style={{ color: '#e8b820' }}>Transformers</Link> and <Link href="/shop?category=DC%20Comics" style={{ color: '#e8b820' }}>DC Comics</Link> collectibles at The Shelf Cartel, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick a line and a scale, check the packaging and accessories, and buy from a seller who shows real photos.</p>
       <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={{ color: '#e8b820' }}>Where to Buy Rare Funko Pop Figures in Canada</Link></li></ul>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>McFarlane DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={{ color: '#e8b820' }}>Where to Buy Rare Funko Pop Figures in Canada</Link></li></ul>
     </article>
   )
 }

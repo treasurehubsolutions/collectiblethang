@@ -27,6 +27,9 @@ const sections = [
     'Figure: loose or stiff joints, paint rubs, warped weapons and sticky plastic.'] },
   { h: '4. Vehicles and diecast: read the card and the series', p: ['TMNT cars from Hot Wheels are popular with both turtle fans and diecast collectors. Look for bends or soft corners on the card, paint chips on the car and the series marking on the packaging. Our guide on Premium and mainline releases explains how to tell them apart.'] },
   { h: '5. Happy Meal toys, lots and storage', p: ['Fast-food toys and mixed lots are a fun way to start, but check that pieces are complete and still sealed when the listing says so. Keep boxed and carded items out of direct sun and store them upright so packaging does not bend. When shipping, choose a seller who packs with care and ships with tracking, across Canada and the USA.'] },
+  { h: '6. Vintage versus modern figures', p: ['Vintage turtles from the late 1980s and early 1990s carry strong nostalgia, but they are often played-with, with worn paint and missing weapons. Modern figures are sharper, more articulated and easier to find complete. Many collectors mix both: one vintage favorite for the heart, modern versions for the shelf.'] },
+  { h: '7. Display and protect your turtles', p: ['Keep figures out of direct sunlight to protect the paint and plastic. A shallow shelf or a display case lets each turtle stand with its weapons nearby. For carded figures and diecast cars, clear protective cases keep the card flat and the corners sharp.'] },
+  { h: '8. Build a wish list', p: ['Write down the characters, vehicles and lines you want, then track what you already own with its condition. A short list helps you spot a good deal fast and avoid buying the same figure twice.'] },
 ]
 
 export default function Article() {
@@ -37,7 +40,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-11',
-    dateModified: '2026-11-11',
+    dateModified: '2026-11-12',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },

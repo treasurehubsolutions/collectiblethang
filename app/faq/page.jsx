@@ -35,6 +35,22 @@ const FAQ = [
     a: ['Payment is by credit card through Stripe, a secure payment processor. We never see or store your card number.', 'Le paiement se fait par carte de crédit via Stripe, un processeur de paiement sécurisé. Nous ne voyons ni ne conservons votre numéro de carte.'],
   },
   {
+    q: ['What kind of products do you sell?', 'Quels types de produits vendez-vous ?'],
+    a: ['Toys and collectibles: Hot Wheels, Matchbox, Star Wars, Marvel, DC Comics, Transformers, WWE, McFarlane figures, Funko Pop, Pokémon, LEGO, TMNT, G.I. Joe, hockey, video games, VHS and DVD, and more. Browse every category in the Shop.', 'Des jouets et collectibles : Hot Wheels, Matchbox, Star Wars, Marvel, DC Comics, Transformers, WWE, figurines McFarlane, Funko Pop, Pokémon, LEGO, TMNT, G.I. Joe, hockey, jeux vidéo, VHS et DVD, et plus encore. Parcourez toutes les catégories dans la boutique.'],
+  },
+  {
+    q: ['Is the website available in French?', 'Le site est-il disponible en français ?'],
+    a: ['Yes. Use the language switch on the site to read it in English or French.', 'Oui. Utilisez le sélecteur de langue du site pour le consulter en français ou en anglais.'],
+  },
+  {
+    q: ['Can I order several items at once?', 'Puis-je commander plusieurs articles à la fois ?'],
+    a: ['Yes. Add everything to your cart and check out once. Combining items can also help you reach the free shipping threshold (CA$150+ in Canada, US$110+ in the USA).', 'Oui. Ajoutez tout à votre panier et payez en une seule fois. Regrouper vos articles peut aussi vous aider à atteindre le seuil de livraison gratuite (150 $ CA et plus au Canada, 110 $ US et plus aux États-Unis).'],
+  },
+  {
+    q: ['Where can I read your policies?', 'Où lire vos politiques ?'],
+    a: ['Shipping and returns are on the Shipping page (link below). The Terms and the Privacy Policy are linked in the footer of every page.', 'La livraison et les retours sont sur la page Livraison (lien ci-dessous). Les Conditions et la Politique de confidentialité sont accessibles dans le pied de page de chaque page.'],
+  },
+  {
     q: ['How can I contact you?', 'Comment vous joindre ?'],
     a: ['Email theshelfcartel@gmail.com. We reply within 24 hours.', 'Écrivez à theshelfcartel@gmail.com. Nous répondons dans les 24 heures.'],
   },

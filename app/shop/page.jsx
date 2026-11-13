@@ -16,7 +16,7 @@ export async function generateMetadata({ searchParams }) {
   }
   return {
     title: `${category} for Sale in Canada | The Shelf Cartel`,
-    description: `Shop ${category} collectibles at The Shelf Cartel. Honest condition, fast shipping from Quebec to Canada and the USA. 30-day returns.`,
+    description: metaDesc(category),
     alternates: { canonical: `${BASE}/shop?category=${encodeURIComponent(category)}` },
   }
 }
@@ -31,7 +31,26 @@ const CAT_TEXT = {
   'Matchbox': 'Matchbox die-cast vehicles for collectors of all ages, from everyday models to special series. Carefully inspected, photographed and shipped with care.',
   'Transformers': 'Transformers figures from classic Generation 1 styles to modern lines. Check each listing for condition, accessories and completeness before you add it to your collection.',
   'Pokémon': 'Pokémon collectibles and merchandise for trainers and collectors. Each item is described with its real condition and photographed so you see exactly what you are buying.',
+  'DC Comics': 'DC Comics collectibles: Batman, Superman and Justice League figures and more. Each listing notes the condition and packaging so you know what you are getting.',
+  'WWE & Wrestling': 'WWE and wrestling figures for fans and collectors, from ring-ready action figures to rarer pieces. Condition, packaging and accessories are described on every listing.',
+  'McFarlane Figures': 'McFarlane Toys figures with detailed sculpts and posable bodies, from DC Multiverse to other licensed lines. Check each listing for condition, accessories and packaging.',
+  'Hallmark Ornaments': 'Hallmark Keepsake ornaments for collectors and gift givers. Listings show the box condition and any wear so you can buy with confidence, especially around the holidays.',
+  'TMNT': 'Teenage Mutant Ninja Turtles figures and collectibles, from vintage-style pieces to modern lines. Honest condition and clear photos on every item.',
+  'GI Joe': 'G.I. Joe action figures and vehicles for collectors, from classic favourites to newer lines. Each listing notes completeness, condition and packaging.',
+  'VHS Tapes': 'VHS tapes for collectors and movie fans: horror, action, family films and more. Listings describe the tape and case condition so you know what to expect.',
+  'DVD & Blu-ray': 'DVDs and Blu-rays for movie lovers and collectors, including harder-to-find titles. Disc and case condition are noted on every listing.',
+  'Hockey': 'Hockey collectibles for fans, from memorabilia to figures and keepsakes. Condition is described clearly and every item is photographed.',
+  'Diecast & Scale Models': 'Diecast and scale model vehicles for display and collecting. Each listing notes the scale, condition and packaging so you can choose with confidence.',
+  'Video Games': 'Retro and modern video games for collectors and players. Listings state the platform and condition, and show the real item in the photos.',
+  'Jurassic Park / World': 'Jurassic Park and Jurassic World figures and collectibles for dinosaur fans and collectors, with condition and completeness noted on every listing.',
+  'Collectibles': 'A mix of collectibles from many lines and eras. Each item is inspected, photographed and described with its real condition.',
   'DEALS': 'Deals on toys and collectibles: bundles, lots and discounted pieces for budget-minded collectors. Quantities are limited, so check back often for new additions.',
+}
+
+function metaDesc(category) {
+  const txt = CAT_TEXT[category]
+  const base = txt ? txt.split('. ')[0].replace(/\.$/, '') + '. ' : `Shop ${category} collectibles. `
+  return `${base}Shipped from Quebec to Canada and the USA. 30-day returns.`.slice(0, 200)
 }
 
 export default async function ShopPage({ searchParams }) {

@@ -27,6 +27,9 @@ const sections = [
     'Extras: batteries, light or sound features and inserts should be present and working when the piece has them.'] },
   { h: '4. Know exclusives and limited releases', p: ['Some ornaments are tied to events, retailers or limited runs, and they can be harder to find later. A piece marked as limited or exclusive usually says so on the box. Read the listing carefully, compare it with the official description when you can, and be careful with sellers who only show stock photos.'] },
   { h: '5. Buy early and ship safely', p: ['Holiday demand rises every year, so popular ornaments are easier to find before December than during the last week. Ornaments are fragile: choose sellers who pack with care and ship with tracking. We ship across Canada and the USA, and we pack boxed ornaments to protect the corners.'] },
+  { h: '6. Boxed, loose and gift-ready', p: ['A boxed ornament in good condition is the easiest to give as a gift and the easiest to store, while a loose ornament is a good way to fill out a display tree on a budget. Decide up front which one you want, and make sure the listing says clearly which one you are getting, including whether the original box is included.'] },
+  { h: '7. Store and display your ornaments', p: ['Keep ornaments in their original boxes, in a cool, dry place away from direct sun, attics and damp basements, which can fade paint and weaken glue. When you hang them, use a fresh hanger, avoid overcrowded branches and wrap each piece in tissue before putting it away for the year.'] },
+  { h: '8. Build a wish list and track what you own', p: ['Write down the ornament name, the year, the series number and whether you own it boxed or loose. A short list helps you spot a missing piece in a series right away and keeps you from buying the same ornament twice.'] },
 ]
 
 export default function Article() {
@@ -37,7 +40,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-10',
-    dateModified: '2026-11-10',
+    dateModified: '2026-11-13',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -70,7 +73,7 @@ export default function Article() {
       <p style={p}>You can browse our current selection of <Link href="/shop?category=Hallmark%20Ornaments" style={{ color: '#e8b820' }}>Hallmark Ornaments</Link> at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: choose a theme, check the year and the box, and order early so your ornaments arrive before the holidays.</p>
       <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/lego-buying-guide-collectors-canada" style={{ color: '#e8b820' }}>LEGO Buying Guide for Collectors</Link></li></ul>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/jurassic-park-world-collectibles-guide-canada" style={{ color: '#e8b820' }}>Jurassic Park and Jurassic World Collectibles Guide</Link></li></ul>
     </article>
   )
 }

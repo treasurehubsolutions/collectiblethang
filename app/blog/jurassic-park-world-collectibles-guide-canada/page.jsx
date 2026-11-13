@@ -27,6 +27,9 @@ const sections = [
     'Figure: loose limbs, paint rubs, cracked plastic and working sounds or lights.'] },
   { h: '4. Vehicles and diecast: look at the car, the card and the series', p: ['Jurassic Park vehicles from Hot Wheels and Matchbox are popular with both dinosaur fans and diecast collectors. Premium releases often have metal bodies, real riders and detailed paint, so check the card for bends or soft corners and the car for paint chips. Our blog guide on Premium and mainline releases explains how to tell them apart.'] },
   { h: '5. Ornaments, sealed items and display', p: ['Hallmark ornaments and sealed playsets keep their appeal when the box stays in good shape. Keep sealed items out of direct sun and store them upright so the box does not bend. When shipping, choose a seller who packs boxed items with care and ships with tracking, across Canada and the USA.'] },
+  { h: '6. Loose dinosaurs versus boxed sets', p: ['Loose dinosaurs are fun to pose and display, but check that the moving parts still work and that no accessory is missing. Boxed and sealed items keep more appeal for many collectors, as long as the box has no crushed corners or fading. Decide which you prefer before you buy so your shelf looks consistent.'] },
+  { h: '7. Store and display your collection', p: ['Keep sun away from boxes and plastic, and avoid damp rooms that can warp cardboard. Large dinosaurs need a stable shelf, while small figures and diecast cars look good in a display case. If a figure has batteries for sounds or lights, take them out for long storage so they cannot leak.'] },
+  { h: '8. Build a wish list and track what you own', p: ['Note the lines, dinosaurs and vehicles you want, and keep a simple list of what you already own. It avoids duplicates and helps you spot a good deal on a piece you have been looking for.'] },
 ]
 
 export default function Article() {
@@ -37,7 +40,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-11',
-    dateModified: '2026-11-11',
+    dateModified: '2026-11-12',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -70,7 +73,7 @@ export default function Article() {
       <p style={p}>Browse our current <Link href="/shop?category=Jurassic%20Park%20%2F%20World" style={{ color: '#e8b820' }}>Jurassic Park / World</Link> selection, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one lane, check the size and the packaging, and buy from a seller who shows real photos.</p>
       <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>Transformers and DC Multiverse Collecting Guide</Link></li></ul>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>Transformers and DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide for Vintage Collectors</Link></li></ul>
     </article>
   )
 }

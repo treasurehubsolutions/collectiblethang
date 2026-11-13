@@ -24,6 +24,10 @@ const sections = [
     'Use a protective case to keep the box in the same condition.'] },
   { h: '4. Compare prices before you buy', p: ['Prices for rare figures can move quickly. Compare several recent sold listings for the exact character and edition, then decide on a fair price for the condition you are buying. Remember to add shipping and any customs fees if the seller is outside Canada.'] },
   { h: '5. Avoid fakes', p: ['Counterfeit figures exist, especially for popular and expensive pieces. Warning signs include blurry box printing, wrong colors, a missing or oddly placed copyright stamp, and prices far below the market. When in doubt, ask the seller for extra photos or choose a seller with a clear return policy.'] },
+  { h: '6. Loose figures versus boxed', p: ['Not every collector needs a mint box. Loose figures cost less, take less space and are fine if you only want the figure itself. Boxed figures cost more but keep their value better and look great in a case. Decide which kind of collector you are before you start, so you do not pay for a perfect box you do not care about.'] },
+  { h: '7. Chase, flocked and glow versions', p: ['Many lines include special versions of the same character, such as a chase with a different paint scheme, a flocked or glow-in-the-dark finish, or a metallic look. Check the item number and the box marking in the listing so you know exactly which version you are buying. A chase is usually packed in a regular box with a sticker, so photos of the sticker matter.'] },
+  { h: '8. Protect and display your Pops', p: ['Rigid protective cases keep corners sharp and stop dust and sun damage. Keep boxes out of direct sunlight, which fades the printing, and avoid stacking them. Shelves with enough space for each box show off the collection and make it easier to spot gaps.'] },
+  { h: '9. Build a wish list and a budget', p: ['List the characters and versions you want, with a maximum price for each one. Add shipping to the total and be patient. A wish list helps you say no to impulse buys and recognise a fair price when it shows up.'] },
 ]
 
 export default function Article() {
@@ -33,7 +37,8 @@ export default function Article() {
     headline: TITLE,
     description: DESC,
     image: [IMG1],
-    dateModified: '2026-11-10',
+    datePublished: '2026-11-10',
+    dateModified: '2026-11-12',
     mainEntityOfPage: `${BASE}/blog/ou-acheter-funko-pop-rares-canada`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -46,7 +51,7 @@ export default function Article() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
-      <p style={p}>Finding a rare Funko Pop is part research and part patience. Here are five practical steps to help Canadian collectors buy with confidence and avoid overpaying.</p>
+      <p style={p}>Finding a rare Funko Pop is part research and part patience. Here are nine practical steps to help Canadian collectors buy with confidence and avoid overpaying.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={{ width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }} />
         <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A chase Funko Pop from our shop: check the box corners, the window and the sticker.</figcaption>
