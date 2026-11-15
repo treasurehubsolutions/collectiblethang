@@ -73,31 +73,37 @@ export default async function ShopPage({ searchParams }) {
     <div style={{maxWidth:1300,margin:'0 auto',padding:'16px 16px'}}>
 
       {/* Search bar - always visible */}
-      <form action="/shop" style={{marginBottom:12,display:'flex',gap:0}}>
-        <input name="search" defaultValue={search} placeholder="Search..."
+      <form action="/shop" role="search" style={{marginBottom:12,display:'flex',gap:0}}>
+        <input name="search" type="search" aria-label="Search the shop" defaultValue={search} placeholder="Search..."
           style={{flex:1,padding:'10px 14px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRight:'none',borderRadius:'6px 0 0 6px',color:'#eee',fontSize:14,outline:'none'}}/>
         <button type="submit" style={{padding:'10px 18px',background:'#cc1100',color:'#fff',border:'none',borderRadius:'0 6px 6px 0',fontWeight:700,fontSize:13,cursor:'pointer'}}>Search</button>
       </form>
 
       {/* Mobile: horizontal category pills */}
-      <div style={{overflowX:'auto',marginBottom:12,display:'flex',gap:6,paddingBottom:4}}>
+      <nav aria-label="Categories" style={{overflowX:'auto',marginBottom:12,display:'flex',gap:6,paddingBottom:4}}>
         <CatPill href="/shop" on={!category}>All</CatPill>
         {categories.map(([cat,n])=>{
           const m = getCatMeta(cat)
           return <CatPill key={cat} href={buildHref({category:cat,page:1})} on={category===cat} color={m.color}>{m.emoji} {cat}</CatPill>
         })}
-      </div>
+      </nav>
 
       {/* Sort pills */}
-      <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:14}}>
+      <div role="group" aria-label="Sort products" style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:14}}>
         {[['','Default'],['new','New'],['popular','Popular'],['sold','Best sellers'],['price_asc','Price ↑'],['price_desc','Price ↓']].map(([v,l])=>(
           <SortPill key={v} href={buildHref({sort:v,page:1})} on={sort===v}>{l}</SortPill>
         ))}
-        <span style={{marginLeft:'auto',fontSize:12,color:'#555',alignSelf:'center'}}>
+        <span style={{marginLeft:'auto',fontSize:12,color:'#9a9aa8',alignSelf:'center'}}>
           <strong style={{color:'#aaa'}}>{total.toLocaleString()}</strong> items
         </span>
       </div>
 
+      {/* Page heading (always one h1) */}
+      {!meta && (
+        <h1 style={{fontFamily:'Bebas Neue',fontSize:20,letterSpacing:1.5,color:'#fff',marginBottom:12}}>
+          {search ? `Search results for "${search}"` : 'Toys & Collectibles'}
+        </h1>
+      )}
       {/* Category header */}
       {meta && (
         <h1 style={{fontFamily:'Bebas Neue',fontSize:20,letterSpacing:1.5,color:'#fff',marginBottom:12}}>
@@ -118,7 +124,7 @@ export default async function ShopPage({ searchParams }) {
           return (
             <div key={p.id} style={{background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,overflow:'hidden',display:'flex',flexDirection:'column',position:'relative'}}>
               <div style={{position:'absolute',top:0,left:0,right:0,height:2,background:m.color,zIndex:1}}/>
-              <Link href={`/product/${p.id}`} style={{textDecoration:'none'}}>
+              <Link href={`/product/${p.id}`} aria-label={p.title} style={{textDecoration:'none'}}>
                 <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
                   {p.photos?.[0]
                     ? <Image src={p.photos[0]} alt={p.title} fill style={{objectFit:'contain',padding:8}} unoptimized/>
@@ -129,9 +135,9 @@ export default async function ShopPage({ searchParams }) {
                 </div>
               </Link>
               <div style={{padding:'8px 9px',flex:1,display:'flex',flexDirection:'column'}}>
-                <div style={{fontSize:8,color:m.color,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:700,marginBottom:3}}>{p.category}</div>
+                <div style={{fontSize:10,color:m.color,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:700,marginBottom:3}}>{p.category}</div>
                 <Link href={`/product/${p.id}`} style={{textDecoration:'none'}}>
-                  <div style={{fontSize:11,fontWeight:500,lineHeight:1.35,flex:1,display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden',color:'#bbb',marginBottom:7}}>{p.title}</div>
+                  <div style={{fontSize:11,fontWeight:500,lineHeight:1.35,flex:1,display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden',color:'#c4c4d0',marginBottom:7}}>{p.title}</div>
                 </Link>
                 <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:4,marginTop:'auto',flexWrap:'wrap'}}>
                   <span style={{fontFamily:'Bebas Neue',fontSize:16,color:'#d4a800'}}>{p.currency==='CAD'?'CA$':'$'}{p.price.toFixed(2)}</span>
@@ -145,14 +151,14 @@ export default async function ShopPage({ searchParams }) {
 
       {/* Pagination */}
       {totalPages>1&&(
-        <div style={{display:'flex',gap:4,justifyContent:'center',marginTop:32,flexWrap:'wrap'}}>
-          {page>1&&<PG href={buildHref({page:page-1})}>‹</PG>}
+        <nav aria-label="Pagination" style={{display:'flex',gap:4,justifyContent:'center',marginTop:32,flexWrap:'wrap'}}>
+          {page>1&&<PG href={buildHref({page:page-1})} label="Previous page">‹</PG>}
           {Array.from({length:totalPages},(_,i)=>i+1).filter(n=>n===1||n===totalPages||Math.abs(n-page)<=2).map((n,i,arr)=>[
-            arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#555'}}>…</span>:null,
-            <PG key={n} href={buildHref({page:n})} on={n===page}>{n}</PG>
+            arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#9a9aa8'}} aria-hidden="true">…</span>:null,
+            <PG key={n} href={buildHref({page:n})} on={n===page} label={`Page ${n}`}>{n}</PG>
           ])}
-          {page<totalPages&&<PG href={buildHref({page:page+1})}>›</PG>}
-        </div>
+          {page<totalPages&&<PG href={buildHref({page:page+1})} label="Next page">›</PG>}
+        </nav>
       )}
     </div>
   )
@@ -160,12 +166,12 @@ export default async function ShopPage({ searchParams }) {
 
 function CatPill({href, on, color, children}) {
   return (
-    <Link href={href} style={{
+    <Link href={href} aria-current={on ? 'true' : undefined} style={{
       display:'inline-flex',alignItems:'center',gap:4,
       padding:'6px 12px',borderRadius:20,fontSize:12,
       whiteSpace:'nowrap',textDecoration:'none',flexShrink:0,
       background: on ? (color||'#cc1100') : '#0f0f1c',
-      color: on ? '#fff' : '#888',
+      color: on ? '#fff' : '#a0a0ae',
       border: `1px solid ${on ? (color||'#cc1100') : '#1c1c30'}`,
       fontWeight: on ? 700 : 400,
     }}>
@@ -176,10 +182,10 @@ function CatPill({href, on, color, children}) {
 
 function SortPill({href, on, children}) {
   return (
-    <Link href={href} style={{
+    <Link href={href} aria-current={on ? 'true' : undefined} style={{
       padding:'5px 12px',borderRadius:5,fontSize:11,
       background: on ? '#cc1100' : '#0f0f1c',
-      color: on ? '#fff' : '#777',
+      color: on ? '#fff' : '#9a9aa8',
       border:`1px solid ${on?'#cc1100':'#1c1c30'}`,
       fontWeight: on ? 700 : 400,
       textDecoration:'none',whiteSpace:'nowrap',
@@ -189,13 +195,13 @@ function SortPill({href, on, children}) {
   )
 }
 
-function PG({href, on, children}) {
+function PG({href, on, children, label}) {
   return (
-    <Link href={href} style={{
+    <Link href={href} aria-label={label} aria-current={on ? 'page' : undefined} style={{
       padding:'8px 13px',display:'flex',alignItems:'center',
       borderRadius:5,fontSize:13,
       background: on ? '#cc1100' : '#0f0f1c',
-      color: on ? '#fff' : '#888',
+      color: on ? '#fff' : '#a0a0ae',
       border:'1px solid #1c1c30',
       fontWeight: on ? 800 : 400,
       textDecoration:'none',minWidth:38,justifyContent:'center'

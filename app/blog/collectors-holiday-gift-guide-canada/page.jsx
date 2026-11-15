@@ -27,6 +27,7 @@ const sections = [
   { h: '4c. Hockey, wrestling and DC fans', p: ['Sports and pop culture fans are easy to shop for once you know their team or character. Hockey bobbleheads and vintage NHL figures suit fans of a favourite club, wrestling figures suit anyone who grew up with the ring, and McFarlane DC figures suit fans of Batman and the wider DC universe. Our hockey, WWE and DC Multiverse guides explain what to check before you order.'] },
   { h: '4d. Movie nights and nostalgia', p: ['VHS tapes and DVDs make a fun, low-cost gift for someone who loves classic films or a long-running TV show. Check the language (English or French), ask whether the tape or disc was tested and look for clear photos of the case. Our VHS and DVD guide covers the details.'] },
   { h: '5. Think about condition and gift presentation', p: ['Decide first if the gift is meant to be opened or kept sealed. A carded or boxed item should arrive in the same shape you saw in the photos, so check the description for any wear. A short note with the gift explaining why you picked it often means as much as the item itself.'] },
+  { h: '5b. Shopping the Black Friday weekend', p: ['Black Friday is on November 27 this year. Make a short list, set a maximum price per item and compare with recent sold listings before you buy. Our Black Friday guide for collectors walks through the whole plan.'] },
   { h: '6. Order early and keep it simple', p: ['Holiday shipping can be slow, so order a few weeks ahead. If you are buying for several people, a few small items, such as a Hot Wheels car, a Funko Pop and a small lot, can make a more fun package than a single big purchase. Keep a budget per person and write down who gets what.'] },
 ]
 
@@ -72,6 +73,7 @@ export default function Article() {
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one theme per person, check the condition in the photos and order a few weeks before the holidays.</p>
       <h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={a}>Black Friday 2026 for Collectors in Canada: How to Shop Smart</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={a}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={a}>Hot Wheels Treasure Hunts: How to Spot One</Link></li>

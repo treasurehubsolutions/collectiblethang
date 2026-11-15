@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useLang } from '../../components/LangProvider'
 
 export default function LivraisonPage() {
@@ -73,7 +74,7 @@ export default function LivraisonPage() {
         ].map(([icon,cas,action])=>(
           <div key={cas} style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:'12px 16px',marginBottom:8}}>
             <div style={{fontSize:13,fontWeight:600,color:'#ddd',marginBottom:3}}>{icon} {cas}</div>
-            <div style={{fontSize:12,color:'#666'}}>{action}</div>
+            <div style={{fontSize:12,color:'#9a9aa8'}}>{action}</div>
           </div>
         ))}
       </S>
@@ -89,6 +90,11 @@ export default function LivraisonPage() {
           style={{display:'inline-block',background:'#e8b820',color:'#000',padding:'10px 20px',borderRadius:6,fontWeight:700,fontSize:13,textDecoration:'none',marginRight:12}}>
           ✉️ theshelfcartel@gmail.com
         </a>
+        <p style={{fontSize:13,color:'#9a9aa8',lineHeight:1.8,margin:'16px 0 0'}}>
+          <Link href="/contact" style={{color:'#e8b820'}}>{en ? 'All contact options' : 'Toutes les façons de nous joindre'}</Link>{' · '}
+          <Link href="/returns" style={{color:'#e8b820'}}>{en ? 'Full return policy' : 'Politique de retour complète'}</Link>{' · '}
+          <Link href="/faq" style={{color:'#e8b820'}}>FAQ</Link>
+        </p>
       </S>
     </div>
   )

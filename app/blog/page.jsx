@@ -117,6 +117,21 @@ const posts = [
     title: 'How to Store and Display Die-Cast Cars and Funko Pop Figures',
     excerpt: 'Light, humidity, protectors, shelves and safe moving: keep your die-cast and Funko Pop collection in great condition.',
   },
+  {
+    href: '/blog/black-friday-collectibles-guide-canada',
+    title: 'Black Friday 2026 for Collectors in Canada: How to Shop Smart',
+    excerpt: 'Wishlist, sold prices, condition checks, fake deals and holiday shipping: a plan for Black Friday on November 27.',
+  },
+  {
+    href: '/blog/buying-collectibles-on-ebay-canada-checklist',
+    title: 'Buying Collectibles on eBay Canada: An 8-Step Buyer’s Checklist',
+    excerpt: 'Exact searches, sold prices, photos, seller feedback, shipping costs and what to do when the parcel arrives.',
+  },
+  {
+    href: '/blog/funko-pop-chase-exclusives-holiday-guide-canada',
+    title: 'Funko Pop Chase and Exclusives: How to Read the Box Before You Buy This Holiday Season',
+    excerpt: 'Chase variants, glow editions, store exclusive stickers and box condition: buy Funko Pop figures with confidence.',
+  },
 ]
 
 export default function Blog() {

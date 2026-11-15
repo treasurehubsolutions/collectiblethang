@@ -16,12 +16,35 @@ export const metadata = {
     description: 'Toys & Collectibles. Hot Wheels, Star Wars, Marvel, DC, Transformers, VHS, DVD. Ships Canada & USA.',
     siteName: 'The Shelf Cartel',
     type: 'website',
+    url: 'https://theshelfcartel.com',
+    locale: 'en_CA',
+    images: [{ url: 'https://theshelfcartel.com/logo.jpg', alt: 'The Shelf Cartel' }],
   },
+  twitter: { card: 'summary', title: 'The Shelf Cartel – Toys & Collectibles', description: 'Hot Wheels, Star Wars, Marvel, DC, Transformers, VHS, DVD. Ships Canada & USA.', images: ['https://theshelfcartel.com/logo.jpg'] },
   robots: { index: true, follow: true },
   alternates: {
     canonical: './',
   },
 }
+
+const siteJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'The Shelf Cartel',
+    url: 'https://theshelfcartel.com',
+    logo: 'https://theshelfcartel.com/logo.png',
+    address: { '@type': 'PostalAddress', addressRegion: 'QC', addressCountry: 'CA' },
+    sameAs: ['https://www.instagram.com/theshelfcartel/', 'https://www.ebay.ca/str/collectiblethang'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'The Shelf Cartel',
+    url: 'https://theshelfcartel.com',
+    potentialAction: { '@type': 'SearchAction', target: 'https://theshelfcartel.com/shop?search={search_term_string}', 'query-input': 'required name=search_term_string' },
+  },
+]
 
 export default function RootLayout({ children }) {
   return (
@@ -31,6 +54,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
       </head>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd).replace(/</g, '\\u003c') }} />
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-QZ9RQ1MQJF" strategy="afterInteractive"/>
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
@@ -69,7 +93,7 @@ export default function RootLayout({ children }) {
                 </div>
                 <div>
                   <div style={{fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',marginBottom:12}}>Navigation</div>
-                  {[['/', 'Home'],['/shop','Shop'],['/shop?sort=popular','Popular'],['/shop?sort=new','New Arrivals'],['/a-propos','About us'],['/blog','Blog'],['/livraison','Shipping & Returns'],['/contact','Contact'],['/privacy-policy','Privacy Policy'],['/terms','Terms of Sale']].map(([href,label])=>(
+                  {[['/', 'Home'],['/shop','Shop'],['/shop?sort=popular','Popular'],['/shop?sort=new','New Arrivals'],['/a-propos','About us'],['/blog','Blog'],['/livraison','Shipping & Returns'],['/faq','FAQ'],['/returns','Returns'],['/contact','Contact'],['/privacy-policy','Privacy Policy'],['/terms','Terms of Sale']].map(([href,label])=>(
                     <a key={href} href={href} style={{display:'block',fontSize:13,color:'#666',marginBottom:6,textDecoration:'none'}}>{label}</a>
                   ))}
                 </div>
@@ -96,7 +120,7 @@ export default function RootLayout({ children }) {
                 <div style={{display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
                   <a href="https://www.ebay.ca/str/collectiblethang?_tab=feedback" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
                     <img src="https://pages.ebay.com/favicon.ico" alt="eBay" style={{width:12,height:12}}/>
-                    <span>⭐ 99.6% on eBay</span>
+                    <span>⭐ 99.5% on eBay</span>
                   </a>
                   <a href="https://www.instagram.com/theshelfcartel/" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
                     <img src="https://www.instagram.com/favicon.ico" alt="Instagram" style={{width:13,height:13}}/>

@@ -53,9 +53,10 @@ export default function ContactPage() {
           <a href="https://www.facebook.com/theshelfcartel" target="_blank" rel="noopener noreferrer" style={{color:'#e8b820'}}>Facebook</a>
         </p>
       </div>
-      <p style={{fontSize:12,color:'#555',marginTop:24}}>
-        <Link href="/privacy-policy" style={{color:'#666'}}>{en ? 'Privacy Policy' : 'Politique de confidentialité'}</Link>{' · '}
-        <Link href="/terms" style={{color:'#666'}}>{en ? 'Terms of Sale' : 'Conditions de vente'}</Link>
+      <p style={{fontSize:12,color:'#9a9aa8',marginTop:24}}>
+        <Link href="/privacy-policy" style={{color:'#9a9aa8'}}>{en ? 'Privacy Policy' : 'Politique de confidentialité'}</Link>{' · '}
+        <Link href="/faq" style={{color:'#9a9aa8'}}>FAQ</Link>{' · '}
+        <Link href="/terms" style={{color:'#9a9aa8'}}>{en ? 'Terms of Sale' : 'Conditions de vente'}</Link>
       </p>
     </div>
   )

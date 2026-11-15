@@ -71,16 +71,16 @@ export default function TermsPage() {
       <h1 style={{fontFamily:'Bebas Neue',fontSize:'clamp(32px,5vw,52px)',letterSpacing:2,color:'#fff',marginBottom:8,lineHeight:1}}>
         {i === 0 ? 'Terms of Sale' : 'Conditions de vente'}
       </h1>
-      <p style={{fontSize:12,color:'#555',marginBottom:32}}>{i === 0 ? 'Last updated: November 2026' : 'Dernière mise à jour : novembre 2026'}</p>
+      <p style={{fontSize:12,color:'#9a9aa8',marginBottom:32}}>{i === 0 ? 'Last updated: November 2026' : 'Dernière mise à jour : novembre 2026'}</p>
       {SECTIONS.map(s => (
         <section key={s.t[0]} style={{marginBottom:28}}>
           <h2 style={{fontFamily:'Bebas Neue',fontSize:20,letterSpacing:1.5,color:'#fff',marginBottom:10}}>{s.t[i]}</h2>
           <p style={{fontSize:14,color:'#888',lineHeight:1.8,margin:0}}>{s.b[i]}</p>
         </section>
       ))}
-      <p style={{fontSize:12,color:'#555'}}>
-        <Link href="/livraison" style={{color:'#666'}}>{i === 0 ? 'Shipping & Returns' : 'Livraison & Retours'}</Link>{' · '}
-        <Link href="/privacy-policy" style={{color:'#666'}}>{i === 0 ? 'Privacy Policy' : 'Politique de confidentialité'}</Link>
+      <p style={{fontSize:12,color:'#9a9aa8'}}>
+        <Link href="/livraison" style={{color:'#9a9aa8'}}>{i === 0 ? 'Shipping & Returns' : 'Livraison & Retours'}</Link>{' · '}
+        <Link href="/privacy-policy" style={{color:'#9a9aa8'}}>{i === 0 ? 'Privacy Policy' : 'Politique de confidentialité'}</Link>
       </p>
     </div>
   )

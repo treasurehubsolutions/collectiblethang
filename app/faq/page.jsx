@@ -79,11 +79,12 @@ export default function FaqPage() {
       {FAQ.map((f, n) => (
         <div key={n} style={{background:'#12121e',border:'1px solid #1c1c28',borderRadius:8,padding:'16px 20px',marginBottom:10}}>
           <h2 style={{fontSize:15,fontWeight:700,color:'#e8b820',margin:'0 0 8px'}}>{f.q[i]}</h2>
-          <p style={{fontSize:14,color:'#888',lineHeight:1.8,margin:0}}>{f.a[i]}</p>
+          <p style={{fontSize:14,color:'#a0a0ae',lineHeight:1.8,margin:0}}>{f.a[i]}</p>
         </div>
       ))}
       <div style={{marginTop:28,display:'flex',gap:12,flexWrap:'wrap'}}>
         <a href="/livraison" style={{color:'#e8b820',fontSize:13}}>{i === 0 ? 'Shipping & Returns' : 'Livraison & Retours'}</a>
+        <a href="/returns" style={{color:'#e8b820',fontSize:13}}>{i === 0 ? 'Return Policy' : 'Politique de retour'}</a>
         <a href="/contact" style={{color:'#e8b820',fontSize:13}}>Contact</a>
       </div>
     </div>
