@@ -92,6 +92,15 @@ export default async function ProductPage({ params }) {
       availability,
       ...(itemCondition ? { itemCondition } : {}),
       seller: { '@type': 'Organization', name: 'The Shelf Cartel' },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: ['CA', 'US'],
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 30,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/ReturnShippingFees',
+        refundType: 'https://schema.org/FullRefund',
+      },
     },
   }
 
@@ -99,23 +108,23 @@ export default async function ProductPage({ params }) {
     <div style={{maxWidth:1300,margin:'0 auto',padding:'24px'}}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
-      <div style={{fontSize:12,color:'#555',marginBottom:20,display:'flex',alignItems:'center',gap:6,flexWrap:'wrap'}}>
-        <Link href="/" style={{color:'#666',textDecoration:'none'}}>Home</Link>
-        <span>&#8250;</span>
-        <Link href="/shop" style={{color:'#666',textDecoration:'none'}}>Shop</Link>
-        <span>&#8250;</span>
+      <nav aria-label="Breadcrumb" style={{fontSize:12,color:'#9a9aa8',marginBottom:20,display:'flex',alignItems:'center',gap:6,flexWrap:'wrap'}}>
+        <Link href="/" style={{color:'#9a9aa8',textDecoration:'none'}}>Home</Link>
+        <span aria-hidden="true">&#8250;</span>
+        <Link href="/shop" style={{color:'#9a9aa8',textDecoration:'none'}}>Shop</Link>
+        <span aria-hidden="true">&#8250;</span>
         <Link href={`/shop?category=${encodeURIComponent(p.category)}`} style={{color:meta.color,textDecoration:'none'}}>{p.category}</Link>
-      </div>
+      </nav>
       <ProductClient product={p}/>
       {related.length>0 && (
-        <div style={{marginTop:48}}>
-          <h2 style={{fontFamily:'Bebas Neue',fontSize:22,letterSpacing:2,color:'#fff',borderBottom:`2px solid ${meta.color}`,paddingBottom:6,marginBottom:16,display:'inline-block'}}>
+        <section aria-labelledby="related-heading" style={{marginTop:48}}>
+          <h2 id="related-heading" style={{fontFamily:'Bebas Neue',fontSize:22,letterSpacing:2,color:'#fff',borderBottom:`2px solid ${meta.color}`,paddingBottom:6,marginBottom:16,display:'inline-block'}}>
             {meta.emoji} More in {p.category}
           </h2>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(170px,1fr))',gap:12}}>
@@ -123,7 +132,7 @@ export default async function ProductPage({ params }) {
               <Link key={r.id} href={`/product/${r.id}`} style={{background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,overflow:'hidden',textDecoration:'none'}}>
                 <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
                   {r.photos?.[0]
-                    ? <img src={r.photos[0]} alt={r.title} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading="lazy"/>
+                    ? <img src={r.photos[0]} alt="" style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading="lazy"/>
                     : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>{meta.emoji}</div>}
                 </div>
                 <div style={{padding:'8px 10px'}}>
@@ -133,7 +142,7 @@ export default async function ProductPage({ params }) {
               </Link>
             ))}
           </div>
-        </div>
+        </section>
       )}
     </div>
   )
