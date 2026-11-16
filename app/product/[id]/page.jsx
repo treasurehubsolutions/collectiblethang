@@ -3,6 +3,7 @@ import { getProduct, getProducts, getCatMeta } from '../../../lib/products'
 import { notFound } from 'next/navigation'
 import ProductClient from '../../../components/ProductClient'
 import Link from 'next/link'
+import { guessBrand, feedCondition, fallbackDescription } from '../../../lib/seo'
 
 const BASE = 'https://theshelfcartel.com'
 
@@ -54,6 +55,8 @@ export default async function ProductPage({ params }) {
   if (!p) notFound()
 
   const meta = getCatMeta(p.category)
+  const desc = p.description && String(p.description).trim() ? p.description : fallbackDescription(p)
+  const brandName = guessBrand(p.title, p.category)
   let related = []
   try {
     const { items } = await getProducts({ category: p.category, perPage: 8 })
@@ -64,7 +67,7 @@ export default async function ProductPage({ params }) {
   const cond = String(p.condition || '')
   const itemCondition = /new|sealed|mint/i.test(cond) ? 'https://schema.org/NewCondition'
     : /used|pre-owned|loose|good|fair/i.test(cond) ? 'https://schema.org/UsedCondition'
-    : undefined
+    : feedCondition(p) === 'used' ? 'https://schema.org/UsedCondition' : 'https://schema.org/NewCondition'
   const breadcrumbLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -79,11 +82,11 @@ export default async function ProductPage({ params }) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: p.title,
-    description: p.description || p.title,
+    description: desc,
     image: (p.photos && p.photos.length) ? p.photos.slice(0, 6) : undefined,
     category: p.category || undefined,
     sku: p.id,
-    brand: { '@type': 'Brand', name: 'The Shelf Cartel' },
+    ...(brandName ? { brand: { '@type': 'Brand', name: brandName } } : {}),
     offers: {
       '@type': 'Offer',
       url: `${BASE}/product/${p.id}`,
@@ -121,7 +124,7 @@ export default async function ProductPage({ params }) {
         <span aria-hidden="true">&#8250;</span>
         <Link href={`/shop?category=${encodeURIComponent(p.category)}`} style={{color:meta.color,textDecoration:'none'}}>{p.category}</Link>
       </nav>
-      <ProductClient product={p}/>
+      <ProductClient product={{...p, description: desc}}/>
       {related.length>0 && (
         <section aria-labelledby="related-heading" style={{marginTop:48}}>
           <h2 id="related-heading" style={{fontFamily:'Bebas Neue',fontSize:22,letterSpacing:2,color:'#fff',borderBottom:`2px solid ${meta.color}`,paddingBottom:6,marginBottom:16,display:'inline-block'}}>

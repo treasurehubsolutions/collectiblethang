@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 export const revalidate = 0
 import { createClient } from '@supabase/supabase-js'
+import { cleanTitle, guessBrand, feedCondition, fallbackDescription } from '../../../lib/seo'
 
 const SITE_URL = 'https://theshelfcartel.com'
 const DEFAULT_CONDITION = 'new'
@@ -36,7 +37,7 @@ export async function GET() {
   while (true) {
     const { data, error } = await supabase
       .from('products')
-      .select('id, title, price, category, photos, description, weight')
+      .select('*')
       .eq('enabled', true)
       .gt('stock', 0)
       .range(from, from + 999)
@@ -63,17 +64,18 @@ export async function GET() {
     return `
   <item>
     <g:id>${escapeXml(p.id)}</g:id>
-    <title><![CDATA[${p.title}]]></title>
+    <title><![CDATA[${cleanTitle(p.title)}]]></title>
     <link>${SITE_URL}/product/${escapeXml(p.id)}</link>
     <g:price>${p.price.toFixed(2)} CAD</g:price>
     <g:availability>in_stock</g:availability>
-    <g:condition>${DEFAULT_CONDITION}</g:condition>
+    <g:condition>${feedCondition(p)}</g:condition>
     <g:image_link>${escapeXml(p.photos[0])}</g:image_link>
     ${additionalImages}
+    ${guessBrand(p.title, p.category) ? `<g:brand><![CDATA[${guessBrand(p.title, p.category)}]]></g:brand>` : ''}
     <g:product_type><![CDATA[${p.category}]]></g:product_type>
     <g:identifier_exists>no</g:identifier_exists>
     ${p.weight ? `<g:shipping_weight>${(p.weight / 1000).toFixed(3)} kg</g:shipping_weight>` : ''}
-    ${p.description ? `<description><![CDATA[${p.description.slice(0, 5000)}]]></description>` : ''}
+    <description><![CDATA[${String(p.description || fallbackDescription(p)).replace(/]]>/g, ']]&gt;').slice(0, 5000)}]]></description>
     <g:shipping>
       <g:country>CA</g:country>
       <g:price>${shipCA} CAD</g:price>

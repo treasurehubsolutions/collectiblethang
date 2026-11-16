@@ -44,6 +44,11 @@ export async function GET() {
     `<url><loc>${baseUrl}/blog/black-friday-collectibles-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/blog/buying-collectibles-on-ebay-canada-checklist</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/blog/funko-pop-chase-exclusives-holiday-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/power-rangers-collectibles-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/collectors-stocking-stuffers-under-20-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/little-people-collector-sets-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/beyblade-x-collecting-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/neca-action-figures-collecting-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/returns</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,
     `<url><loc>${baseUrl}/faq</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,
     `<url><loc>${baseUrl}/contact</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,
@@ -62,11 +67,23 @@ export async function GET() {
         },
       })
 
-      const { data, error } = await supabase
-        .from('products')
-        .select('id')
-        .eq('enabled', true)
-        .limit(5000)
+      // Pagination : Supabase plafonne a 1000 lignes par requete (le sitemap n'avait que 1000 produits)
+      let data = []
+      let error = null
+      let from = 0
+      while (true) {
+        const res = await supabase
+          .from('products')
+          .select('id')
+          .eq('enabled', true)
+          .gt('stock', 0)
+          .range(from, from + 999)
+        if (res.error) { error = res.error; break }
+        if (!res.data || res.data.length === 0) break
+        data = data.concat(res.data)
+        if (res.data.length < 1000) break
+        from += 1000
+      }
 
       console.log('[sitemap] rows=', data?.length, 'error=', error?.message || 'none')
 
