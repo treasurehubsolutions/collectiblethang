@@ -51,12 +51,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Car Culture is one of the most collector-friendly Hot Wheels lines because every release tells a story. If you want a collection that looks organized on the shelf and holds its interest over time, this line is a great place to focus. Here is how to approach it.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Japan Historics Car Culture release from our shop: read the series name on the card.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A Japan Historics Car Culture release from our shop: read the series name on the card.</figcaption>
       </figure>
       {sections.map(s => (
         <section key={s.h}>
@@ -67,13 +67,13 @@ export default function Article() {
       ))}
       <figure style={{ margin: '24px 0', textAlign: 'center' }}>
         <img src={IMG2} alt={ALT2} width={1600} height={1600} loading="lazy" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Vintage Racing Car Culture Corvette: check the card and the paint.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A Vintage Racing Car Culture Corvette: check the card and the paint.</figcaption>
       </figure>
       <h2 style={h2}>Shop Hot Wheels Premium in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=Hot%20Wheels%20Premium" style={{ color: '#e8b820' }}>Hot Wheels Premium</Link> and <Link href="/shop?category=Hot%20Wheels" style={{ color: '#e8b820' }}>Hot Wheels</Link> selection, with honest condition and shipping across Canada and the USA. You can also read <Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link> the <Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>beginner’s guide</Link> and our <Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Treasure Hunt guide</Link>.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one theme you love, read the series name on the card, and compare recent sold prices before you buy.</p>
-      <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Hot Wheels Treasure Hunts: How to Spot a Regular or Super Treasure Hunt</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Hot Wheels Treasure Hunts: How to Spot a Regular or Super Treasure Hunt</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li></ul></nav>
     </article>
   )
 }

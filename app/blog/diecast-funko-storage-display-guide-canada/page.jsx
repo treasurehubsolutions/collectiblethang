@@ -45,7 +45,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Finding a great piece is only half of collecting. How you store and display it decides whether it still looks great in five years. Here are practical tips for die-cast cars and Funko Pop figures, from light and humidity to protectors, shelves and safe moving.</p>
       {sections.map(s => (
@@ -58,13 +58,13 @@ export default function Article() {
       <h2 style={h2}>Shop die-cast and Funko Pop in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=Hot%20Wheels" style={a}>Hot Wheels</Link>, <Link href="/shop?category=Matchbox" style={a}>Matchbox</Link> and <Link href="/shop?category=Funko%20Pop" style={a}>Funko Pop</Link> selection, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one shelf, add protectors to your best pieces and keep the whole collection out of direct light.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
         <li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={a}>How to Start a Hot Wheels Collection</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={a}>Matchbox Collecting Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={a}>Hot Wheels Treasure Hunt Guide</Link></li>
-      </ul>
+      </ul></nav>
     </article>
   )
 }

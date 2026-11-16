@@ -51,12 +51,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Dinosaurs never go out of style. Whether you grew up with the first film or you collect the newer Jurassic World lines, here are five quick tips to buy smart and build a shelf worth showing off.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Hot Wheels Premium Jurassic Park Jeep from our shop: check the card and the paint.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A Hot Wheels Premium Jurassic Park Jeep from our shop: check the card and the paint.</figcaption>
       </figure>
       {sections.map(s => (
         <section key={s.h}>
@@ -67,13 +67,13 @@ export default function Article() {
       ))}
       <figure style={{ margin: '24px 0', textAlign: 'center' }}>
         <img src={IMG2} alt={ALT2} width={1600} height={1600} loading="lazy" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Jurassic World Danger Pack: confirm the contents and the features listed on the box.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A Jurassic World Danger Pack: confirm the contents and the features listed on the box.</figcaption>
       </figure>
       <h2 style={h2}>Shop Jurassic Park and Jurassic World in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=Jurassic%20Park%20%2F%20World" style={{ color: '#e8b820' }}>Jurassic Park / World</Link> selection, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one lane, check the size and the packaging, and buy from a seller who shows real photos.</p>
-      <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>Transformers and DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide for Vintage Collectors</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>How to Store and Display Die-Cast Cars and Funko Pop Figures</Link></li></ul>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>Transformers and DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide for Vintage Collectors</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>How to Store and Display Die-Cast Cars and Funko Pop Figures</Link></li></ul></nav>
     </article>
   )
 }

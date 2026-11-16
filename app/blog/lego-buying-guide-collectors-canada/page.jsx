@@ -51,12 +51,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>LEGO is a favourite for builders, collectors and gift buyers, and the holiday season makes it even more popular. Whether you want a sealed set for the shelf or a used set to build this weekend, a few simple checks will help you buy with confidence.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A LEGO set from our shop: the set number is printed on the box.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A LEGO set from our shop: the set number is printed on the box.</figcaption>
       </figure>
       {sections.map(s => (
         <section key={s.h}>
@@ -68,12 +68,12 @@ export default function Article() {
       <h2 style={h2}>Shop LEGO in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=LEGO" style={a}>LEGO</Link> selection at The Shelf Cartel, or check the <Link href="/shop" style={a}>full shop</Link> for more collectibles, with honest condition and shipping across Canada and the USA.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: find the set number, check the box or the completeness, and compare recent sold prices before you buy.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={a}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/pokemon-cards-collecting-canada-beginners" style={a}>Pokémon Cards for Beginners</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
-      </ul>
+      </ul></nav>
     </article>
   )
 }

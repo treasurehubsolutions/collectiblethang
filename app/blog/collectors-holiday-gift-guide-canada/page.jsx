@@ -39,7 +39,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2],
     datePublished: '2026-11-05',
-    dateModified: '2026-11-13',
+    dateModified: '2026-11-15',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -51,12 +51,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Buying for a collector can feel tricky, but a few simple rules make it easy. Here is a quick guide to picking toys and collectibles that will actually be loved, whether you are shopping for a Hot Wheels fan, a Funko Pop collector or a LEGO builder.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A pop culture Hot Wheels Premium from our shop: an easy gift for movie fans.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A pop culture Hot Wheels Premium from our shop: an easy gift for movie fans.</figcaption>
       </figure>
       {sections.map(s => (
         <section key={s.h}>
@@ -66,13 +66,15 @@ export default function Article() {
       ))}
       <figure style={{ margin: '24px 0', textAlign: 'center' }}>
         <img src={IMG2} alt={ALT2} width={1600} height={1600} loading="lazy" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A sealed Funko Pop: check the box before you order.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A sealed Funko Pop: check the box before you order.</figcaption>
       </figure>
       <h2 style={h2}>Shop collectibles in Canada</h2>
       <p style={p}>Browse our current selection of <Link href="/shop?category=Hot%20Wheels" style={a}>Hot Wheels</Link>, <Link href="/shop?category=Funko%20Pop" style={a}>Funko Pop</Link>, <Link href="/shop?category=LEGO" style={a}>LEGO</Link>, <Link href="/shop?category=Star%20Wars" style={a}>Star Wars</Link> and <Link href="/shop?category=Marvel" style={a}>Marvel</Link> at The Shelf Cartel, with honest condition and shipping across Canada and the USA. You can also check the <Link href="/shop" style={a}>full shop</Link> for deals.</p>
+      <p style={p}>On a tight budget? See our guide to <Link href="/blog/collectors-stocking-stuffers-under-20-canada" style={a}>collector stocking stuffers under $20</Link> for small Hot Wheels and die-cast gift ideas.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one theme per person, check the condition in the photos and order a few weeks before the holidays.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-stocking-stuffers-under-20-canada" style={a}>Collector Stocking Stuffers Under $20 in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={a}>Black Friday 2026 for Collectors in Canada: How to Shop Smart</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={a}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li>
@@ -84,7 +86,7 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/wwe-wrestling-collectibles-guide-canada" style={a}>WWE and Wrestling Collectibles Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={a}>McFarlane DC Multiverse Collecting Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/vhs-tapes-collecting-guide-canada" style={a}>VHS Tapes and DVDs Collecting Guide</Link></li>
-      </ul>
+      </ul></nav>
     </article>
   )
 }

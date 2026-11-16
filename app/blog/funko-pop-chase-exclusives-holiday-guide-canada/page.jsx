@@ -56,12 +56,12 @@ export default function Article() {
   const p = { color: '#c8c8d4', fontSize: 16, lineHeight: 1.75, margin: '0 0 12px' }
   const fig = { margin: '20px 0', textAlign: 'center' }
   const img = { width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }
-  const cap = { color: '#888', fontSize: 13, marginTop: 6 }
+  const cap = { color: '#a0a0ae', fontSize: 13, marginTop: 6 }
   const lk = { color: '#e8b820' }
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>The holiday rush is here, and Funko Pop fans are hunting for chase variants, glow editions and store exclusives. Here is how to read the box, check the sticker and buy with confidence in Canada.</p>
       <figure style={fig}>
@@ -105,13 +105,13 @@ export default function Article() {
       <h2 style={h2}>Where to find Funko Pop in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=Funko%20Pop" style={lk}>Funko Pop</Link> selection and the full <Link href="/shop" style={lk}>shop</Link> at The Shelf Cartel, with honest condition notes and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one character, check the number and the sticker, and add one great figure to your shelf.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={lk}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={lk}>How to Store and Display Die-Cast Cars and Funko Pop Figures</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={lk}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={lk}>Black Friday 2026 for Collectors in Canada</Link></li>
-      </ul>
+      </ul></nav>
     </article>
   )
 }

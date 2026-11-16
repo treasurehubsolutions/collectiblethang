@@ -50,12 +50,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Pokémon cards are one of the most popular collectibles in Canada, and getting started is easier when you know what to look at. Here is a simple guide to buying with confidence, whether you want one favourite card or a whole set.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A reverse holo single from our shop: the set number is at the bottom of the card.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A reverse holo single from our shop: the set number is at the bottom of the card.</figcaption>
       </figure>
       {sections.map(s => (
         <section key={s.h}>
@@ -67,12 +67,12 @@ export default function Article() {
       <h2 style={h2}>Shop Pokémon in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=Pok%C3%A9mon" style={a}>Pokémon</Link> selection at The Shelf Cartel, or check the <Link href="/shop" style={a}>full shop</Link> for more collectibles, with honest condition and shipping across Canada and the USA.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one character or set, check condition in the photos and compare recent sold prices before you buy.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={a}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={a}>How to Start a Hot Wheels Collection</Link></li>
-      </ul>
+      </ul></nav>
     </article>
   )
 }

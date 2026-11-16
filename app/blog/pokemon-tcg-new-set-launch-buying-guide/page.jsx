@@ -53,11 +53,11 @@ export default function Article() {
   const p = { color: '#c8c8d4', fontSize: 16, lineHeight: 1.75, margin: '0 0 12px' }
   const fig = { margin: '20px 0', textAlign: 'center' }
   const img = { width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }
-  const cap = { color: '#888', fontSize: 13, marginTop: 6 }
+  const cap = { color: '#a0a0ae', fontSize: 13, marginTop: 6 }
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>New Pokémon TCG sets create a rush: pre-orders, rumours, sold-out shelves and fast-changing prices. Whether you are a parent buying a gift, a returning collector or a first-time pack opener, these six tips will help you spend wisely this launch season.</p>
       <figure style={fig}>
@@ -87,12 +87,12 @@ export default function Article() {
       <h2 style={h2}>Shop Pokémon in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=Pok%C3%A9mon" style={{ color: '#e8b820' }}>Pokémon</Link> selection, from Elite Trainer Boxes to figures, with honest condition and shipping across Canada and the USA. You can also explore the whole <Link href="/shop" style={{ color: '#e8b820' }}>shop</Link>, and new items arrive every week. For exact release dates and product contents, always check the official Pokémon announcements.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick your goal (packs, deck or collection), choose the matching format, and check the seal and the photos before you buy.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
         <li style={{ marginBottom: 6 }}><Link href="/blog/pokemon-cards-collecting-canada-beginners" style={{ color: '#e8b820' }}>Pokémon Cards for Beginners: Condition, Sets and Smart Buying</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/lego-buying-guide-collectors-canada" style={{ color: '#e8b820' }}>LEGO Buying Guide for Collectors</Link></li>
-      </ul>
+      </ul></nav>
     </article>
   )
 }

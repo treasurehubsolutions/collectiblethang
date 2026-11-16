@@ -26,7 +26,7 @@ const sections = [
   { h: '3. Condition decides the value', p: ['For carded and boxed collectibles, a sharp card or a clean box can matter as much as the item itself. Ask for clear photos of the corners, the blister and the window, and read the description for any wear. Our guides on Hot Wheels Premium vs mainline and on Treasure Hunts explain what to look for before you pay.'] },
   { h: '4. Hot Wheels, Funko Pop and figures: what to look for', p: ['For Hot Wheels, check the series name, the casting and whether the card is flat and unbent. For Funko Pop, look at the box corners and the window. For action figures, confirm that accessories are included and that the packaging matches the line. Pick a theme and stay with it: a small complete set looks better than a pile of unrelated pieces.'] },
   { h: '5. Beware of fake urgency and fake listings', p: ['Countdown timers, “only a few left” banners and unknown sellers with prices far below the market are classic warning signs. Buy from sellers with real photos of the actual item, a clear return policy and a history you can check. If a price looks too good to be true for a sought-after item, it usually is.'] },
-  { h: '6. Plan shipping and the holiday calendar', p: ['Holiday shipping slows down from late November. If the items are gifts, order early, ask for a delivery estimate and keep room for delays. Combining several items in one order can save on shipping. We ship across Canada and the USA, and our delivery page explains the details.'] },
+  { h: '6. Plan shipping and the holiday calendar', p: ['Some big retailers start their Black Friday week early, so prices can move before November 27. Check your wishlist every few days and compare against recent sold prices before you buy. Holiday shipping slows down from late November. If the items are gifts, order early, ask for a delivery estimate and keep room for delays. Combining several items in one order can save on shipping. We ship across Canada and the USA, and our delivery page explains the details.'] },
   { h: '7. Keep gifts and your own shelf separate', p: ['It is easy to buy for yourself while shopping for others. Set a budget for each person, including you, and note it before you start. If you are buying for a collector, our holiday gift guide has ideas for every budget and every kind of fan.'] },
 ]
 
@@ -38,7 +38,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1, IMG2, IMG3],
     datePublished: '2026-11-13',
-    dateModified: '2026-11-13',
+    dateModified: '2026-11-16',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -50,12 +50,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Black Friday is two weeks away, and collectors are already hunting for deals. The goal is not to buy the most, it is to buy the right pieces at a fair price. Here is a simple plan for Hot Wheels, Funko Pop and figure collectors in Canada.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Hot Wheels Treasure Hunt from our shop: know what you are looking at before you buy.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A Hot Wheels Treasure Hunt from our shop: know what you are looking at before you buy.</figcaption>
       </figure>
       {sections.slice(0, 3).map(s => (
         <section key={s.h}>
@@ -65,7 +65,7 @@ export default function Article() {
       ))}
       <figure style={{ margin: '24px 0', textAlign: 'center' }}>
         <img src={IMG2} alt={ALT2} width={1600} height={1600} loading="lazy" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>Check the series and the condition of the car and card.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>Check the series and the condition of the car and card.</figcaption>
       </figure>
       {sections.slice(3).map(s => (
         <section key={s.h}>
@@ -75,18 +75,20 @@ export default function Article() {
       ))}
       <figure style={{ margin: '24px 0', textAlign: 'center' }}>
         <img src={IMG3} alt={ALT3} width={1600} height={1600} loading="lazy" style={fig} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A sealed Funko Pop: the box is part of the value.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A sealed Funko Pop: the box is part of the value.</figcaption>
       </figure>
       <h2 style={h2}>Shop collectibles in Canada</h2>
       <p style={p}>Browse <Link href="/shop?category=Hot%20Wheels" style={a}>Hot Wheels</Link>, <Link href="/shop?category=Funko%20Pop" style={a}>Funko Pop</Link>, <Link href="/shop?category=Star%20Wars" style={a}>Star Wars</Link> and <Link href="/shop?category=Marvel" style={a}>Marvel</Link> at The Shelf Cartel, with honest condition and shipping across Canada and the USA. See the <Link href="/shop" style={a}>full shop</Link> for the current selection.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: write your wishlist, set a maximum price per item and check recent sold prices before you buy.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={a}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={a}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={a}>Hot Wheels Treasure Hunts: How to Spot One</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
-      </ul>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={a}>Buying Collectibles on eBay Canada: An 8-Step Checklist</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-formula-1-collecting-guide-canada" style={a}>Hot Wheels Formula 1 Collecting Guide for Canadian Fans</Link></li>
+      </ul></nav>
     </article>
   )
 }

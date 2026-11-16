@@ -54,11 +54,11 @@ export default function Article() {
   const p = { color: '#c8c8d4', fontSize: 16, lineHeight: 1.75, margin: '0 0 12px' }
   const img = { width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }
   const fig = { margin: '20px 0', textAlign: 'center' }
-  const cap = { color: '#888', fontSize: 13, marginTop: 6 }
+  const cap = { color: '#a0a0ae', fontSize: 13, marginTop: 6 }
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>The hockey season is underway and the holidays are around the corner, which makes this a great time to start (or grow) a collection of hockey collectibles. Here is how to buy well in Canada, whether you love today’s stars, your home team or the vintage figures of the 1990s.</p>
       <figure style={fig}>
@@ -96,8 +96,8 @@ export default function Article() {
       <h2 style={h2}>Where to find hockey collectibles in Canada</h2>
       <p style={p}>Browse <Link href="/shop" style={{ color: '#e8b820' }}>our shop</Link> for hockey bobbleheads, NHL figures, cards and more, with honest condition notes and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one team or one era, set a budget and add your first piece. A focused shelf always beats a crowded one.</p>
-      <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/video-game-collectibles-guide-canada" style={{ color: '#e8b820' }}>Video Game Collectibles Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/tmnt-collectibles-guide-canada" style={{ color: '#e8b820' }}>Teenage Mutant Ninja Turtles Collectibles Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={{ color: '#e8b820' }}>Black Friday Collectibles Guide for Canada</Link></li></ul>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/video-game-collectibles-guide-canada" style={{ color: '#e8b820' }}>Video Game Collectibles Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/tmnt-collectibles-guide-canada" style={{ color: '#e8b820' }}>Teenage Mutant Ninja Turtles Collectibles Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={{ color: '#e8b820' }}>Black Friday Collectibles Guide for Canada</Link></li></ul></nav>
     </article>
   )
 }

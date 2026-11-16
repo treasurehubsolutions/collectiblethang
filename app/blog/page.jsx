@@ -132,6 +132,41 @@ const posts = [
     title: 'Funko Pop Chase and Exclusives: How to Read the Box Before You Buy This Holiday Season',
     excerpt: 'Chase variants, glow editions, store exclusive stickers and box condition: buy Funko Pop figures with confidence.',
   },
+  {
+    href: '/blog/power-rangers-collectibles-guide-canada',
+    title: 'Power Rangers Collectibles in Canada: Lightning Collection, Re-Ignition and Vintage Zords',
+    excerpt: 'Pick a lane, check the line, accessories and packaging, and buy Power Rangers figures with confidence.',
+  },
+  {
+    href: '/blog/alaskan-de-icer-windshield-winter-guide-canada',
+    title: 'Best Windshield De-Icer Spray in Canada: Alaskan De-Icer 3-Pack Winter Guide (Guide FR/EN)',
+    excerpt: 'How de-icer spray works, how to use it safely on windshields, mirrors and locks, and what to check before you buy. Dégivrant pour pare-brise.',
+  },
+  {
+    href: '/blog/collectors-stocking-stuffers-under-20-canada',
+    title: 'Collector Stocking Stuffers Under $20 in Canada: Small Gifts Big Fans Will Love',
+    excerpt: 'Hot Wheels, Matchbox and small die-cast ideas: set a theme, check condition, combine shipping and order early.',
+  },
+  {
+    href: '/blog/little-people-collector-sets-guide-canada',
+    title: 'Little People Collector Sets in Canada: A Buyer\'s Guide for Adult Fans',
+    excerpt: 'Pick a theme, check the figures and the box, compare sold prices and plan shipping for Fisher-Price Little People Collector sets.',
+  },
+  {
+    href: '/blog/beyblade-x-collecting-guide-canada',
+    title: 'Beyblade X Collecting in Canada: Blades, Ratchets, Bits and Smart Buying',
+    excerpt: 'Understand the parts, check a set, compare sold prices and avoid mismatched or fake parts when buying Beyblade X.',
+  },
+  {
+    href: '/blog/neca-action-figures-collecting-guide-canada',
+    title: "NECA Action Figures in Canada: A Collector's Guide to Horror, Movie and Retro Figures",
+    excerpt: 'Read edition labels, check accessories and joints, spot bootlegs and compare sold prices when buying NECA figures.',
+  },
+  {
+    href: '/blog/hot-wheels-formula-1-collecting-guide-canada',
+    title: 'Hot Wheels Formula 1 Collecting Guide for Canadian Fans: Teams, Premium Cars and Smart Buying',
+    excerpt: 'Pick a team or era, tell Premium from basic cars, read the card and compare sold prices as Hot Wheels and Formula 1 team up.',
+  },
 ]
 
 export default function Blog() {

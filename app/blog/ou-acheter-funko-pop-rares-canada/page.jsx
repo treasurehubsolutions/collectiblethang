@@ -49,12 +49,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Finding a rare Funko Pop is part research and part patience. Here are nine practical steps to help Canadian collectors buy with confidence and avoid overpaying.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={{ width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A chase Funko Pop from our shop: check the box corners, the window and the sticker.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A chase Funko Pop from our shop: check the box corners, the window and the sticker.</figcaption>
       </figure>
       {sections.map(s => (
         <section key={s.h}>
@@ -66,7 +66,7 @@ export default function Article() {
       <h2 style={h2}>Shop Funko Pop in Canada</h2>
       <p style={p}>Browse our current <Link href="/shop?category=Funko%20Pop" style={{ color: '#e8b820' }}>Funko Pop</Link> selection at The Shelf Cartel, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick the exact character you want, check the box in the photos, and compare recent sold prices before you buy.</p>
-      <h2 style={h2}>Related reading</h2>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
       <ul style={{ ...p, paddingLeft: 22 }}>
         <li style={{ marginBottom: 6 }}><Link href="/blog/funko-pop-chase-exclusives-holiday-guide-canada" style={a}>Funko Pop Chase and Exclusives: How to Read the Box Before You Buy</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={a}>Star Wars and Marvel Legends Collecting Guide</Link></li>
@@ -76,7 +76,7 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={a}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={a}>Die-Cast and Funko Pop Storage and Display Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={a}>Black Friday 2026 for Collectors in Canada: How to Shop Smart</Link></li>
-      </ul>
+      </ul></nav>
     </article>
   )
 }

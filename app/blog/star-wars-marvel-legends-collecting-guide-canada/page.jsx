@@ -50,12 +50,12 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog" style={{ color: '#888', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
+      <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Star Wars and Marvel Legends action figures are among the most popular collectibles for fans of all ages. With several scales, lines and conditions on the market, here are five quick tips to collect with confidence.</p>
       <figure style={{ margin: '20px 0', textAlign: 'center' }}>
         <img src={IMG1} alt={ALT1} width={1600} height={1600} loading="eager" style={{ width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Star Wars Vintage Collection figure from our shop: check the card, the bubble and the corners.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A Star Wars Vintage Collection figure from our shop: check the card, the bubble and the corners.</figcaption>
       </figure>
       {sections.map(s => (
         <section key={s.h}>
@@ -67,13 +67,13 @@ export default function Article() {
       ))}
       <figure style={{ margin: '24px 0', textAlign: 'center' }}>
         <img src={IMG2} alt={ALT2} width={1600} height={1600} loading="lazy" style={{ width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }} />
-        <figcaption style={{ color: '#888', fontSize: 13, marginTop: 6 }}>A Marvel Legends figure from our shop: the line name is printed on the box.</figcaption>
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A Marvel Legends figure from our shop: the line name is printed on the box.</figcaption>
       </figure>
       <h2 style={h2}>Shop Star Wars and Marvel in Canada</h2>
       <p style={p}>You can browse our current selection of <Link href="/shop?category=Star Wars" style={{ color: '#e8b820' }}>Star Wars</Link> and <Link href="/shop?category=Marvel" style={{ color: '#e8b820' }}>Marvel</Link> figures at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick a scale, check the box and the figure, then compare with recent sold prices before you buy.</p>
-      <h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={{ color: '#e8b820' }}>Where to Buy Rare Funko Pop Figures in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>McFarlane DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={{ color: '#e8b820' }}>Black Friday 2026 for Collectors in Canada</Link></li></ul>
+      <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/power-rangers-collectibles-guide-canada" style={{ color: '#e8b820' }}>Power Rangers Collectibles in Canada: Lightning Collection Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={{ color: '#e8b820' }}>Where to Buy Rare Funko Pop Figures in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>McFarlane DC Multiverse Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={{ color: '#e8b820' }}>Black Friday 2026 for Collectors in Canada</Link></li></ul></nav>
     </article>
   )
 }
