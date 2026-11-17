@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Hockey Collectibles in Canada: Bobbleheads, NHL Figures and Cards for Fans'
 const DESC = 'Hockey season is in full swing. Learn how to buy hockey collectibles in Canada: bobbleheads, vintage NHL figures and cards, with tips on condition, packaging and display.'
+const SEO_TITLE = 'Hockey Collectibles Guide for Canada'
+const SEO_DESC = 'Buy hockey collectibles in Canada: bobbleheads, vintage NHL figures and cards, with tips on condition, packaging and display.'
 const SLUG = 'hockey-collectibles-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/knsAAeSwDGNpawWg/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/0EQAAeSwQ8FpawkO/s-l1600.jpg'
@@ -12,12 +14,12 @@ const ALT2 = 'Connor Bedard NHL Big Shot Shooters collectible figure, Canada exc
 const ALT3 = 'Patrick Roy NHL Headliners Signature Series figure by Irwin, 1997, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -58,6 +60,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>The hockey season is underway and the holidays are around the corner, which makes this a great time to start (or grow) a collection of hockey collectibles. Here is how to buy well in Canada, whether you love today’s stars, your home team or the vintage figures of the 1990s.</p>

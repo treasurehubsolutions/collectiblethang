@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Black Friday 2026 for Collectors in Canada: How to Shop Smart'
 const DESC = 'Black Friday is November 27, 2026. A practical guide for collectors in Canada: make a wishlist, check condition, compare sold prices, avoid fake deals and plan your shipping.'
+const SEO_TITLE = "Black Friday 2026 for Collectors in Canada"
+const SEO_DESC = "Black Friday is November 27, 2026. Collector tips for Canada: build a wishlist, check condition, compare sold prices, avoid fake deals, plan shipping."
 const SLUG = 'black-friday-collectibles-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/vigAAeSw8cpoM3n0/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/~FQAAeSwiXpo0DVC/s-l1600.jpg'
@@ -12,12 +14,12 @@ const ALT2 = 'Hot Wheels 1998 Subaru Impreza 22B-STi in white from The 90s serie
 const ALT3 = 'Funko Pop Television He-Man #991 Masters of the Universe vinyl figure, new and sealed, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -50,6 +52,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Black Friday is two weeks away, and collectors are already hunting for deals. The goal is not to buy the most, it is to buy the right pieces at a fair price. Here is a simple plan for Hot Wheels, Funko Pop and figure collectors in Canada.</p>
@@ -88,7 +91,7 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={a}>Buying Collectibles on eBay Canada: An 8-Step Checklist</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-formula-1-collecting-guide-canada" style={a}>Hot Wheels Formula 1 Collecting Guide for Canadian Fans</Link></li>
-      </ul></nav>
+      <li style={{ marginBottom: 6 }}><Link href="/blog/beyblade-x-collecting-guide-canada" style={a}>Beyblade X Collecting Guide for Canadian Collectors</Link></li></ul></nav>
     </article>
   )
 }

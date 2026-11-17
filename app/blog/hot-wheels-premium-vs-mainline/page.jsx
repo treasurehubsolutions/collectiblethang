@@ -5,14 +5,16 @@ const TITLE = 'Hot Wheels Premium vs Mainline: How to Tell the Difference'
 const IMGP = 'https://i.ebayimg.com/images/g/1ycAAeSwHOFpXE8G/s-l1600.jpg'
 const ALTP = '2025 Hot Wheels Premium Car Culture Boulevard 16 Bugatti Chiron in black, photographed by The Shelf Cartel'
 const DESC = 'Not sure if a Hot Wheels car is Premium or mainline? Check the base, wheels, paint details, packaging and price with this quick collector guide for buyers in Canada.'
+const SEO_TITLE = 'Hot Wheels Premium vs Mainline'
+const SEO_DESC = 'Premium or mainline? Check the base, wheels, paint, packaging and price with this quick Hot Wheels collector guide for buyers in Canada.'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/hot-wheels-premium-vs-mainline` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/hot-wheels-premium-vs-mainline`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/hot-wheels-premium-vs-mainline`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMGP, width: 1600, height: 1600, alt: ALTP }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMGP] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMGP] },
 }
 
 const sections = [
@@ -47,6 +49,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/hot-wheels-premium-vs-mainline` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Premium and mainline Hot Wheels can look similar in a photo, but they are built, packaged and priced differently. Knowing the difference helps you avoid overpaying and helps you pick the right cars for your collection. Here are five quick checks.</p>

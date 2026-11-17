@@ -3,14 +3,16 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Little People Collector Sets in Canada: A Buyer\'s Guide for Adult Fans'
 const DESC = 'How to collect Fisher-Price Little People Collector sets in Canada: pick a theme, check the figures and the box, compare sold prices and plan shipping. A practical guide for adult fans and gift buyers.'
+const SEO_TITLE = "Little People Collector Sets Buyer's Guide"
+const SEO_DESC = "Collect Fisher-Price Little People Collector sets in Canada: pick a theme, check the figures and box, compare sold prices and plan shipping."
 const SLUG = 'little-people-collector-sets-guide-canada'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA' },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC },
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA' },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC },
 }
 
 const sections = [
@@ -45,6 +47,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>The classic chunky figures grew up with us. Here is how to choose, check and buy Little People Collector sets with confidence, whether you are building a shelf or shopping for a fan.</p>

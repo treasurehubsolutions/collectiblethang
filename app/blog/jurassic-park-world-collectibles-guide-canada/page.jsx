@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Jurassic Park and Jurassic World Collectibles: Dinosaurs, Hot Wheels and Smart Buying'
 const DESC = 'How to collect Jurassic Park and Jurassic World toys in Canada: dinosaur figures, Hot Wheels and Matchbox vehicles, ornaments and playsets. Check the line, the size, the packaging and the sounds before you buy.'
+const SEO_TITLE = "Jurassic Park & World Collectibles Guide"
+const SEO_DESC = "Collect Jurassic Park and Jurassic World toys in Canada: dinosaur figures, Hot Wheels, playsets. Check the line, size and packaging before you buy."
 const SLUG = 'jurassic-park-world-collectibles-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/4qoAAeSwhd9pe62G/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/oSgAAeSwSARpqKjy/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT1 = 'Hot Wheels Premium Pop Culture Jurassic Park 92 Jeep Wrangler Saha
 const ALT2 = 'Mattel Jurassic World Chaos Theory Danger Pack with Guemesia dinosaur figure, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -51,6 +53,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Dinosaurs never go out of style. Whether you grew up with the first film or you collect the newer Jurassic World lines, here are five quick tips to buy smart and build a shelf worth showing off.</p>

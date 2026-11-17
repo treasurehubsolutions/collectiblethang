@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Hot Wheels Formula 1 Collecting Guide for Canadian Fans: Teams, Premium Cars and Smart Buying'
 const DESC = 'Hot Wheels and Formula 1 are now official partners. A practical guide for collectors in Canada: pick a team or era, tell Premium from basic cars, check the card and compare sold prices.'
+const SEO_TITLE = 'Hot Wheels Formula 1 Collecting Guide'
+const SEO_DESC = 'Hot Wheels x Formula 1 for Canadian collectors: pick a team or era, tell Premium from basic cars, check the card and compare sold prices.'
 const SLUG = 'hot-wheels-formula-1-collecting-guide-canada'
 const IMG2 = 'https://i.ebayimg.com/images/g/~FQAAeSwiXpo0DVC/s-l1600.jpg'
 const IMG3 = 'https://i.ebayimg.com/images/g/vigAAeSw8cpoM3n0/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT2 = 'Hot Wheels 1998 Subaru Impreza 22B-STi in white from The 90s serie
 const ALT3 = 'Hot Wheels Treasure Hunt 1978 Dodge Li’L Red Express Truck in green, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG2, width: 1600, height: 1600, alt: ALT2 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG2] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG2] },
 }
 
 const sections = [
@@ -49,6 +51,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Formula 1 is heading toward the end of its season, and Hot Wheels is bringing the sport to 1:64 scale with an official partnership. Whether you follow one team or just love race cars, here is a simple plan to start a Formula 1 shelf in Canada without overpaying.</p>

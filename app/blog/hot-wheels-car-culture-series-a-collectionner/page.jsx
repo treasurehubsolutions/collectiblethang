@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Hot Wheels Car Culture: Series Worth Collecting'
 const DESC = 'A collector guide to Hot Wheels Car Culture: what the line is, how the themed series work, how to read the card and how to pick sets worth adding to your collection in Canada.'
+const SEO_TITLE = 'Hot Wheels Car Culture Guide'
+const SEO_DESC = 'Hot Wheels Car Culture explained: how the themed series work, how to read the card and which sets are worth adding in Canada.'
 
 const IMG1 = 'https://i.ebayimg.com/images/g/fKgAAeSwHjBqGEsv/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/4CYAAeSwL8lqgJbV/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT1 = 'Hot Wheels Japan Historics 77 Toyota Celica Premium Car Culture di
 const ALT2 = 'Hot Wheels Premium Car Culture Vintage Racing 76 Greenwood Corvette in red, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/hot-wheels-car-culture-series-a-collectionner` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/hot-wheels-car-culture-series-a-collectionner`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/hot-wheels-car-culture-series-a-collectionner`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -51,6 +53,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/hot-wheels-car-culture-series-a-collectionner` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Car Culture is one of the most collector-friendly Hot Wheels lines because every release tells a story. If you want a collection that looks organized on the shelf and holds its interest over time, this line is a great place to focus. Here is how to approach it.</p>

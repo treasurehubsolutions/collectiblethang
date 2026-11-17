@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Funko Pop Chase and Exclusives: How to Read the Box Before You Buy This Holiday Season'
 const DESC = 'Chase variants, glow editions, store exclusives and box condition: a simple guide to buying Funko Pop figures with confidence in Canada this holiday season.'
+const SEO_TITLE = 'Funko Pop Chase & Exclusives Guide'
+const SEO_DESC = 'Chase variants, glow editions and store exclusives: how to read the box and buy Funko Pop figures with confidence in Canada this holiday season.'
 const SLUG = 'funko-pop-chase-exclusives-holiday-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/HvsAAeSwVZ5qmAgv/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/wikAAeSwI6FppOuz/s-l1600.jpg'
@@ -14,12 +16,12 @@ const ALT3 = 'Funko Pop Star Wars Darth Vader #757 Target Exclusive in box, phot
 const ALT4 = 'Funko Pop Disney Frozen II Elsa #594 Amazon Exclusive vinyl figure with protector case, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -61,6 +63,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/funko-pop-chase-exclusives-holiday-guide-canada` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>The holiday rush is here, and Funko Pop fans are hunting for chase variants, glow editions and store exclusives. Here is how to read the box, check the sticker and buy with confidence in Canada.</p>

@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'G.I. Joe Classified Collecting Guide: Retro Cardbacks, 6 Inch Figures and Smart Buying'
 const DESC = 'Collecting G.I. Joe in Canada: Classified Series 6 inch figures, retro cardbacks, vehicles and sets. How to check condition, packaging and buy smart.'
+const SEO_TITLE = 'G.I. Joe Classified Collecting Guide'
+const SEO_DESC = 'Collecting G.I. Joe in Canada: Classified 6 inch figures, retro cardbacks and vehicles. How to check condition and packaging, and buy smart.'
 const SLUG = 'gi-joe-classified-collecting-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/cvYAAeSwgCFn8we9/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/xVwAAeSw5NJqg0Pf/s-l1600.jpg'
@@ -12,12 +14,12 @@ const ALT2 = 'G.I. Joe Classified Retro Cardback Vincent Falcon 6 inch figure, p
 const ALT3 = 'G.I. Joe Ninja Commando 4x4 and Cobra H.I.S.S. construction set, new sealed, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -59,6 +61,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Whether you grew up with the Joes and Cobra or you are discovering them now, G.I. Joe makes great shelf pieces and great holiday gifts. Here is how to buy well in Canada, from Classified Series figures to retro cardbacks and sets.</p>
@@ -98,7 +101,7 @@ export default function Article() {
       <p style={p}>Browse <Link href="/shop" style={{ color: '#e8b820' }}>our shop</Link> for G.I. Joe figures, vehicles and more, with honest condition notes and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one character or one wave, set a budget and add your first figure. A focused shelf always beats a crowded one.</p>
       <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/power-rangers-collectibles-guide-canada" style={{ color: '#e8b820' }}>Power Rangers Collectibles in Canada: Lightning Collection Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/wwe-wrestling-collectibles-guide-canada" style={{ color: '#e8b820' }}>WWE and Wrestling Collectibles Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>Die-Cast and Funko Pop Storage and Display Guide</Link></li></ul></nav>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/power-rangers-collectibles-guide-canada" style={{ color: '#e8b820' }}>Power Rangers Collectibles in Canada: Lightning Collection Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/wwe-wrestling-collectibles-guide-canada" style={{ color: '#e8b820' }}>WWE and Wrestling Collectibles Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>Die-Cast and Funko Pop Storage and Display Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/neca-action-figures-collecting-guide-canada" style={{ color: '#e8b820' }}>NECA Action Figures Collecting Guide for Canada</Link></li></ul></nav>
     </article>
   )
 }

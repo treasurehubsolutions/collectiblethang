@@ -5,14 +5,16 @@ const TITLE = 'How to Start a Hot Wheels Collection: A Beginner’s Guide for Ca
 const IMG = 'https://i.ebayimg.com/images/g/~FQAAeSwiXpo0DVC/s-l1600.jpg'
 const ALT = 'Hot Wheels 1998 Subaru Impreza 22B-STi in white from The 90s series, photographed by The Shelf Cartel'
 const DESC = 'Pick a theme, learn the difference between mainline and Premium, check condition, store your cars and buy smart. A simple beginner guide for Hot Wheels collectors in Canada.'
+const SEO_TITLE = 'How to Start a Hot Wheels Collection'
+const SEO_DESC = 'Start a Hot Wheels collection in Canada: pick a theme, know mainline vs Premium, check condition, store your cars and buy smart.'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/guide-debuter-collection-hot-wheels` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/guide-debuter-collection-hot-wheels`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/guide-debuter-collection-hot-wheels`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG, width: 1600, height: 1600, alt: ALT }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG] },
 }
 
 const sections = [
@@ -53,6 +55,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/guide-debuter-collection-hot-wheels` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Starting a Hot Wheels collection is easy, cheap and addictive. Whether you grew up racing these cars on orange track or you just discovered the Car Culture lines, a few simple choices at the start will save you money and keep your collection fun instead of overwhelming.</p>

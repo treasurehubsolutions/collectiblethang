@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Holiday Gift Guide for Collectors in Canada'
 const DESC = 'Gift ideas for collectors in Canada: Hot Wheels, Funko Pop, LEGO, Star Wars and Marvel. What to look for in condition and boxes, and how to order in time for the holidays.'
+const SEO_TITLE = "Collector Holiday Gift Guide, Canada"
+const SEO_DESC = "Gift ideas for collectors in Canada: Hot Wheels, Funko Pop, Star Wars and Marvel. What to check in condition and boxes, and how to order before the holidays."
 const SLUG = 'collectors-holiday-gift-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/IekAAeSwPIZp5~Y-/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/RAsAAeSwWIxqje3T/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT1 = 'Hot Wheels Premium Back to the Future DeLorean Time Machine 1955 P
 const ALT2 = 'Funko Pop Television He-Man #991 Masters of the Universe vinyl figure, new and sealed, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -51,6 +53,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Buying for a collector can feel tricky, but a few simple rules make it easy. Here is a quick guide to picking toys and collectibles that will actually be loved, whether you are shopping for a Hot Wheels fan, a Funko Pop collector or a LEGO builder.</p>
@@ -86,7 +89,7 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/wwe-wrestling-collectibles-guide-canada" style={a}>WWE and Wrestling Collectibles Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={a}>McFarlane DC Multiverse Collecting Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/vhs-tapes-collecting-guide-canada" style={a}>VHS Tapes and DVDs Collecting Guide</Link></li>
-      </ul></nav>
+      <li style={{ marginBottom: 6 }}><Link href="/blog/beyblade-x-collecting-guide-canada" style={a}>Beyblade X Collecting Guide for Canadian Collectors</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/little-people-collector-sets-guide-canada" style={a}>Little People Collector Sets Guide for Canada</Link></li></ul></nav>
     </article>
   )
 }

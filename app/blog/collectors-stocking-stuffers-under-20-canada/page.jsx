@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Collector Stocking Stuffers Under $20 in Canada: Small Gifts Big Fans Will Love'
 const DESC = 'Stocking stuffer ideas for collectors in Canada: Hot Wheels, Matchbox, small die-cast and more under $20. How to pick, check condition and ship in time for the holidays.'
+const SEO_TITLE = "Collector Stocking Stuffers Under $20"
+const SEO_DESC = "Stocking stuffer ideas for collectors in Canada under $20: Hot Wheels, Matchbox and small die-cast. How to pick, check condition and ship before the holidays."
 const SLUG = 'collectors-stocking-stuffers-under-20-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/UOAAAeSwUzJpWpZM/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/mfwAAeSw~GRpHS9G/s-l1600.jpg'
@@ -12,12 +14,12 @@ const ALT2 = 'Hot Wheels Peanuts Snoopy HW Screen Time 1:64 die-cast car, photog
 const ALT3 = 'Hot Wheels Toyota AE86 Sprinter Trueno purple J-Imports 2026 die-cast car, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -60,6 +62,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>You do not need a big budget to make a collector happy. Small die-cast cars and other compact collectibles are easy to wrap, easy to ship and fun to open. Here is how to build a stocking full of great gifts for under $20 each, with tips for Canadian shoppers.</p>
@@ -99,7 +102,7 @@ export default function Article() {
       <p style={p}>Browse <Link href="/shop" style={{ color: '#e8b820' }}>our shop</Link> for Hot Wheels, Matchbox and more small collectibles, or go straight to <Link href="/shop?category=Hot%20Wheels%20Premium" style={{ color: '#e8b820' }}>Hot Wheels Premium</Link> for a step up. We ship across Canada and the USA, and new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick a theme, set your budget per gift and order early so every stocking is ready on time.</p>
       <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={{ color: '#e8b820' }}>Black Friday Collectibles Guide for Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>How to Start a Hot Wheels Collection</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>How to Store and Display Die-Cast Cars and Funko Pop Figures</Link></li></ul></nav>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/black-friday-collectibles-guide-canada" style={{ color: '#e8b820' }}>Black Friday Collectibles Guide for Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={{ color: '#e8b820' }}>How to Start a Hot Wheels Collection</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={{ color: '#e8b820' }}>Matchbox Collecting Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>How to Store and Display Die-Cast Cars and Funko Pop Figures</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/little-people-collector-sets-guide-canada" style={{ color: '#e8b820' }}>Little People Collector Sets Guide for Canada</Link></li></ul></nav>
     </article>
   )
 }

@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'McFarlane DC Multiverse Collecting Guide: Batman, Retro Super Friends and Absolute Figures'
 const DESC = 'How to collect McFarlane Toys DC Multiverse figures in Canada: 7 inch and 6 inch lines, Batman Animated Series, Retro Super Friends, the new Absolute wave, and how to check packaging and buy smart.'
+const SEO_TITLE = "McFarlane DC Multiverse Collecting Guide"
+const SEO_DESC = "Collect McFarlane DC Multiverse figures in Canada: 7 inch and 6 inch lines, Batman Animated Series, Retro Super Friends and Absolute figures."
 const SLUG = 'mcfarlane-dc-multiverse-collecting-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/54cAAeSwCctp39Zs/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/EsgAAeSwzo1o0Fn0/s-l1600.jpg'
@@ -14,12 +16,12 @@ const ALT3 = 'McFarlane Batman The Animated Series Ventriloquist and Scarface 6 
 const ALT4 = 'DC Multiverse The Penguin 7 inch action figure from The Batman movie by McFarlane Toys, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
@@ -67,6 +69,7 @@ export default function Article() {
   return (
     <article style={{ maxWidth: 780, margin: '0 auto', padding: '32px 20px 64px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE }, { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` }, { '@type': 'ListItem', position: 3, name: TITLE, item: `${BASE}/blog/${SLUG}` }] }) }} />
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>From Batman Returns villains to animated series classics and the new Absolute presales, McFarlane’s DC figures are everywhere this season. Here is how to choose a line, read the packaging and buy well in Canada.</p>
@@ -94,7 +97,7 @@ export default function Article() {
       <p style={p}>Browse <Link href="/shop" style={{ color: '#e8b820' }}>our shop</Link> for DC Multiverse, Batman and other McFarlane figures, with honest condition notes and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one line and one character, set a budget and add your first figure.</p>
       <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>Transformers and DC Multiverse Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>How to Store and Display Die-Cast Cars and Funko Pop Figures</Link></li></ul></nav>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/transformers-dc-multiverse-collecting-guide-canada" style={{ color: '#e8b820' }}>Transformers and DC Multiverse Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Holiday Gift Guide for Collectors in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/star-wars-marvel-legends-collecting-guide-canada" style={{ color: '#e8b820' }}>Star Wars and Marvel Legends Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>How to Store and Display Die-Cast Cars and Funko Pop Figures</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/neca-action-figures-collecting-guide-canada" style={{ color: '#e8b820' }}>NECA Action Figures Collecting Guide for Canada</Link></li></ul></nav>
     </article>
   )
 }
