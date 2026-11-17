@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'VHS Tapes and DVDs for Collectors in Canada: Condition, Language and Smart Buying'
 const DESC = 'Collecting VHS tapes and DVDs in Canada: how to judge tape and case condition, understand English and French editions, buy lots wisely and store your movies.'
+const SEO_TITLE = 'VHS Tapes & DVDs Collecting Guide Canada'
+const SEO_DESC = 'Collect VHS tapes and DVDs in Canada: judge tape and case condition, understand English and French editions, buy lots wisely and store them.'
 const SLUG = 'vhs-tapes-collecting-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/5DsAAOSw6P1nno50/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/IbAAAeSwgX9nw9CE/s-l1600.jpg'
@@ -12,12 +14,12 @@ const ALT2 = 'The Grudge VHS in a French edition, photographed by The Shelf Cart
 const ALT3 = 'Six Days Seven Nights VHS tape, English edition, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

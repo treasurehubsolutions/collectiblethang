@@ -5,14 +5,16 @@ const TITLE = 'Where to Buy Rare Funko Pop Figures in Canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/HvsAAeSwVZ5qmAgv/s-l1600.jpg'
 const ALT1 = 'Funko Pop Star Wars Cobb Vanth #484 chase limited edition in box, photographed by The Shelf Cartel'
 const DESC = 'A practical guide for Canadian collectors: how to spot a rare Funko Pop, where to look, how to check condition and price, and how to avoid fakes.'
+const SEO_TITLE = 'Rare Funko Pops in Canada: Where to Buy'
+const SEO_DESC = 'How Canadian collectors can find rare Funko Pops: spot chase and vaulted figures, check box condition, compare prices and avoid fakes.'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/ou-acheter-funko-pop-rares-canada` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/ou-acheter-funko-pop-rares-canada`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/ou-acheter-funko-pop-rares-canada`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

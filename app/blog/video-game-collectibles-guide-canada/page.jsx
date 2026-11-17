@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Video Game Collectibles: Figures from Zelda Season to Sonic, PlayStation and Mortal Kombat'
 const DESC = 'The Zelda 40th anniversary has video game collecting buzzing. Learn how to buy video game action figures in Canada: pick a franchise, check the scale, the accessories and the box.'
+const SEO_TITLE = 'Video Game Collectibles Guide for Canada'
+const SEO_DESC = 'Buy video game action figures in Canada: pick a franchise, check scale, accessories and box, from Zelda to Sonic and Mortal Kombat.'
 const SLUG = 'video-game-collectibles-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/OqsAAOSwuoVoBreF/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/CdYAAeSwmwNpaEov/s-l1600.jpg'
@@ -12,12 +14,12 @@ const ALT2 = 'Sonic the Hedgehog Knuckles 6 inch Collectors Edition figure by Ja
 const ALT3 = 'McFarlane Toys Mortal Kombat Klassic Johnny Cage action figure 2026, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

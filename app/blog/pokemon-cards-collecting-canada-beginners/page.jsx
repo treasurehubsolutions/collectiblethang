@@ -5,15 +5,17 @@ const TITLE = 'Pokémon Cards for Beginners: Condition, Sets and Smart Buying'
 const DESC = 'A beginner guide for Canadian collectors: how to read a Pokémon card, judge condition, choose sets and avoid fakes before you buy singles, lots or sealed product.'
 const IMG1 = 'https://i.ebayimg.com/images/g/zOoAAeSwVvNpe9WD/s-l1600.jpg'
 const ALT1 = 'Tinkatuff 084/182 Reverse Holo Paradox Rift Pokémon card, near mint, photographed by The Shelf Cartel'
+const SEO_TITLE = 'Pokémon Cards for Beginners in Canada'
+const SEO_DESC = 'Start collecting Pokémon cards in Canada: read set symbols and rarity, judge condition, avoid fakes and choose singles, lots or sealed.'
 const SLUG = 'pokemon-cards-collecting-canada-beginners'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

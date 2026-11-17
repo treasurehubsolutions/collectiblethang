@@ -45,7 +45,7 @@ export default function Article() {
     description: DESC,
     image: [IMG],
     datePublished: '2026-11-09',
-    dateModified: '2026-11-13',
+    dateModified: '2026-11-17',
     mainEntityOfPage: `${BASE}/blog/guide-debuter-collection-hot-wheels`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -75,7 +75,7 @@ export default function Article() {
       <p style={p}>You can browse our current selection of <Link href="/shop?category=Hot%20Wheels" style={{ color: '#e8b820' }}>Hot Wheels</Link> and <Link href="/shop?category=Hot%20Wheels%20Premium" style={{ color: '#e8b820' }}>Hot Wheels Premium</Link> at The Shelf Cartel, with honest condition and shipping across Canada and the USA. Check back often: new items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: pick one theme, set a small budget, and pick up your first three cars. That is how every great collection starts.</p>
       <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-car-culture-series-a-collectionner" style={{ color: '#e8b820' }}>Hot Wheels Car Culture: Series Worth Collecting</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Hot Wheels Treasure Hunts: How to Spot a Regular or Super</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hallmark-keepsake-ornaments-collecting-guide-canada" style={{ color: '#e8b820' }}>Hallmark Keepsake Ornaments: A Collecting Guide</Link></li></ul></nav>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-premium-vs-mainline" style={{ color: '#e8b820' }}>Hot Wheels Premium vs Mainline: How to Tell the Difference</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-car-culture-series-a-collectionner" style={{ color: '#e8b820' }}>Hot Wheels Car Culture: Series Worth Collecting</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={{ color: '#e8b820' }}>Hot Wheels Treasure Hunts: How to Spot a Regular or Super</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/kidult-collectors-starter-guide-canada" style={{ color: '#e8b820' }}>Kidult Collecting in Canada: Start a Toy Collection on a Budget</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/hallmark-keepsake-ornaments-collecting-guide-canada" style={{ color: '#e8b820' }}>Hallmark Keepsake Ornaments: A Collecting Guide</Link></li></ul></nav>
     </article>
   )
 }

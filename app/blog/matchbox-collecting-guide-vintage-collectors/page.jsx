@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Matchbox Collecting Guide: Vintage, Collectors Series and Smart Buying'
 const DESC = 'How to collect Matchbox die-cast cars: vintage vs modern, the Collectors line, what to check on the base and the card, and how to buy with confidence in Canada.'
+const SEO_TITLE = 'Matchbox Collecting Guide: Vintage & New'
+const SEO_DESC = 'Collect Matchbox die-cast cars in Canada: vintage vs modern, the Collectors line, base and card checks, and smart ways to buy.'
 const SLUG = 'matchbox-collecting-guide-vintage-collectors'
 const IMG1 = 'https://i.ebayimg.com/images/g/tBgAAeSwXA1pYC2c/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/URsAAeSwPXZpWGiU/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT1 = 'Vintage Matchbox 1981 4x4 Chevy Van in lime green, photographed by
 const ALT2 = '2025 Matchbox Collectors 1990 Volkswagen Golf Country, new on card, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

@@ -4,6 +4,8 @@ const BASE = 'https://theshelfcartel.com'
 const TITLE = 'WWE Collectibles in Canada: Elite Figures, Retro LJN and Giant Plush for Wrestling Fans'
 const DESC = 'Collecting WWE and wrestling toys in Canada: Mattel Elite figures, retro LJN Superstars, giant plush and cards. How to check condition, packaging and buy smart.'
 const SLUG = 'wwe-wrestling-collectibles-guide-canada'
+const SEO_TITLE = 'WWE Wrestling Collectibles Guide Canada'
+const SEO_DESC = 'Collect WWE figures in Canada: Mattel Elite, retro LJN, giant plush and cards. Check condition, packaging and exclusives before you buy.'
 const IMG1 = 'https://i.ebayimg.com/images/g/Ar0AAeSw5vBqBmxI/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/x5QAAeSwa3tqbf0z/s-l1600.jpg'
 const IMG3 = 'https://i.ebayimg.com/images/g/RHcAAeSwvrRpbtnx/s-l1600.jpg'
@@ -12,12 +14,12 @@ const ALT2 = 'CM Punk Mattel Elite Saturday Night’s Main Event wrestling figur
 const ALT3 = 'WWE 23 inch Hulk Hogan giant plush, Canada exclusive, new with tag, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

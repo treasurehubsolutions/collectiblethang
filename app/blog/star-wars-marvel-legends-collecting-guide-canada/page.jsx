@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Star Wars and Marvel Legends Collecting Guide: Scales, Lines and Smart Buying'
 const DESC = 'How to collect Star Wars and Marvel Legends action figures in Canada: 3.75-inch vs 6-inch scale, the main lines, box condition and how to buy with confidence.'
+const SEO_TITLE = 'Star Wars & Marvel Legends Collecting Guide'
+const SEO_DESC = 'Collect Star Wars and Marvel Legends figures in Canada: 3.75-inch vs 6-inch scale, the main lines, box condition and smart buying tips.'
 const SLUG = 'star-wars-marvel-legends-collecting-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/19oAAeSw9ERoq3O7/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/ShIAAeSw8ZNoqgBD/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT1 = 'Star Wars The Vintage Collection Lando Calrissian 3.75-inch action
 const ALT2 = 'Marvel Legends Series Wolverine action figure from the Deadpool and Wolverine movie line, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

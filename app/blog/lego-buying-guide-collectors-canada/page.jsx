@@ -5,15 +5,17 @@ const TITLE = 'LEGO Buying Guide for Collectors: Sets, Condition and Smart Deals
 const DESC = 'A practical LEGO guide for Canadian collectors and gift buyers: sealed vs used sets, box condition, missing pieces, minifigures and how to compare prices before you buy.'
 const IMG1 = 'https://i.ebayimg.com/images/g/634AAeSwiSVpaEZK/s-l1600.jpg'
 const ALT1 = 'LEGO DC The Batman Batmobile set 76332 box, photographed by The Shelf Cartel'
+const SEO_TITLE = 'LEGO Buying Guide for Collectors in Canada'
+const SEO_DESC = 'Compare sealed and used LEGO sets in Canada: box condition, missing pieces, minifigures and how to check sold prices before you buy.'
 const SLUG = 'lego-buying-guide-collectors-canada'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

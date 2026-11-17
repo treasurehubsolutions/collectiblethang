@@ -51,6 +51,7 @@ export async function GET() {
     `<url><loc>${baseUrl}/blog/beyblade-x-collecting-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/blog/neca-action-figures-collecting-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/blog/hot-wheels-formula-1-collecting-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+    `<url><loc>${baseUrl}/blog/kidult-collectors-starter-guide-canada</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
     `<url><loc>${baseUrl}/returns</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,
     `<url><loc>${baseUrl}/faq</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,
     `<url><loc>${baseUrl}/contact</loc><lastmod>${now}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>`,

@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Transformers and DC Multiverse Collecting Guide: Lines, Scales and Smart Buying'
 const DESC = 'How to collect Transformers and DC Multiverse action figures in Canada: know the lines and scales, check packaging and accessories, spot reissues and errors, and buy with confidence.'
+const SEO_TITLE = 'Transformers & DC Multiverse Guide'
+const SEO_DESC = 'Collect Transformers and DC Multiverse figures in Canada: know the lines and scales, check packaging and accessories, spot reissues and errors.'
 const SLUG = 'transformers-dc-multiverse-collecting-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/I7MAAOSwadhoUfHW/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/images/g/UYUAAeSwfcBo6~bn/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT1 = 'Transformers Beast Wars Maximal Rattrap vintage reissue action fig
 const ALT2 = 'McFarlane Toys DC Multiverse Huntress Collector Edition 7 inch action figure, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

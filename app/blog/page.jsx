@@ -167,6 +167,11 @@ const posts = [
     title: 'Hot Wheels Formula 1 Collecting Guide for Canadian Fans: Teams, Premium Cars and Smart Buying',
     excerpt: 'Pick a team or era, tell Premium from basic cars, read the card and compare sold prices as Hot Wheels and Formula 1 team up.',
   },
+  {
+    href: '/blog/kidult-collectors-starter-guide-canada',
+    title: 'Kidult Collecting in Canada: How Adults Can Start a Toy Collection on a Budget',
+    excerpt: 'Pick a lane, set a monthly budget, read condition, compare sold prices and display your pieces.',
+  },
 ]
 
 export default function Blog() {

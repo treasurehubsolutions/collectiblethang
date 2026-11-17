@@ -3,14 +3,16 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'NECA Action Figures in Canada: A Collector\'s Guide to Horror, Movie and Retro Figures'
 const DESC = 'A practical guide for Canadian collectors of NECA figures: how to read scale and edition labels, check articulation and accessories, compare sold prices and ship safely.'
+const SEO_TITLE = 'NECA Action Figures Collecting Guide Canada'
+const SEO_DESC = 'Buy NECA figures in Canada: read edition labels, check joints and accessories, spot bootlegs, compare sold prices and ship safely.'
 const SLUG = 'neca-action-figures-collecting-guide-canada'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA' },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC },
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA' },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC },
 }
 
 const sections = [

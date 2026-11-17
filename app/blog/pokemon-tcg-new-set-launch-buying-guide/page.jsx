@@ -3,18 +3,20 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'New Pokémon TCG Set in November: How to Buy Smart on Launch Season'
 const DESC = 'A new Pokémon TCG expansion is landing this month. Learn how to choose between Elite Trainer Boxes, booster packs and singles, check sealed products and avoid overpaying during launch hype.'
+const SEO_TITLE = 'New Pokémon TCG Set: Buy Smart at Launch'
+const SEO_DESC = 'New Pokémon TCG set this month: choose Elite Trainer Boxes, booster packs or singles, check sealed product and avoid launch-hype prices.'
 const SLUG = 'pokemon-tcg-new-set-launch-buying-guide'
 const OG_IMG = 'https://i.ebayimg.com/images/g/HgEAAeSwSwhqWSu3/s-l1600.jpg'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
   openGraph: {
-    title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+    title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: OG_IMG, width: 1600, height: 1600, alt: 'Pokémon TCG Pitch Black Elite Trainer Box sold by The Shelf Cartel' }],
   },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [OG_IMG] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [OG_IMG] },
 }
 
 const images = [

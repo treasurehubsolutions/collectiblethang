@@ -3,6 +3,8 @@ import Link from 'next/link'
 const BASE = 'https://theshelfcartel.com'
 const TITLE = 'Teenage Mutant Ninja Turtles Collectibles: Figures, Hot Wheels and Smart Buying'
 const DESC = 'How to collect TMNT toys in Canada: NECA action figures, Hot Wheels and other diecast, Happy Meal toys and lots. Check the line, the scale, the accessories and the packaging before you buy.'
+const SEO_TITLE = 'TMNT Collectibles Guide for Canada'
+const SEO_DESC = 'Collect TMNT toys in Canada: NECA figures, Hot Wheels and diecast, Happy Meal toys and lots. Check line, scale, accessories and packaging.'
 const SLUG = 'tmnt-collectibles-guide-canada'
 const IMG1 = 'https://i.ebayimg.com/images/g/1hcAAeSwZDpqLwCK/s-l1600.jpg'
 const IMG2 = 'https://i.ebayimg.com/thumbs/images/g/cQ4AAeSwwgpqvmEN/s-l1600.jpg'
@@ -10,12 +12,12 @@ const ALT1 = 'NECA TMNT The Last Ronin Lost Years Grammy April, Baby Yi and Moja
 const ALT2 = 'Hot Wheels 2026 TMNT Party Wagon diecast car in yellow, photographed by The Shelf Cartel'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, width: 1600, height: 1600, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [
