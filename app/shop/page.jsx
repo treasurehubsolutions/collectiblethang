@@ -143,6 +143,18 @@ export default async function ShopPage({ searchParams }) {
         </p>
       )}
 
+      {/* Pagination (top) : les numeros de page visibles aussi au-dessus de la grille */}
+      {totalPages>1&&(
+        <nav aria-label="Pagination (top)" style={{display:'flex',gap:4,justifyContent:'center',margin:'0 0 14px',flexWrap:'wrap'}}>
+          {page>1&&<PG href={buildHref({page:page-1})} label="Previous page">‹</PG>}
+          {Array.from({length:totalPages},(_,i)=>i+1).filter(n=>n===1||n===totalPages||Math.abs(n-page)<=2).map((n,i,arr)=>[
+            arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#9a9aa8'}} aria-hidden="true">…</span>:null,
+            <PG key={n} href={buildHref({page:n})} on={n===page} label={`Page ${n}`}>{n}</PG>
+          ])}
+          {page<totalPages&&<PG href={buildHref({page:page+1})} label="Next page">›</PG>}
+        </nav>
+      )}
+
       {/* Product grid — full width, no sidebar */}
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:10}}>
         {items.map(p => {
