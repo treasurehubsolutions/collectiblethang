@@ -3,10 +3,18 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getProducts, getCategories, getCatMeta } from '../../lib/products'
 import AddToCartBtn from '../../components/AddToCartBtn'
+import { cleanTitle } from '../../lib/seo'
 
 export async function generateMetadata({ searchParams }) {
   const category = searchParams?.category || ''
   const BASE = 'https://theshelfcartel.com'
+  if (searchParams?.search) {
+    return {
+      title: `Search results | The Shelf Cartel`,
+      robots: { index: false, follow: true },
+      alternates: { canonical: `${BASE}/shop` },
+    }
+  }
   if (!category) {
     return {
       title: 'Shop Toys & Collectibles in Canada | The Shelf Cartel',
@@ -19,6 +27,29 @@ export async function generateMetadata({ searchParams }) {
     description: metaDesc(category),
     alternates: { canonical: `${BASE}/shop?category=${encodeURIComponent(category)}` },
   }
+}
+
+const BLOG_GUIDES = {
+  "Hot Wheels": [["hot-wheels-treasure-hunt-guide", "Hot Wheels treasure hunt guide"], ["guide-debuter-collection-hot-wheels", "Start a Hot Wheels collection"]],
+  "Hot Wheels Premium": [["hot-wheels-premium-vs-mainline", "Premium vs Mainline"], ["hot-wheels-car-culture-series-a-collectionner", "Car Culture series guide"]],
+  "Funko Pop": [["ou-acheter-funko-pop-rares-canada", "Where to buy rare Funko Pop in Canada"], ["funko-pop-chase-exclusives-holiday-guide-canada", "Chase and exclusives guide"]],
+  "Star Wars": [["star-wars-marvel-legends-collecting-guide-canada", "Star Wars and Marvel Legends guide"]],
+  "Marvel": [["star-wars-marvel-legends-collecting-guide-canada", "Marvel Legends collecting guide"]],
+  "LEGO": [["lego-buying-guide-collectors-canada", "LEGO buying guide for collectors"]],
+  "Matchbox": [["matchbox-collecting-guide-vintage-collectors", "Matchbox collecting guide"]],
+  "Transformers": [["transformers-dc-multiverse-collecting-guide-canada", "Transformers collecting guide"]],
+  "Pokémon": [["pokemon-cards-collecting-canada-beginners", "Pokémon cards for beginners"], ["pokemon-tcg-new-set-launch-buying-guide", "New set buying guide"]],
+  "DC Comics": [["mcfarlane-dc-multiverse-collecting-guide-canada", "DC Multiverse collecting guide"]],
+  "WWE & Wrestling": [["wwe-wrestling-collectibles-guide-canada", "WWE collectibles guide"]],
+  "McFarlane Figures": [["mcfarlane-dc-multiverse-collecting-guide-canada", "McFarlane and DC Multiverse guide"]],
+  "Hallmark Ornaments": [["hallmark-keepsake-ornaments-collecting-guide-canada", "Hallmark ornaments guide"]],
+  "TMNT": [["tmnt-collectibles-guide-canada", "TMNT collectibles guide"]],
+  "GI Joe": [["gi-joe-classified-collecting-guide-canada", "G.I. Joe Classified guide"]],
+  "VHS Tapes": [["vhs-tapes-collecting-guide-canada", "VHS collecting guide"]],
+  "Hockey": [["hockey-collectibles-guide-canada", "Hockey collectibles guide"]],
+  "Diecast & Scale Models": [["diecast-funko-storage-display-guide-canada", "Diecast storage and display guide"]],
+  "Video Games": [["video-game-collectibles-guide-canada", "Video game collectibles guide"]],
+  "Jurassic Park / World": [["jurassic-park-world-collectibles-guide-canada", "Jurassic collectibles guide"]],
 }
 
 const CAT_TEXT = {
@@ -69,8 +100,26 @@ export default async function ShopPage({ searchParams }) {
     return `/shop?${q}`
   }
 
+  const BASE = 'https://theshelfcartel.com'
+  const crumbs = [{ '@type':'ListItem', position:1, name:'Home', item:BASE },
+    { '@type':'ListItem', position:2, name:'Shop', item:`${BASE}/shop` }]
+  if (category) crumbs.push({ '@type':'ListItem', position:3, name:category, item:`${BASE}/shop?category=${encodeURIComponent(category)}` })
+  const faq = category ? [
+    { q:`Where do you ship ${category} orders from?`, a:'Every order ships from Quebec, Canada, to addresses in Canada and the USA.' },
+    { q:'Can I return an item?', a:'Yes. Items can be returned within 30 days under our return policy. See the Returns page for the details.' },
+    { q:'How is the condition of each item described?', a:'Every listing shows the real item in the photos and states its condition, so you know exactly what you are buying.' },
+  ] : []
+  const jsonLd = [
+    { '@context':'https://schema.org', '@type':'BreadcrumbList', itemListElement:crumbs },
+    ...(faq.length ? [{ '@context':'https://schema.org', '@type':'FAQPage',
+      mainEntity: faq.map(f=>({ '@type':'Question', name:f.q, acceptedAnswer:{ '@type':'Answer', text:f.a } })) }] : []),
+    { '@context':'https://schema.org', '@type':'ItemList',
+      itemListElement: (items||[]).slice(0,24).map((p,i)=>({ '@type':'ListItem', position:i+1, url:`${BASE}/product/${p.id}`, name:p.title })) },
+  ]
+
   return (
     <div style={{maxWidth:1300,margin:'0 auto',padding:'16px 16px'}}>
+      {!search && <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd).replace(/</g,'\\u003c')}} />}
 
       {/* Search bar - always visible */}
       <form action="/shop" role="search" style={{marginBottom:12,display:'flex',gap:0}}>
@@ -127,7 +176,7 @@ export default async function ShopPage({ searchParams }) {
               <Link href={`/product/${p.id}`} aria-label={p.title} style={{textDecoration:'none'}}>
                 <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
                   {p.photos?.[0]
-                    ? <Image src={p.photos[0]} alt={p.title} fill style={{objectFit:'contain',padding:8}} unoptimized/>
+                    ? <Image src={p.photos[0]} alt={cleanTitle(p.title, 125)} fill style={{objectFit:'contain',padding:8}} unoptimized/>
                     : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>{m.emoji}</div>}
                   {isNew&&<span style={{position:'absolute',bottom:4,left:4,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>NEW</span>}
                   {p.condition==='Open box'&&<span style={{position:'absolute',bottom:4,left:4,background:'#713f12',color:'#fde68a',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>OPEN BOX</span>}
@@ -148,6 +197,29 @@ export default async function ShopPage({ searchParams }) {
           )
         })}
       </div>
+
+      {/* Category FAQ (matches the FAQPage JSON-LD above) */}
+      {faq.length>0 && !search && (
+        <section aria-label="Frequently asked questions" style={{marginTop:32,maxWidth:820}}>
+          <h2 style={{fontFamily:'Bebas Neue',fontSize:18,letterSpacing:1.2,color:'#fff',marginBottom:10}}>{category} FAQ</h2>
+          {faq.map(f=>(
+            <div key={f.q} style={{marginBottom:10}}>
+              <h3 style={{fontSize:13,fontWeight:700,color:'#c4c4d0',margin:'0 0 3px'}}>{f.q}</h3>
+              <p style={{fontSize:13,lineHeight:1.6,color:'#9a9ab0',margin:0}}>{f.a}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Related blog guides (internal links) */}
+      {category && !search && BLOG_GUIDES[category] && (
+        <nav aria-label="Related guides" style={{marginTop:28,fontSize:13,color:'#9a9aa8',lineHeight:1.8}}>
+          <span style={{fontWeight:700,color:'#c4c4d0'}}>Related guides: </span>
+          {BLOG_GUIDES[category].map(([slug,label],i)=>(
+            <span key={slug}>{i>0&&' · '}<Link href={`/blog/${slug}`} style={{color:'#e8b820'}}>{label}</Link></span>
+          ))}
+        </nav>
+      )}
 
       {/* Pagination */}
       {totalPages>1&&(

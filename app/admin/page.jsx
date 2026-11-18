@@ -2,7 +2,7 @@
 import { useState, useRef } from 'react'
 
 const CATEGORIES = ['Hot Wheels','Hot Wheels Premium','Matchbox','Star Wars','Marvel','DC Comics','Transformers','Jurassic Park / World','WWE & Wrestling','GI Joe','TMNT','Power Rangers','Masters of the Universe','Sonic','Pokémon','Hallmark Ornaments','Funko Pop','McFarlane Figures','Disney & Pixar','LEGO','VHS Tapes','Bluray DVD','Video Games','Diecast & Scale Models','Action Figures','Dolls & Barbie','Hockey','Apparel','Collectibles']
-const EMPTY = { title:'', description:'', price:'', currency:'CAD', condition:'New', category:'Action Figures', stock:'1', weight:'250', photos:[], enabled:true }
+const EMPTY = { title:'', description:'', price:'', currency:'CAD', condition:'New', category:'Action Figures', stock:'1', weight:'250', release_date:'', photos:[], enabled:true }
 
 export default function AdminPage() {
   const [auth, setAuth] = useState(false)
@@ -70,7 +70,7 @@ export default function AdminPage() {
   async function saveProduct() {
     if (!form.title || !form.price) return alert('Titre et prix requis')
     setSaving(true)
-    const body = { ...form, price: parseFloat(form.price), stock: parseInt(form.stock), weight: parseInt(form.weight) }
+    const body = { ...form, price: parseFloat(form.price), stock: parseInt(form.stock), weight: parseInt(form.weight), release_date: form.release_date || null }
     const res = await fetch('/api/admin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-admin-pw': pw },
@@ -120,7 +120,7 @@ export default function AdminPage() {
 
   function editProduct(p) {
     setEditId(p.id)
-    setForm({ title:p.title, description:p.description||'', price:p.price.toString(), currency:p.currency||'CAD', condition:p.condition||'New', category:p.category, stock:p.stock.toString(), weight:(p.weight||250).toString(), photos:p.photos||[], enabled:p.enabled })
+    setForm({ title:p.title, description:p.description||'', price:p.price.toString(), currency:p.currency||'CAD', condition:p.condition||'New', category:p.category, stock:p.stock.toString(), weight:(p.weight||250).toString(), release_date:p.release_date||'', photos:p.photos||[], enabled:p.enabled, admin_fields:p.admin_fields||[] })
     setTab('add')
   }
 
@@ -244,6 +244,13 @@ export default function AdminPage() {
             <F label="Condition" k="condition" options={['New','Brand New','Open box','Used','Like New']}/>
           </div>
           <F label="Poids (grammes)" k="weight" type="number"/>
+          <F label="Date de sortie (présale) — laisse vide si déjà en stock" k="release_date" type="date"/>
+          {editId && (form.admin_fields||[]).length>0 && (
+            <div style={{marginBottom:14,fontSize:12,color:'#e8b820'}}>
+              🔒 Protégé du sync eBay : {(form.admin_fields||[]).join(', ')}{' '}
+              <button type="button" onClick={async()=>{ await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json','x-admin-pw':pw},body:JSON.stringify({action:'unlock',id:editId})}); setForm(f=>({...f,admin_fields:[]})); loadProducts() }} style={{marginLeft:8,padding:'3px 8px',borderRadius:4,background:'#12121e',border:'1px solid #333',color:'#ccc',fontSize:11,cursor:'pointer'}}>Redonner la main à eBay</button>
+            </div>
+          )}
           <div style={{marginBottom:14}}>
             <label style={{display:'block',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',color:'#555',marginBottom:5}}>Description</label>
             <textarea value={form.description} onChange={e=>setForm(f=>({...f,description:e.target.value}))} rows={4} style={{width:'100%',padding:'9px 12px',borderRadius:6,background:'#12121e',border:'1px solid #1c1c28',color:'#eee',fontSize:13,outline:'none',resize:'vertical'}}/>

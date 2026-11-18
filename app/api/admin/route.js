@@ -100,7 +100,23 @@ export async function POST(req) {
     const updates = { ...product }
     // Si le prix a changé, marquer admin_price pour protéger du sync eBay
     if (product.price !== undefined) updates.admin_price = product.price
+    // 🔒 Champs modifiés dans l'admin : le sync eBay ne les écrase plus (liste admin_fields)
+    const LOCKABLE = ['title', 'category', 'condition', 'weight', 'photos']
+    const { data: cur } = await supabase.from('products').select(LOCKABLE.join(',') + ', admin_fields').eq('id', id).single()
+    if (cur) {
+      const locked = new Set(cur.admin_fields || [])
+      for (const k of LOCKABLE) {
+        if (product[k] !== undefined && JSON.stringify(product[k]) !== JSON.stringify(cur[k])) locked.add(k)
+      }
+      updates.admin_fields = [...locked]
+    }
     const { error } = await supabase.from('products').update(updates).eq('id', id)
+    return NextResponse.json({ ok: !error, error: error?.message })
+  }
+
+  if (action === 'unlock') {
+    // Redonner la main à eBay : le sync réécrit de nouveau titre/catégorie/etc.
+    const { error } = await supabase.from('products').update({ admin_fields: [] }).eq('id', id)
     return NextResponse.json({ ok: !error, error: error?.message })
   }
 

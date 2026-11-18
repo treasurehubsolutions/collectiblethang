@@ -3,7 +3,7 @@ import { getProduct, getProducts, getCatMeta } from '../../../lib/products'
 import { notFound } from 'next/navigation'
 import ProductClient from '../../../components/ProductClient'
 import Link from 'next/link'
-import { guessBrand, feedCondition, fallbackDescription } from '../../../lib/seo'
+import { guessBrand, feedCondition, fallbackDescription, cleanTitle } from '../../../lib/seo'
 
 const BASE = 'https://theshelfcartel.com'
 
@@ -21,26 +21,29 @@ export async function generateMetadata({ params }) {
     if (!p) return { robots: { index: false, follow: false } }
     const price = `CA$${Number(p.price).toFixed(2)}`
     const url = `${BASE}/product/${params.id}`
-    const desc = `Buy ${p.title} for ${price}. ${p.description ? String(p.description).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120) : 'Toys & collectibles shipped across Canada and USA.'} Shop at The Shelf Cartel.`
+    const ct = cleanTitle(p.title, 150)
+    const plain = p.description ? String(p.description).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() : ''
+    const tail = plain ? plain.slice(0, 120) : `${feedCondition(p) === 'used' ? 'Pre-owned' : 'New'} ${p.category || 'collectible'} shipped from Quebec to Canada and the USA.`
+    const desc = `Buy ${ct} for ${price}. ${tail} Shop at The Shelf Cartel.`.replace(/\s+/g, ' ').slice(0, 300)
     return {
-      title: `${shortTitle(p.title)} | The Shelf Cartel`,
+      title: `${shortTitle(ct)} | The Shelf Cartel`,
       description: desc,
       alternates: {
         canonical: url,
       },
       openGraph: {
-        title: `${p.title} – ${price}`,
-        description: `${p.title} available at The Shelf Cartel. Ships Canada & USA.`,
+        title: `${ct} – ${price}`,
+        description: `${ct} available at The Shelf Cartel. Ships Canada & USA.`,
         url,
         siteName: 'The Shelf Cartel',
         locale: 'en_CA',
-        images: p.photos?.[0] ? [{ url: p.photos[0], alt: p.title }] : [],
+        images: p.photos?.[0] ? [{ url: p.photos[0], alt: ct }] : [],
         type: 'website',
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${shortTitle(p.title, 70)} – ${price}`,
-        description: `${p.title} at The Shelf Cartel. Ships Canada & USA.`,
+        title: `${shortTitle(ct, 70)} – ${price}`,
+        description: `${ct} at The Shelf Cartel. Ships Canada & USA.`,
         images: p.photos?.[0] ? [p.photos[0]] : [],
       },
     }
@@ -81,7 +84,7 @@ export default async function ProductPage({ params }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: p.title,
+    name: cleanTitle(p.title, 150),
     description: desc,
     image: (p.photos && p.photos.length) ? p.photos.slice(0, 6) : undefined,
     category: p.category || undefined,
@@ -124,6 +127,11 @@ export default async function ProductPage({ params }) {
         <span aria-hidden="true">&#8250;</span>
         <Link href={`/shop?category=${encodeURIComponent(p.category)}`} style={{color:meta.color,textDecoration:'none'}}>{p.category}</Link>
       </nav>
+      {p.release_date && new Date(p.release_date + 'T23:59:59') > new Date() && (
+        <div style={{background:'#1a1500',border:'1px solid #e8b820',color:'#e8b820',borderRadius:8,padding:'10px 16px',marginBottom:16,fontFamily:'Bebas Neue',fontSize:20,letterSpacing:2}}>
+          PRE-SALE &middot; Releases {new Date(p.release_date + 'T12:00:00').toLocaleDateString('en-CA',{year:'numeric',month:'long',day:'numeric'})}
+        </div>
+      )}
       <ProductClient product={{...p, description: desc}}/>
       {related.length>0 && (
         <section aria-labelledby="related-heading" style={{marginTop:48}}>

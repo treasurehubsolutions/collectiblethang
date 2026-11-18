@@ -82,7 +82,7 @@ export default function PrivacyPage() {
       {SECTIONS.map(s => (
         <section key={s.t[0]} style={{marginBottom:28}}>
           <h2 style={{fontFamily:'Bebas Neue',fontSize:20,letterSpacing:1.5,color:'#fff',marginBottom:10}}>{s.t[i]}</h2>
-          <p style={{fontSize:14,color:'#888',lineHeight:1.8,margin:0}}>{s.b[i]}</p>
+          <p style={{fontSize:14,color:'#a0a0ae',lineHeight:1.8,margin:0}}>{s.b[i]}</p>
         </section>
       ))}
       <p style={{fontSize:12,color:'#9a9aa8'}}>

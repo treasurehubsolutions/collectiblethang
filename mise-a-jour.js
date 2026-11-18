@@ -281,6 +281,11 @@ async function main() {
     rows.filter(r => r['Variation details'] && r['Variation details'].trim())
         .map(r => r['Item number'].trim())
   )
+  // Exclure les annonces aux enchères (Format = AUCTION) : elles ne doivent pas apparaître sur le site
+  const auctionIds = new Set(
+    rows.filter(r => (r['Format'] || '').toUpperCase().includes('AUCTION'))
+        .map(r => r['Item number'].trim())
+  )
   // Also exclude products with YOU PICK / YOUR PICK in title
   const YOU_PICK_KEYWORDS = ['you pick', 'your pick', 'you choose', 'you select', 'pick your', 'pick one']
   const cleanRows = rows.filter(r => {
@@ -288,6 +293,7 @@ async function main() {
     const title = (r['Title'] || '').toLowerCase()
     const stock = parseInt(r['Available quantity'] ?? 0)
     if (variationIds.has(itemId)) return false
+    if (auctionIds.has(itemId)) return false  // enchère eBay = jamais sur le site
     if (YOU_PICK_KEYWORDS.some(kw => title.includes(kw))) {
       variationIds.add(itemId) // track for disabling
       return false
@@ -297,13 +303,40 @@ async function main() {
   })
   const activeIds = new Set(cleanRows.map(r => r['Item number'].trim()))
 
+  // Stock par variante, reconnue par son NOM (pas par sa position dans le CSV, qui change d'un export à l'autre)
+  const variantNames = {}   // item -> { nom en minuscules -> quantité }
+  {
+    for (const r of rows) {
+      const vd = (r['Variation details'] || '').trim()
+      if (!vd || vd.includes(';')) continue   // ligne récap ignorée
+      const id = r['Item number'].trim()
+      const name = (vd.includes('=') ? vd.split('=').slice(1).join('=') : vd).trim().toLowerCase()
+      ;(variantNames[id] = variantNames[id] || {})[name] = parseInt(r['Available quantity']) || 0
+    }
+  }
+  // Retrouve la quantité d'une variante d'après la fin de son titre: "... — <nom>"
+  const variantQtyFor = (baseId, title) => {
+    const names = variantNames[baseId]
+    if (!names) return undefined
+    const t = (title || '').toLowerCase()
+    let best = null
+    for (const n of Object.keys(names)) {
+      if (t.endsWith(' — ' + n) && (best === null || n.length > best.length)) best = n
+    }
+    return best === null ? undefined : names[best]
+  }
+  const variantUpdates = []
+  let noPhoto = 0   // produits en stock mais sans photo: jamais affichés sur le site
+
   console.log(`   ✓ Produits valides (sans variation): ${cleanRows.length}`)
   console.log(`   ✗ Variations exclues: ${variationIds.size}`)
+  console.log(`   ✗ Enchères exclues: ${auctionIds.size}`)
   console.log()
 
   // 4. Get current Supabase products (ALL - paginated)
   console.log('📋 Lecture Supabase...')
   const existingMap = {}
+  const dupExtras = []
   let from = 0
   const PAGE = 1000
   while (true) {
@@ -314,7 +347,11 @@ async function main() {
       .range(from, from + PAGE - 1)
     if (error || !page || page.length === 0) break
     for (const p of page) {
-      existingMap[p.ebay_id] = p
+      // 🔁 Doublons: plusieurs lignes avec le même ebay_id -> on garde la meilleure, les autres seront désactivées
+      const cur = existingMap[p.ebay_id]
+      if (!cur) { existingMap[p.ebay_id] = p; continue }
+      const sc = x => (x.enabled ? 10 : 0) + (x.admin_created ? 5 : 0) + (x.admin_price != null ? 3 : 0) + Math.min((x.photos || []).length, 2)
+      if (sc(p) > sc(cur)) { dupExtras.push(cur); existingMap[p.ebay_id] = p } else { dupExtras.push(p) }
     }
     if (page.length < PAGE) break
     from += PAGE
@@ -368,10 +405,31 @@ async function main() {
       skippedAdmin++
       continue // Jamais toucher aux produits admin
     }
-    if (!activeIds.has(ebayId) || variationIds.has(ebayId)) {
+    // 🎛  Produits issus d'un listing à variations (ebay_id = "<item>_<n>", créés par import-variations.js)
+    if (/^\d+_\d+$/.test(ebayId)) {
+      const baseId = ebayId.split('_')[0]
+      const q = variantQtyFor(baseId, prod.title)
+      const hasPhoto = Array.isArray(prod.photos) ? prod.photos.length > 0 : !!prod.photos
+      if (q === undefined || q <= 0 || auctionIds.has(baseId) || !hasPhoto) {
+        if (!hasPhoto && q > 0) noPhoto++
+        if (prod.enabled) toDisable.push(prod.id)          // variante épuisée, listing terminé ou SANS PHOTO
+      } else if (!prod.admin_oos && (!prod.enabled || prod.stock !== q)) {
+        variantUpdates.push({ id: prod.id, stock: q })     // variante encore en stock: on réactive / met à jour le stock
+      }
+      continue
+    }
+    if (!activeIds.has(ebayId) || variationIds.has(ebayId) || auctionIds.has(ebayId)) {
       if (prod.enabled) toDisable.push(prod.id)
     }
   }
+
+  // Copies en trop (même ebay_id): toujours désactivées, sauf produits admin
+  let dupDisabled = 0
+  for (const x of dupExtras) {
+    if (x.admin_deleted || x.admin_created) continue
+    if (x.enabled && !toDisable.includes(x.id)) { toDisable.push(x.id); dupDisabled++ }
+  }
+  if (dupExtras.length) console.log(`   🔁 Doublons (même ebay_id) trouvés: ${dupExtras.length}, copies actives désactivées: ${dupDisabled}`)
 
   // Process active products
   for (const row of cleanRows) {
@@ -401,7 +459,9 @@ async function main() {
 
       // 🔒 Si admin_oos=true, garder stock=0 — ne jamais remettre en stock depuis eBay
       const finalStock = existing.admin_oos ? 0 : stock
-      const finalEnabled = existing.admin_oos ? existing.enabled : (stock > 0)
+      // 📷 Sans photo = jamais affiché sur le site, même avec du stock
+      if (photos.length === 0 && stock > 0) noPhoto++
+      const finalEnabled = existing.admin_oos ? existing.enabled : (stock > 0 && photos.length > 0)
 
       const productData = {
         title, price: finalPrice, currency: 'CAD', stock: finalStock,
@@ -415,7 +475,7 @@ async function main() {
       const productData = {
         title, price, currency: 'CAD', stock,
         condition, category, ebay_id: itemId,
-        photos: imgs, enabled: stock > 0,
+        photos: imgs, enabled: stock > 0 && imgs.length > 0,
         source: 'ebay', ...specs
       }
       toInsert.push(productData)
@@ -424,6 +484,8 @@ async function main() {
 
   // 8. Apply changes
   console.log(`   🔒 Protégés admin (ignorés): ${skippedAdmin}`)
+  console.log(`   📷 Sans photo (cachés du site même avec du stock): ${noPhoto}`)
+  console.log(`   🎛  Variantes à réactiver / mettre à jour: ${variantUpdates.length}`)
   console.log(`   🗑  À désactiver: ${toDisable.length}`)
   console.log(`   ✏️  À mettre à jour: ${toUpdate.length}`)
   console.log(`   ➕ Nouveaux: ${toInsert.length}`)
@@ -436,6 +498,17 @@ async function main() {
       await supabase.from('products').update({ enabled: false, stock: 0 }).in('id', toDisable.slice(i, i + BATCH))
     }
     console.log(`✓ ${toDisable.length} produits désactivés`)
+  }
+
+  // Variantes (listings à dropdown): réactiver + stock
+  if (variantUpdates.length > 0) {
+    let vdone = 0
+    for (let i = 0; i < variantUpdates.length; i += 20) {
+      await Promise.all(variantUpdates.slice(i, i + 20).map(v =>
+        supabase.from('products').update({ enabled: true, stock: v.stock }).eq('id', v.id).then(({ error }) => { if (!error) vdone++ })
+      ))
+    }
+    console.log(`✓ ${vdone} variantes réactivées / stock mis à jour`)
   }
 
   // Update existing products — par batch via upsert

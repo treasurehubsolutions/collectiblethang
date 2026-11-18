@@ -31,6 +31,7 @@ const SERVICE_KEY  = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SER
 
 const EBAY_APP_ID  = 'AlexAbra-Collecti-PRD-af606d196-62405c9d'
 const EBAY_CERT_ID = process.env.EBAY_CERT_ID
+const EBAY_DEV_ID  = process.env.EBAY_DEV_ID
 const EBAY_TOKEN   = process.env.EBAY_TOKEN
 
 if (!SERVICE_KEY || !EBAY_TOKEN || !EBAY_CERT_ID) {
@@ -98,6 +99,7 @@ function ebayGetItem(itemId) {
         'X-EBAY-API-SITEID': '2',
         'X-EBAY-API-APP-NAME': EBAY_APP_ID,
         'X-EBAY-API-CERT-NAME': EBAY_CERT_ID,
+        ...(EBAY_DEV_ID ? { 'X-EBAY-API-DEV-NAME': EBAY_DEV_ID } : {}),
         'Content-Type': 'text/xml',
         'Content-Length': Buffer.byteLength(xml),
       }
@@ -114,6 +116,13 @@ function ebayGetItem(itemId) {
   })
 }
 
+// eBay renvoie le XML avec des entités (&apos; &amp; ...): on les décode pour comparer aux noms du CSV
+function decodeXml(t) {
+  return String(t).replace(/&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)))
+    .replace(/&amp;/g, '&')
+}
+
 // Extraire toutes les URLs de photos du XML
 function extractPhotos(xml) {
   const photos = []
@@ -125,10 +134,32 @@ function extractPhotos(xml) {
   return photos
 }
 
+// Photos par valeur de variante (vraie photo de chaque option du dropdown)
+function extractVariationPhotos(xml) {
+  const map = {}
+  const setRe = /<VariationSpecificPictureSet>([\s\S]*?)<\/VariationSpecificPictureSet>/g
+  let m
+  while ((m = setRe.exec(xml)) !== null) {
+    const block = m[1]
+    const val = (block.match(/<VariationSpecificValue>([^<]*)<\/VariationSpecificValue>/) || [])[1]
+    if (!val) continue
+    const urls = [...block.matchAll(/<PictureURL>(https?:\/\/[^<]+)<\/PictureURL>/g)].map(x => x[1])
+    if (urls.length) map[decodeXml(val).trim().toLowerCase()] = urls
+  }
+  return map
+}
+
+// Message d'erreur eBay (token expiré, accès refusé, etc.)
+function extractError(xml) {
+  const ack = (xml.match(/<Ack>([^<]+)<\/Ack>/) || [])[1]
+  const msg = (xml.match(/<LongMessage>([^<]+)<\/LongMessage>/) || xml.match(/<ShortMessage>([^<]+)<\/ShortMessage>/) || [])[1]
+  return ack && ack !== 'Success' && ack !== 'Warning' ? `${ack}: ${msg || 'erreur inconnue'}` : (msg || '')
+}
+
 // Extraire le titre du listing parent
 function extractTitle(xml) {
   const m = xml.match(/<Title>([^<]+)<\/Title>/)
-  return m ? m[1] : ''
+  return m ? decodeXml(m[1]) : ''
 }
 
 // Mapping catégorie (simplifié)
@@ -180,7 +211,7 @@ async function main() {
     const varDetail = (r['Variation details'] || '').trim()
     if (!varDetail) continue
     const id = r['Item number']
-    if (!listingMap[id]) listingMap[id] = { id, title: r['Title'], price: parseFloat(r['Start price']) || 0, variants: [] }
+    if (!listingMap[id]) listingMap[id] = { id, title: r['Title'], condition: (r['Condition'] || '').trim(), price: parseFloat(r['Start price']) || 0, variants: [] }
     // Ligne "tout" (liste toutes les options) vs ligne individuelle
     if (varDetail.includes(';')) continue // ligne récap — ignorer
     listingMap[id].variants.push({ detail: varDetail, qty: parseInt(r['Available quantity']) || 0, price: parseFloat(r['Start price']) || 0 })
@@ -204,19 +235,42 @@ async function main() {
     listing.variants.slice(0, 5).forEach(v => console.log(`    - ${v.detail} (qty: ${v.qty})`))
     if (listing.variants.length > 5) console.log(`    ... et ${listing.variants.length - 5} autres`)
 
-    const ans = await ask(`\n  Importer ce listing ? (oui/non/stop) : `)
+    // node import-variations.js 147542448142 [autres numéros]  => traite seulement ces annonces, sans aucune question
+    // node import-variations.js tout                           => traite toutes les annonces ayant du stock, sans question
+    const only = process.argv.slice(2)
+    const totalQty = listing.variants.reduce((a, v) => a + v.qty, 0)
+    let ans
+    if (only.length) {
+      ans = (only.includes('tout') || only.includes(String(listing.id))) && totalQty > 0 ? 'oui' : 'non'
+      console.log(ans === 'oui' ? '  → Traité' : '  → Ignoré (pas demandé / stock 0)')
+    } else if (totalQty === 0) {
+      ans = 'non'; console.log('  → Ignoré automatiquement (stock 0)')
+    } else {
+      ans = await ask(`\n  Importer ce listing ? (oui/non/stop) : `)
+    }
     if (ans.toLowerCase() === 'stop') { console.log('\nArrêt demandé.'); break }
     if (!['oui', 'o', 'yes', 'y'].includes(ans.toLowerCase())) { console.log('  → Ignoré'); continue }
 
     // 5. Appel API eBay
     console.log(`  🔍 Récupération des photos via API eBay...`)
     let photos = []
+    let varPhotos = {}
+    let liveTitle = ''   // titre ACTUEL de l'annonce sur eBay (le CSV peut être plus vieux)
     try {
       const xml = await ebayGetItem(listing.id)
       photos = extractPhotos(xml)
-      console.log(`  📸 ${photos.length} photos trouvées`)
+      varPhotos = extractVariationPhotos(xml)
+      liveTitle = (extractTitle(xml) || '').trim()
+      if (liveTitle && liveTitle !== listing.title) console.log(`  📝 Titre actuel sur eBay: ${liveTitle}`)
+      console.log(`  📸 ${photos.length} photos trouvées (${Object.keys(varPhotos).length} options avec leur propre photo)`)
       if (photos.length === 0) {
-        console.log('  ⚠️  Aucune photo — on continue sans photo')
+        console.log(`  ⚠️  Aucune photo — eBay répond: ${extractError(xml) || '(pas de message)'}`)
+        console.log('     → Les variantes seront créées mais NON affichées (désactivées) tant qu\'elles n\'ont pas de photo.')
+        if (/usage limit/i.test(extractError(xml))) {
+          console.log('\n⛔ eBay a atteint la limite quotidienne d\'appels API. Rien n\'a été modifié. Relance demain (la limite se remet à zéro environ à minuit, heure du Pacifique), idéalement avec: node import-variations.js NUMERO_ITEM')
+          process.exit(0)
+        }
+        if (/token|auth|expired|IAF/i.test(extractError(xml))) console.log('     → Le jeton EBAY_TOKEN dans .env.local est probablement expiré: renouvelle-le (eBay Developer).')
       }
     } catch (e) {
       console.log(`  ⚠️  Erreur API eBay: ${e.message} — on continue sans photo`)
@@ -225,7 +279,22 @@ async function main() {
     // 6. Créer les produits Supabase
     const category = smartCategory(listing.title)
     const ebayUrl = `https://www.ebay.ca/itm/${listing.id}`
-    let created = 0, skipped = 0
+    let created = 0, skipped = 0, updatedCount = 0
+
+    // Produits déjà sur le site pour CE listing. On les reconnaît par le NOM de la variante (fin du titre),
+    // jamais par leur position dans le CSV: l'ordre du CSV peut changer d'un export à l'autre.
+    const { data: existingRows } = await supabase
+      .from('products')
+      .select('id, ebay_id, title, photos, enabled, admin_created, admin_oos')
+      .like('ebay_id', `${listing.id}_%`)
+      .limit(2000)
+    const pool = (existingRows || []).slice()
+    let nextIdx = pool.reduce((m, r) => Math.max(m, parseInt(String(r.ebay_id).split('_')[1]) || 0), -1) + 1
+    const takeExisting = varName => {
+      const suffix = (' — ' + varName).toLowerCase()
+      const i = pool.findIndex(r => (r.title || '').toLowerCase().endsWith(suffix))
+      return i >= 0 ? pool.splice(i, 1)[0] : null
+    }
 
     for (let vi = 0; vi < listing.variants.length; vi++) {
       const v = listing.variants[vi]
@@ -233,29 +302,52 @@ async function main() {
 
       // Extraire le nom propre de la variante (après le "=")
       const varName = v.detail.includes('=') ? v.detail.split('=').slice(1).join('=').trim() : v.detail
-      const title = `${listing.title} — ${varName}`
+      // Titre court: "<catégorie> — <nom de la variante>" (ex: "Hot Wheels — The Dark Knight Batman - Case M")
+      const prefix = category !== 'Collectibles' ? category : (liveTitle || listing.title)
+      const title = `${prefix} — ${varName}`
 
       // Photo: on répartit les photos entre les variantes
-      const photo = photos.length > 0 ? [photos[vi % photos.length]] : []
+      // 1) vraie photo de l'option si eBay la fournit, 2) sinon répartition dans l'ordre
+      const own = varPhotos[varName.trim().toLowerCase()]
+      // Si l'annonce a des photos par option, une option sans photo reste SANS photo (donc cachée): jamais une photo au hasard
+      const photo = own ? own.slice(0, 3) : (Object.keys(varPhotos).length === 0 && photos.length > 0 ? [photos[vi % photos.length]] : [])
 
-      // Vérifier si existe déjà
-      const { data: existing } = await supabase
-        .from('products')
-        .select('id')
-        .eq('ebay_id', `${listing.id}_${vi}`)
-        .single()
+      // Vérifier si existe déjà (reconnu par le nom de la variante)
+      const existing = takeExisting(varName)
 
-      if (existing) { skipped++; continue }
+      if (existing) {
+        // Variante déjà sur le site: on corrige sa photo avec la VRAIE photo de l'option (ou on la complète si elle n'en avait pas)
+        if (existing.admin_created) { skipped++; continue }
+        const curPhotos = Array.isArray(existing.photos) ? existing.photos : (existing.photos ? [existing.photos] : [])
+        const wantPhotos = own ? own.slice(0, 3) : (curPhotos.length === 0 ? photo : curPhotos)
+        const samePhotos = JSON.stringify(curPhotos) === JSON.stringify(wantPhotos)
+        const wantEnabled = !existing.admin_oos && wantPhotos.length > 0
+        const titleChanged = existing.title !== title
+        // Annonce avec photos par option mais celle-ci n'en a pas: on la cache plutôt que d'afficher une mauvaise photo
+        if (!own && Object.keys(varPhotos).length > 0) {
+          if (existing.enabled) { await supabase.from('products').update({ enabled: false, title }).eq('id', existing.id); updatedCount++ } else { skipped++ }
+          continue
+        }
+        if (titleChanged || (wantPhotos.length > 0 && (!samePhotos || (wantEnabled && !existing.enabled)))) {
+          const upd = { title, stock: v.qty }
+          if (wantPhotos.length > 0) upd.photos = wantPhotos
+          if (wantEnabled) upd.enabled = true
+          const { error: uerr } = await supabase.from('products').update(upd).eq('id', existing.id)
+          if (uerr) { console.log(`  ❌ Erreur maj: ${uerr.message}`); skipped++ } else { updatedCount++ }
+        } else { skipped++ }
+        continue
+      }
 
       const { error } = await supabase.from('products').insert({
-        ebay_id:  `${listing.id}_${vi}`,
+        ebay_id:  `${listing.id}_${nextIdx++}`,
+        condition: listing.condition || 'New',
         title,
         price:    v.price || listing.price,
         currency: 'CAD',
         stock:    v.qty,
         category,
         photos:   photo,
-        enabled:  true,
+        enabled:  photo.length > 0,   // sans photo = jamais affiché sur le site
         source:   'ebay',
       })
 
@@ -265,7 +357,7 @@ async function main() {
       process.stdout.write(`\r  Importé: ${created}/${listing.variants.length - skipped} variantes...`)
     }
 
-    console.log(`\n  ✅ ${created} variantes importées, ${skipped} ignorées (qty=0 ou déjà existantes)`)
+    console.log(`\n  ✅ ${created} variantes importées, ${updatedCount} corrigées (photo/stock), ${skipped} ignorées (qty=0 ou déjà correctes)`)
   }
 
   console.log('\n' + '═'.repeat(60))

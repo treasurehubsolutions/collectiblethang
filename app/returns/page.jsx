@@ -79,7 +79,7 @@ export default function ReturnsPage() {
         </p>
       </section>
 
-      <div style={{marginTop:48,padding:'20px 24px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,fontSize:13,color:'#888'}}>
+      <div style={{marginTop:48,padding:'20px 24px',background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8,fontSize:13,color:'#a0a0ae'}}>
         📦 Ships from Quebec, Canada &nbsp;·&nbsp; 🇨🇦 Canada & USA &nbsp;·&nbsp; ↩️ 30-day returns &nbsp;·&nbsp; 🔒 Secure payment via Stripe
       </div>
     </div>
