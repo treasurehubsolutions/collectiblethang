@@ -75,6 +75,7 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={a}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={a}>How to Start a Hot Wheels Collection</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/pokemon-tcg-new-set-launch-buying-guide" style={a}>Pokémon TCG New Set Launch: Buying Guide</Link></li>
       </ul></nav>
     </article>
   )

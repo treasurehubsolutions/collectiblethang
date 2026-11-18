@@ -89,7 +89,8 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/wwe-wrestling-collectibles-guide-canada" style={a}>WWE and Wrestling Collectibles Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/mcfarlane-dc-multiverse-collecting-guide-canada" style={a}>McFarlane DC Multiverse Collecting Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/vhs-tapes-collecting-guide-canada" style={a}>VHS Tapes and DVDs Collecting Guide</Link></li>
-      <li style={{ marginBottom: 6 }}><Link href="/blog/beyblade-x-collecting-guide-canada" style={a}>Beyblade X Collecting Guide for Canadian Collectors</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/little-people-collector-sets-guide-canada" style={a}>Little People Collector Sets Guide for Canada</Link></li></ul></nav>
+      <li style={{ marginBottom: 6 }}><Link href="/blog/beyblade-x-collecting-guide-canada" style={a}>Beyblade X Collecting Guide for Canadian Collectors</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/little-people-collector-sets-guide-canada" style={a}>Little People Collector Sets Guide for Canada</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/lego-buying-guide-collectors-canada" style={a}>LEGO Buying Guide for Collectors: Sets, Condition and Smart Deals</Link></li></ul></nav>
     </article>
   )
 }
