@@ -91,20 +91,23 @@ export default function RootLayout({ children }) {
                     Transformers · VHS · DVD · LEGO
                   </div>
                 </div>
-                <div>
-                  <div style={{fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',marginBottom:12}}>Navigation</div>
+                <details style={{borderBottom:'1px solid #1a1a20'}}>
+                  <summary style={{display:'block',cursor:'pointer',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',padding:'10px 0'}}>Navigation ▾</summary>
+                  <div style={{paddingBottom:12}}>
                   {[['/', 'Home'],['/shop','Shop'],['/shop?sort=popular','Popular'],['/shop?sort=new','New Arrivals'],['/a-propos','About us'],['/blog','Blog'],['/livraison','Shipping & Returns'],['/faq','FAQ'],['/returns','Returns'],['/contact','Contact'],['/privacy-policy','Privacy Policy'],['/terms','Terms of Sale']].map(([href,label])=>(
                     <a key={href} href={href} style={{display:'block',fontSize:13,color:'#666',marginBottom:6,textDecoration:'none'}}>{label}</a>
                   ))}
-                </div>
-                <div>
-                  <div style={{fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',marginBottom:12}}>Popular Categories</div>
+                </div></details>
+                <details style={{borderBottom:'1px solid #1a1a20'}}>
+                  <summary style={{display:'block',cursor:'pointer',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',padding:'10px 0'}}>Popular Categories ▾</summary>
+                  <div style={{paddingBottom:12}}>
                   {['Hot Wheels','Hot Wheels Premium','Star Wars','Marvel','DC Comics','Transformers','VHS Tapes','DVD & Blu-ray'].map(cat=>(
                     <a key={cat} href={`/shop?category=${encodeURIComponent(cat)}`} style={{display:'block',fontSize:13,color:'#666',marginBottom:6,textDecoration:'none'}}>{cat}</a>
                   ))}
-                </div>
-                <div>
-                  <div style={{fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',marginBottom:12}}>Trust & Security</div>
+                </div></details>
+                <details style={{borderBottom:'1px solid #1a1a20'}}>
+                  <summary style={{display:'block',cursor:'pointer',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',color:'#c9a227',padding:'10px 0'}}>Trust & Security ▾</summary>
+                  <div style={{paddingBottom:12}}>
                   <div style={{fontSize:12,color:'#555',lineHeight:2.1}}>
                     🔒 Secure Stripe payment (credit & debit cards)<br/>
                     📦 Careful packaging<br/>
@@ -113,14 +116,14 @@ export default function RootLayout({ children }) {
                   </div>
                   <a href="/contact" style={{display:'block',fontSize:13,color:'#666',marginTop:12,textDecoration:'none'}}>✉️ Contact Us</a>
                   <a href="https://m.me/theshelfcartel" target="_blank" rel="noopener noreferrer" style={{display:'block',fontSize:13,color:'#666',marginTop:8,textDecoration:'none'}}>💬 Contact us on Messenger</a>
-                </div>
+                </div></details>
               </div>
               <div style={{maxWidth:1300,margin:'0 auto',paddingTop:20,borderTop:'1px solid #1a1a20',display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8,alignItems:'center'}}>
                 <div style={{fontSize:11,color:'#333'}}>© 2026 The Shelf Cartel · All rights reserved · Quebec, Canada · <a href="/privacy-policy" style={{color:'#444',textDecoration:'none'}}>Privacy</a> · <a href="/terms" style={{color:'#444',textDecoration:'none'}}>Terms</a></div>
                 <div style={{display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
                   <a href="https://www.ebay.ca/str/collectiblethang?_tab=feedback" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
                     <img src="https://pages.ebay.com/favicon.ico" alt="eBay" style={{width:12,height:12}}/>
-                    <span>⭐ 99.5% on eBay</span>
+                    <span>⭐ 99.6% on eBay</span>
                   </a>
                   <a href="https://www.instagram.com/theshelfcartel/" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,color:'#555',textDecoration:'none'}}>
                     <img src="https://www.instagram.com/favicon.ico" alt="Instagram" style={{width:13,height:13}}/>
