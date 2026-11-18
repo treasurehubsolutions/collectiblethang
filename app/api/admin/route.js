@@ -80,7 +80,11 @@ export async function POST(req) {
   const supabase = getAdminClient()
 
   if (action === 'toggle') {
-    const { error } = await supabase.from('products').update({ enabled }).eq('id', id)
+    // 🔒 Visible/masqué choisi dans l'admin : le sync eBay ne le change plus (admin_fields)
+    const { data: cur } = await supabase.from('products').select('admin_fields').eq('id', id).single()
+    const locked = new Set((cur && cur.admin_fields) || [])
+    locked.add('enabled')
+    const { error } = await supabase.from('products').update({ enabled, admin_fields: [...locked] }).eq('id', id)
     return NextResponse.json({ ok: !error })
   }
 
@@ -101,13 +105,15 @@ export async function POST(req) {
     // Si le prix a changé, marquer admin_price pour protéger du sync eBay
     if (product.price !== undefined) updates.admin_price = product.price
     // 🔒 Champs modifiés dans l'admin : le sync eBay ne les écrase plus (liste admin_fields)
-    const LOCKABLE = ['title', 'category', 'condition', 'weight', 'photos']
+    const LOCKABLE = ['title', 'category', 'condition', 'weight', 'photos', 'description', 'stock', 'release_date', 'enabled']
     const { data: cur } = await supabase.from('products').select(LOCKABLE.join(',') + ', admin_fields').eq('id', id).single()
     if (cur) {
       const locked = new Set(cur.admin_fields || [])
       for (const k of LOCKABLE) {
         if (product[k] !== undefined && JSON.stringify(product[k]) !== JSON.stringify(cur[k])) locked.add(k)
       }
+      // Précommande / stock changé à la main : on verrouille aussi la visibilité et le stock ensemble
+      if (locked.has('stock') || locked.has('release_date')) { locked.add('stock'); locked.add('enabled') }
       updates.admin_fields = [...locked]
     }
     const { error } = await supabase.from('products').update(updates).eq('id', id)

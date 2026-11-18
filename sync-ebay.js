@@ -580,10 +580,16 @@ async function main() {
   // Disable products no longer on eBay, that are variations, or have stock 0
   // 🔒 PROTECTION ADMIN : ne jamais toucher aux produits avec flags admin
   let skippedAdmin = 0
+  const locks = (x, k) => Array.isArray(x.admin_fields) && x.admin_fields.includes(k)
   for (const [ebayId, prod] of Object.entries(existingMap)) {
     if (prod.admin_deleted || prod.admin_created) {
       skippedAdmin++
       continue // Jamais toucher aux produits admin
+    }
+    // 🔒 Visibilité ou stock choisis dans l'admin (ex. précommande) : le sync ne désactive ni ne change rien
+    if (locks(prod, 'enabled') || locks(prod, 'stock')) {
+      skippedAdmin++
+      continue
     }
     // 🎛  Produits issus d'un listing à variations (ebay_id = "<item>_<n>", créés par import-variations.js)
     if (/^\d+_\d+$/.test(ebayId)) {
@@ -606,7 +612,7 @@ async function main() {
   // Copies en trop (même ebay_id): toujours désactivées, sauf produits admin
   let dupDisabled = 0
   for (const x of dupExtras) {
-    if (x.admin_deleted || x.admin_created) continue
+    if (x.admin_deleted || x.admin_created || locks(x, 'enabled') || locks(x, 'stock')) continue
     if (x.enabled && !toDisable.includes(x.id)) { toDisable.push(x.id); dupDisabled++ }
   }
   if (dupExtras.length) console.log(`   🔁 Doublons (même ebay_id) trouvés: ${dupExtras.length}, copies actives désactivées: ${dupDisabled}`)
@@ -652,6 +658,7 @@ async function main() {
       }
       // 🔒 Champs modifiés à la main dans l'admin : ne jamais les écraser avec eBay
       for (const k of (existing.admin_fields || [])) delete productData[k]
+      if (locks(existing, 'stock') || locks(existing, 'enabled')) { delete productData.stock; delete productData.enabled }
       toUpdate.push({ id: existing.id, ...productData })
     } else {
       // New product from eBay
