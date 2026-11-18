@@ -31,13 +31,48 @@ export default function LivraisonPage() {
         <R l={en ? 'United States' : 'États-Unis'} v={en ? '7–14 business days' : '7 à 14 jours ouvrables'} />
       </S>
 
-      {/* Canada rates */}
+      {/* Canada rates : provincial tables (keep in sync with lib/shipping.js) */}
       <S title={en ? '🇨🇦 Shipping Rates — Canada (CAD)' : '🇨🇦 Frais de livraison — Canada (CAD)'}>
         <R l={en ? 'Order $150+ CA' : 'Commande 150 $ CA et plus'} v={en ? 'FREE 🎉' : 'GRATUIT 🎉'} />
-        <R l={en ? 'Under 500g' : 'Moins de 500 g'} v="CA$12.99" />
-        <R l={en ? '500g – 1kg' : '500 g à 1 kg'} v="CA$16.99" />
-        <R l={en ? '1kg – 2kg' : '1 kg à 2 kg'} v="CA$22.99" />
-        <R l={en ? 'Over 2kg' : 'Plus de 2 kg'} v="CA$34.99" />
+        <div>
+          {[
+            ['Ontario (urbain / urban)','17.00'],
+            ['Québec (urbain / urban)','17.00'],
+            ['Ontario rural','19.99'],
+            ['Québec rural','21.00'],
+            ['AB / MB / SK urbain / urban','20.00'],
+            ['Alberta / Manitoba rural','21.99'],
+            ['Saskatchewan rural','23.00'],
+            ['BC urbain / urban','21.00'],
+            ['BC rural','25.00'],
+            ['NB','19.50'],
+            ['NS / PE / NL','20.99'],
+            ['YT / NT / NU','28.00'],
+          ].map(([l,v])=>(<R key={l} l={l} v={'CA$'+v} />))}
+        </div>
+        <p style={{fontSize:12,color:'#9a9aa8',lineHeight:1.7,marginTop:12}}>
+          {en
+            ? 'Rate depends on your province and whether your postal code is rural (second character is 0). Your exact rate is shown at checkout; if no rate applies, CA$24.99.'
+            : "Le tarif dépend de votre province et de la zone rurale ou non (2e caractère du code postal = 0). Le tarif exact s'affiche au paiement ; si aucun tarif ne s'applique, 24,99 $ CA."}
+        </p>
+      </S>
+
+      {/* Hot Wheels (Canada) : keep in sync with lib/shipping.js */}
+      <S title={en ? '🚗 Hot Wheels, Matchbox & die-cast cars — Canada (CAD)' : '🚗 Hot Wheels, Matchbox et voitures miniatures — Canada (CAD)'}>
+        <p style={{fontSize:13,color:'#a0a0ae',lineHeight:1.7,margin:'0 0 12px'}}>
+          {en
+            ? 'Single cars (Hot Wheels mainline, Silver Series and Premium, Matchbox, Matchbox Collectors, M2 Machines, Johnny Lightning, Disney Pixar Cars 1:55) ship at a reduced rate: from CA$11.89 for one car (Ontario/Québec urban). Each additional car adds CA$1.25 (mainline), CA$2.75 (Premium, Matchbox Collectors, M2, Johnny Lightning, Disney Pixar Cars). USA: from US$16.99 for the first car, same additions.'
+            : "Les voitures seules (Hot Wheels mainline, Silver Series et Premium, Matchbox, Matchbox Collectors, M2 Machines, Johnny Lightning, Disney Pixar Cars 1:55) ont un tarif réduit : à partir de 11,89 $ CA pour une voiture (Ontario/Québec urbain). Chaque voiture additionnelle ajoute 1,25 $ (mainline), 2,75 $ (Premium, Matchbox Collectors, M2, Johnny Lightning, Disney Pixar Cars). USA : à partir de 16,99 $ US pour la première voiture, mêmes ajouts."}
+        </p>
+      </S>
+
+      {/* VHS (Canada) : keep in sync with lib/shipping.js */}
+      <S title={en ? '📼 VHS Tapes — Canada (CAD)' : '📼 Cassettes VHS — Canada (CAD)'}>
+        <p style={{fontSize:13,color:'#a0a0ae',lineHeight:1.7,margin:0}}>
+          {en
+            ? 'From CA$11.99 for one tape (Ontario/Québec), CA$14.99 (Atlantic), CA$16.99 (Prairies/BC), CA$18.99 (North). Each additional tape adds CA$1.50 (tapes 2 to 4), CA$2.00 (tapes 5 to 8), CA$2.75 (tapes 9 to 12) and CA$3.25 (13th tape and up).'
+            : "À partir de 11,99 $ CA pour une cassette (Ontario/Québec), 14,99 $ (Atlantique), 16,99 $ (Prairies/CB), 18,99 $ (Nord). Chaque cassette additionnelle ajoute 1,50 $ (cassettes 2 à 4), 2,00 $ (cassettes 5 à 8), 2,75 $ (cassettes 9 à 12) et 3,25 $ (13e cassette et plus)."}
+        </p>
       </S>
 
       {/* USA rates */}

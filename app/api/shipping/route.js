@@ -1,25 +1,27 @@
+import { FREE_SHIPPING_MIN_CAD, FALLBACK_RATE_CAD, canadaCartRate, usCartRate } from '../../../lib/shipping'
+
+function one(amount, days) {
+  return Response.json({ rates: [{ name: 'Livraison standard', amount: amount.toFixed(2), service: 'standard', days }] })
+}
+
 export async function POST(req) {
-  const { items, toCountry, toState } = await req.json()
+  const { items, toCountry, toState, toPostal } = await req.json()
+  if (!Array.isArray(items) || items.length === 0) return Response.json({ rates: [], error: 'Empty cart' })
 
   const subtotal = items.reduce((a, i) => a + i.price * i.qty, 0)
-
-  if (subtotal >= 250) {
+  if (subtotal >= FREE_SHIPPING_MIN_CAD) {
     return Response.json({ rates: [{ name: '🎉 Free Shipping', amount: '0.00', service: 'free', days: '' }], free: true })
   }
 
-  const isQcOnt = ['QC', 'ON'].includes(toState)
-
-  function getRate(title) {
-    const t = (title || '').toLowerCase()
-    const isSmall = (t.includes('hot wheels') || t.includes('matchbox')) && !t.includes('lot')
-    if (isSmall) return isQcOnt ? 12.99 : 15.99
-    return isQcOnt ? 24.99 : 29.99
+  // Canada : table eBay "rate a 14" + 3 $ (lib/shipping.js) ; repli 24.99 si aucune ligne ne correspond
+  if (toCountry === 'CA') {
+    return one(canadaCartRate(items, toState, toPostal) ?? FALLBACK_RATE_CAD, '5-14 business days')
   }
 
-  const rate = Math.max(...items.map(i => getRate(i.title)))
-  const label = isQcOnt ? 'Livraison standard (QC/ON)' : 'Livraison standard'
+  // USA : Hot Wheels 16.99 + 1 $ par voiture en plus ; autres articles : ancienne logique (lib/shipping.js)
+  if (toCountry === 'US') {
+    return one(usCartRate(items), '7-14 business days')
+  }
 
-  return Response.json({
-    rates: [{ name: label, amount: rate.toFixed(2), service: 'standard', days: '5-10 business days' }]
-  })
+  return one(FALLBACK_RATE_CAD, '5-14 business days')
 }

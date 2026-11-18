@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { getProducts, getCategories, getCatMeta } from '../../lib/products'
 import AddToCartBtn from '../../components/AddToCartBtn'
 import { cleanTitle } from '../../lib/seo'
+import { BLOG_GUIDES } from '../../lib/blog-guides'
 
 export async function generateMetadata({ searchParams }) {
   const category = searchParams?.category || ''
@@ -27,29 +28,6 @@ export async function generateMetadata({ searchParams }) {
     description: metaDesc(category),
     alternates: { canonical: `${BASE}/shop?category=${encodeURIComponent(category)}` },
   }
-}
-
-const BLOG_GUIDES = {
-  "Hot Wheels": [["hot-wheels-treasure-hunt-guide", "Hot Wheels treasure hunt guide"], ["guide-debuter-collection-hot-wheels", "Start a Hot Wheels collection"]],
-  "Hot Wheels Premium": [["hot-wheels-premium-vs-mainline", "Premium vs Mainline"], ["hot-wheels-car-culture-series-a-collectionner", "Car Culture series guide"]],
-  "Funko Pop": [["ou-acheter-funko-pop-rares-canada", "Where to buy rare Funko Pop in Canada"], ["funko-pop-chase-exclusives-holiday-guide-canada", "Chase and exclusives guide"]],
-  "Star Wars": [["star-wars-marvel-legends-collecting-guide-canada", "Star Wars and Marvel Legends guide"]],
-  "Marvel": [["star-wars-marvel-legends-collecting-guide-canada", "Marvel Legends collecting guide"]],
-  "LEGO": [["lego-buying-guide-collectors-canada", "LEGO buying guide for collectors"]],
-  "Matchbox": [["matchbox-collecting-guide-vintage-collectors", "Matchbox collecting guide"]],
-  "Transformers": [["transformers-dc-multiverse-collecting-guide-canada", "Transformers collecting guide"]],
-  "Pokémon": [["pokemon-cards-collecting-canada-beginners", "Pokémon cards for beginners"], ["pokemon-tcg-new-set-launch-buying-guide", "New set buying guide"]],
-  "DC Comics": [["mcfarlane-dc-multiverse-collecting-guide-canada", "DC Multiverse collecting guide"]],
-  "WWE & Wrestling": [["wwe-wrestling-collectibles-guide-canada", "WWE collectibles guide"]],
-  "McFarlane Figures": [["mcfarlane-dc-multiverse-collecting-guide-canada", "McFarlane and DC Multiverse guide"]],
-  "Hallmark Ornaments": [["hallmark-keepsake-ornaments-collecting-guide-canada", "Hallmark ornaments guide"]],
-  "TMNT": [["tmnt-collectibles-guide-canada", "TMNT collectibles guide"]],
-  "GI Joe": [["gi-joe-classified-collecting-guide-canada", "G.I. Joe Classified guide"]],
-  "VHS Tapes": [["vhs-tapes-collecting-guide-canada", "VHS collecting guide"]],
-  "Hockey": [["hockey-collectibles-guide-canada", "Hockey collectibles guide"]],
-  "Diecast & Scale Models": [["diecast-funko-storage-display-guide-canada", "Diecast storage and display guide"]],
-  "Video Games": [["video-game-collectibles-guide-canada", "Video game collectibles guide"]],
-  "Jurassic Park / World": [["jurassic-park-world-collectibles-guide-canada", "Jurassic collectibles guide"]],
 }
 
 const CAT_TEXT = {
@@ -198,15 +176,26 @@ export default async function ShopPage({ searchParams }) {
         })}
       </div>
 
-      {/* Category FAQ (matches the FAQPage JSON-LD above) */}
+      {/* Pagination */}
+      {totalPages>1&&(
+        <nav aria-label="Pagination" style={{display:'flex',gap:4,justifyContent:'center',marginTop:32,flexWrap:'wrap'}}>
+          {page>1&&<PG href={buildHref({page:page-1})} label="Previous page">‹</PG>}
+          {Array.from({length:totalPages},(_,i)=>i+1).filter(n=>n===1||n===totalPages||Math.abs(n-page)<=2).map((n,i,arr)=>[
+            arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#9a9aa8'}} aria-hidden="true">…</span>:null,
+            <PG key={n} href={buildHref({page:n})} on={n===page} label={`Page ${n}`}>{n}</PG>
+          ])}
+          {page<totalPages&&<PG href={buildHref({page:page+1})} label="Next page">›</PG>}
+        </nav>
+      )}
+      {/* Category FAQ (matches the FAQPage JSON-LD above) - under the pagination, collapsed */}
       {faq.length>0 && !search && (
-        <section aria-label="Frequently asked questions" style={{marginTop:32,maxWidth:820}}>
+        <section aria-label="Frequently asked questions" style={{marginTop:40,maxWidth:820}}>
           <h2 style={{fontFamily:'Bebas Neue',fontSize:18,letterSpacing:1.2,color:'#fff',marginBottom:10}}>{category} FAQ</h2>
           {faq.map(f=>(
-            <div key={f.q} style={{marginBottom:10}}>
-              <h3 style={{fontSize:13,fontWeight:700,color:'#c4c4d0',margin:'0 0 3px'}}>{f.q}</h3>
-              <p style={{fontSize:13,lineHeight:1.6,color:'#9a9ab0',margin:0}}>{f.a}</p>
-            </div>
+            <details key={f.q} style={{marginBottom:8,borderBottom:'1px solid #1c1c30',paddingBottom:8}}>
+              <summary style={{fontSize:13,fontWeight:700,color:'#c4c4d0',cursor:'pointer'}}>{f.q}</summary>
+              <p style={{fontSize:13,lineHeight:1.6,color:'#9a9ab0',margin:'6px 0 0'}}>{f.a}</p>
+            </details>
           ))}
         </section>
       )}
@@ -221,17 +210,6 @@ export default async function ShopPage({ searchParams }) {
         </nav>
       )}
 
-      {/* Pagination */}
-      {totalPages>1&&(
-        <nav aria-label="Pagination" style={{display:'flex',gap:4,justifyContent:'center',marginTop:32,flexWrap:'wrap'}}>
-          {page>1&&<PG href={buildHref({page:page-1})} label="Previous page">‹</PG>}
-          {Array.from({length:totalPages},(_,i)=>i+1).filter(n=>n===1||n===totalPages||Math.abs(n-page)<=2).map((n,i,arr)=>[
-            arr[i-1]&&n-arr[i-1]>1?<span key={`e${n}`} style={{padding:'6px 8px',color:'#9a9aa8'}} aria-hidden="true">…</span>:null,
-            <PG key={n} href={buildHref({page:n})} on={n===page} label={`Page ${n}`}>{n}</PG>
-          ])}
-          {page<totalPages&&<PG href={buildHref({page:page+1})} label="Next page">›</PG>}
-        </nav>
-      )}
     </div>
   )
 }

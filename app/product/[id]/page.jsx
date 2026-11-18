@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import ProductClient from '../../../components/ProductClient'
 import Link from 'next/link'
 import { guessBrand, feedCondition, fallbackDescription, cleanTitle } from '../../../lib/seo'
+import { BLOG_GUIDES } from '../../../lib/blog-guides'
 
 const BASE = 'https://theshelfcartel.com'
 
@@ -154,6 +155,14 @@ export default async function ProductPage({ params }) {
             ))}
           </div>
         </section>
+      )}
+      {BLOG_GUIDES[p.category] && (
+        <nav aria-label="Related guides" style={{marginTop:32,fontSize:13,color:'#9a9aa8',lineHeight:1.8}}>
+          <span style={{fontWeight:700,color:'#c4c4d0'}}>Collector guides: </span>
+          {BLOG_GUIDES[p.category].map(([slug,label],i)=>(
+            <span key={slug}>{i>0&&' \u00b7 '}<Link href={`/blog/${slug}`} style={{color:'#e8b820'}}>{label}</Link></span>
+          ))}
+        </nav>
       )}
     </div>
   )
