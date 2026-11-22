@@ -181,6 +181,7 @@ function smartCategory(title) {
   if (t.includes('hallmark')) return 'Hallmark Ornaments'
   if (t.includes('tmnt') || t.includes('ninja turtle')) return 'TMNT'
   if (t.includes('gi joe') || t.includes('g.i. joe')) return 'GI Joe'
+  if (t.includes('masters of the universe') || t.includes('motu') || t.includes('he-man')) return 'Masters of the Universe'
   if (t.includes('vhs')) return 'VHS Tapes'
   if (t.includes('dvd') || t.includes('blu-ray') || t.includes('bluray')) return 'DVD & Blu-ray'
   if (t.includes('hockey') || t.includes('nhl')) return 'Hockey'
@@ -285,7 +286,7 @@ async function main() {
     // jamais par leur position dans le CSV: l'ordre du CSV peut changer d'un export à l'autre.
     const { data: existingRows } = await supabase
       .from('products')
-      .select('id, ebay_id, title, photos, enabled, admin_created, admin_oos')
+      .select('id, ebay_id, title, category, photos, enabled, admin_created, admin_oos')
       .like('ebay_id', `${listing.id}_%`)
       .limit(2000)
     const pool = (existingRows || []).slice()
@@ -322,14 +323,14 @@ async function main() {
         const wantPhotos = own ? own.slice(0, 3) : (curPhotos.length === 0 ? photo : curPhotos)
         const samePhotos = JSON.stringify(curPhotos) === JSON.stringify(wantPhotos)
         const wantEnabled = !existing.admin_oos && wantPhotos.length > 0
-        const titleChanged = existing.title !== title
+        const titleChanged = existing.title !== title || existing.category !== category
         // Annonce avec photos par option mais celle-ci n'en a pas: on la cache plutôt que d'afficher une mauvaise photo
         if (!own && Object.keys(varPhotos).length > 0) {
           if (existing.enabled) { await supabase.from('products').update({ enabled: false, title }).eq('id', existing.id); updatedCount++ } else { skipped++ }
           continue
         }
         if (titleChanged || (wantPhotos.length > 0 && (!samePhotos || (wantEnabled && !existing.enabled)))) {
-          const upd = { title, stock: v.qty }
+          const upd = { title, category, stock: v.qty }
           if (wantPhotos.length > 0) upd.photos = wantPhotos
           if (wantEnabled) upd.enabled = true
           const { error: uerr } = await supabase.from('products').update(upd).eq('id', existing.id)
