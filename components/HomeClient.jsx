@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import AddToCartBtn from './AddToCartBtn'
 import { cleanTitle } from '../lib/seo'
+import { ebaySize } from '../lib/img'
 
 const CAT_META = {
   'Hot Wheels':{emoji:'🚗',color:'#e8272a'},
@@ -44,7 +45,7 @@ function ProductCard({ p }) {
       <Link href={`/product/${p.id}`} style={{textDecoration:'none'}}>
         <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
           {p.photos?.[0]
-            ? <img src={p.photos[0]} alt={cleanTitle(p.title, 120)} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading='lazy' decoding='async' width={300} height={300}/>
+            ? <img src={ebaySize(p.photos[0], 400)} alt={cleanTitle(p.title, 120)} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading='lazy' decoding='async' width={300} height={300}/>
             : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>{m.emoji}</div>}
           {isNew&&<span style={{position:'absolute',bottom:4,left:4,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>NEW</span>}
         </div>

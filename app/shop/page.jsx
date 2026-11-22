@@ -5,6 +5,7 @@ import { getProducts, getCategories, getCatMeta } from '../../lib/products'
 import AddToCartBtn from '../../components/AddToCartBtn'
 import { cleanTitle } from '../../lib/seo'
 import { BLOG_GUIDES } from '../../lib/blog-guides'
+import { ebaySize } from '../../lib/img'
 
 export async function generateMetadata({ searchParams }) {
   const category = searchParams?.category || ''
@@ -166,7 +167,7 @@ export default async function ShopPage({ searchParams }) {
               <Link href={`/product/${p.id}`} aria-label={p.title} style={{textDecoration:'none'}}>
                 <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
                   {p.photos?.[0]
-                    ? <Image src={p.photos[0]} alt={cleanTitle(p.title, 125)} fill style={{objectFit:'contain',padding:8}} unoptimized/>
+                    ? <Image src={ebaySize(p.photos[0], 400)} alt={cleanTitle(p.title, 125)} fill style={{objectFit:'contain',padding:8}} unoptimized/>
                     : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>{m.emoji}</div>}
                   {isNew&&<span style={{position:'absolute',bottom:4,left:4,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>NEW</span>}
                   {p.condition==='Open box'&&<span style={{position:'absolute',bottom:4,left:4,background:'#713f12',color:'#fde68a',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>OPEN BOX</span>}

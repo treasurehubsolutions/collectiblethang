@@ -3,6 +3,7 @@ import Link from 'next/link'
 import AddToCartBtn from './AddToCartBtn'
 import { getCatMeta } from '../lib/products'
 import { cleanTitle } from '../lib/seo'
+import { ebaySize } from '../lib/img'
 
 export default function ShopGrid({ items }) {
   return (
@@ -16,7 +17,7 @@ export default function ShopGrid({ items }) {
             <Link href={`/product/${p.id}`} style={{textDecoration:'none'}}>
               <div style={{position:'relative',aspectRatio:'1',background:'#07070f'}}>
                 {p.photos?.[0]
-                  ? <img src={p.photos[0]} alt={cleanTitle(p.title, 125)} width={300} height={300} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading='lazy' decoding='async'/>
+                  ? <img src={ebaySize(p.photos[0], 400)} alt={cleanTitle(p.title, 125)} width={300} height={300} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'contain',padding:8}} loading='lazy' decoding='async'/>
                   : <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>{m.emoji}</div>}
                 {isNew&&<span style={{position:'absolute',bottom:4,left:4,background:'#166534',color:'#86efac',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>NEW</span>}
                 {p.condition==='Open box'&&<span style={{position:'absolute',bottom:4,left:4,background:'#713f12',color:'#fde68a',fontSize:9,fontWeight:700,padding:'2px 5px',borderRadius:3}}>OPEN BOX</span>}
