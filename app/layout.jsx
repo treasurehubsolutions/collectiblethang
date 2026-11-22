@@ -8,8 +8,8 @@ import Tracker from '../components/Tracker'
 
 export const metadata = {
   metadataBase: new URL('https://theshelfcartel.com'),
-  title: 'The Shelf Cartel – Toys & Collectibles | Hot Wheels Star Wars Marvel Canada',
-  description: 'The Shelf Cartel — discount toys and collectibles shop based in Quebec, Canada. Hot Wheels, Star Wars, Marvel, DC Comics, Transformers, LEGO, VHS, DVD, Action Figures. Ships Canada & USA.',
+  title: 'The Shelf Cartel – Toys & Collectibles from Quebec, Canada',
+  description: 'Discount toys and collectibles from Quebec: Hot Wheels, Star Wars, Marvel, DC, Transformers, LEGO, VHS and more. Ships across Canada and the USA.',
   keywords: 'the shelf cartel, theshelfcartel, hot wheels, star wars, marvel, dc comics, transformers, lego, action figures, vhs, dvd, collectibles, toys canada, quebec, discount toys, cheap collectibles',
   openGraph: {
     title: 'The Shelf Cartel – Discount Toys & Collectibles Quebec Canada',
