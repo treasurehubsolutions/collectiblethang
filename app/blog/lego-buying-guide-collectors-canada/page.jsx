@@ -31,6 +31,8 @@ const sections = [
   { h: '6. Compare prices the smart way', p: ['Prices for the same set vary a lot depending on whether it is sealed, used, retired or still in stores. Compare recent sold listings for the exact set number and condition, and remember to add shipping and any taxes or fees if you order from outside Canada.'] },
   { h: '7. Watch out for fakes and mixed lots', p: ['Some listings mix genuine LEGO with other brands, or show a real set but ship something different. Warning signs include blurry photos, a price far below normal and vague descriptions. When in doubt, ask for more pictures and buy from a seller with a clear return policy.'] },
   { h: '8. Store and clean your collection', p: ['Keep sets away from direct sunlight, which can fade plastic, and avoid damp storage. Dust built models gently with a soft brush. Keep instructions flat in a sleeve so they stay in good shape.'] },
+  { h: '9. Retired sets and long-term thinking', p: ['Sets that are no longer in the store catalogue can be harder to find, and that is where careful checking matters most. Decide your budget before you search, compare several sold listings for the same set number, and be patient: a fair price usually appears if you wait. Buy to enjoy the set, not on the assumption that its price will rise.'] },
+  { h: '10. Shipping and packaging', p: ['LEGO boxes are large and light, so shipping can cost more than you expect. Ask how the seller packs sealed boxes (a box inside a box protects the corners) and look for tracked shipping. Combining several sets from one seller can lower the cost per item.'] },
 ]
 
 export default function Article() {
@@ -41,7 +43,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1],
     datePublished: '2026-11-09',
-    dateModified: '2026-11-10',
+    dateModified: '2026-11-20',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -76,7 +78,7 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={a}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/pokemon-cards-collecting-canada-beginners" style={a}>Pokémon Cards for Beginners</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
-      </ul></nav>
+      <li style={{ marginBottom: 6 }}><Link href="/blog/how-to-check-collectible-value-sold-listings-canada" style={{ color: '#e8b820' }}>How to Check a Collectible's Value With Sold Listings</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/how-to-spot-fake-bootleg-collectibles-canada" style={{ color: '#e8b820' }}>How to Spot Fake and Bootleg Collectibles</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li></ul></nav>
     </article>
   )
 }

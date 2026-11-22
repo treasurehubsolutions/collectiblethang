@@ -92,6 +92,8 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={a}>Hot Wheels Treasure Hunts: How to Spot One</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/kidult-collectors-starter-guide-canada" style={a}>Kidult Collecting in Canada: Start a Toy Collection on a Budget</Link></li>
+      <li style={{ marginBottom: 6 }}><Link href="/blog/what-to-check-when-your-collectible-arrives-canada" style={a}>What to Check When Your Collectible Arrives</Link></li>
+      <li style={{ marginBottom: 6 }}><Link href="/blog/how-to-check-collectible-value-sold-listings-canada" style={a}>How to Check a Collectible’s Value Using Sold Listings</Link></li>
       </ul></nav>
     </article>
   )

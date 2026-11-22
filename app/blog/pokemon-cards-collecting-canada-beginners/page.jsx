@@ -30,6 +30,8 @@ const sections = [
   { h: '5. Compare recent sold prices', p: ['Prices change with new releases, tournaments and trends. Look at several recent sold listings for the exact card, set and condition, then decide what is fair. Remember to add shipping, and customs fees if you order from outside Canada.'] },
   { h: '6. Watch out for fakes', p: ['Counterfeit cards exist, especially for popular ones. Warning signs include blurry text, odd colours, a wrong or missing set symbol, a glossy feel that does not match real cards and a price far below the market. When in doubt, ask the seller for more photos or buy from a seller with a clear return policy.'] },
   { h: '7. Store your collection safely', p: ['Use sleeves for every card that matters, toploaders or binders for the better ones, and keep everything away from heat, humidity and direct sunlight. A good storage habit keeps the condition you paid for.'] },
+  { h: '8. Buying a Pokémon gift', p: ['If you are buying for a young fan or for a collector you do not know well, ask which character or set they like, or choose a single card of a favourite character in clean condition. A card in a sleeve and toploader looks good as a gift and arrives protected. Avoid guessing at sealed product unless you know they enjoy opening packs.'] },
+  { h: '9. Questions collectors often ask', p: ['Should I open sealed packs or keep them? That depends on your goal: open them if you enjoy the hunt, keep them sealed if you collect the product itself, and read our guide on keeping collectibles in the box or opening them. How do I know a price is fair? Compare several recent sold listings for the same card, set and condition, and add shipping. Is a very cheap card a bargain? Only if the photos and the seller check out; a price far below the market is also a common sign of a fake.'] },
 ]
 
 export default function Article() {
@@ -40,7 +42,7 @@ export default function Article() {
     description: DESC,
     image: [IMG1],
     datePublished: '2026-11-09',
-    dateModified: '2026-11-10',
+    dateModified: '2026-11-20',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -76,6 +78,9 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/guide-debuter-collection-hot-wheels" style={a}>How to Start a Hot Wheels Collection</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/pokemon-tcg-new-set-launch-buying-guide" style={a}>Pokémon TCG New Set Launch: Buying Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/how-to-spot-fake-bootleg-collectibles-canada" style={a}>How to Spot Fake and Bootleg Collectibles</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/how-to-check-collectible-value-sold-listings-canada" style={a}>How to Check a Collectible's Value With Sold Listings</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/keep-collectibles-in-box-or-open-them-guide-canada" style={a}>Keep Collectibles in the Box or Open Them?</Link></li>
       </ul></nav>
     </article>
   )

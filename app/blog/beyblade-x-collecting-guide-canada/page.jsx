@@ -28,6 +28,8 @@ const sections = [
   { h: '6. Shipping and customs', p: ['These sets are small and light, so shipping can be a large share of the price. Buying from a Canadian seller avoids customs surprises. Combined shipping is a good way to add a few extra parts to one order.'] },
   { h: '7. Store the parts safely', p: ['Small parts are easy to lose. Keep each combination in a small compartment box or a zip bag, and keep sealed boxes flat and away from sunlight and moisture. Collectors also keep a list of the combinations they have built.'] },
   { h: '8. Build a wish list', p: ['Write down the sets and parts you want, and what you already own. A short list helps you spot a good deal fast and avoid buying the same part twice.'] },
+  { h: '9. Buying Beyblade X as a gift', p: ['If you are shopping for a child, a complete starter set with a launcher is the safest choice because it works straight out of the box. Check the age grade on the packaging, remember that the tops contain small parts, and keep the receipt or order details in case something is missing. For an older fan who already owns tops, a single booster or a loose part to finish a combination is often more welcome than another full set.'] },
+  { h: '10. Questions collectors ask', p: ['Can I mix parts from different sets? Yes, that is the idea of the line, but check that the parts are meant to fit together and that they look original. Is a sealed box worth more than an opened one? Often it is, but compare recent sold listings for the exact product instead of guessing. How do I know a part is genuine? Compare the markings and finish with the official product photos and ask the seller for pictures of the actual piece. Our guide on spotting fake and bootleg collectibles lists the checks to make.'] },
 ]
 
 export default function Article() {
@@ -37,7 +39,7 @@ export default function Article() {
     headline: TITLE,
     description: DESC,
     datePublished: '2026-11-16',
-    dateModified: '2026-11-16',
+    dateModified: '2026-11-22',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -63,7 +65,7 @@ export default function Article() {
       <p style={p}>Browse our current <Link href="/shop" style={{ color: '#e8b820' }}>toys and collectibles</Link>, with honest condition and shipping across Canada and the USA. New items arrive every week.</p>
       <p style={{ ...p, color: '#fff', fontWeight: 700 }}>Next step: start with a complete set, check every part, and buy from a seller who shows real photos.</p>
       <nav aria-label="Related reading"><h2 style={h2}>Related reading</h2>
-      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>Die-Cast and Funko Storage and Display Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Collector's Holiday Gift Guide for Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-stocking-stuffers-under-20-canada" style={{ color: '#e8b820' }}>Collector Stocking Stuffers Under $20 in Canada</Link></li></ul></nav>
+      <ul style={{ ...p, paddingLeft: 22 }}><li style={{ marginBottom: 6 }}><Link href="/blog/buying-collectibles-on-ebay-canada-checklist" style={{ color: '#e8b820' }}>Buying Collectibles on eBay Canada: An 8-Step Buyer's Checklist</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/diecast-funko-storage-display-guide-canada" style={{ color: '#e8b820' }}>Die-Cast and Funko Storage and Display Guide</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={{ color: '#e8b820' }}>Collector's Holiday Gift Guide for Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectors-stocking-stuffers-under-20-canada" style={{ color: '#e8b820' }}>Collector Stocking Stuffers Under $20 in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/how-to-spot-fake-bootleg-collectibles-canada" style={{ color: '#e8b820' }}>How to Spot Fake and Bootleg Collectibles in Canada</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/how-to-check-collectible-value-sold-listings-canada" style={{ color: '#e8b820' }}>How to Check a Collectible Value with Sold Listings</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/keep-collectibles-in-box-or-open-them-guide-canada" style={{ color: '#e8b820' }}>Keep Collectibles in the Box or Open Them?</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/what-to-check-when-your-collectible-arrives-canada" style={{ color: '#e8b820' }}>What to Check When Your Collectible Arrives</Link></li><li style={{ marginBottom: 6 }}><Link href="/blog/collectible-condition-terms-explained-canada" style={{ color: '#e8b820' }}>Collectible Condition Terms Explained</Link></li></ul></nav>
     </article>
   )
 }

@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
 const BASE = 'https://theshelfcartel.com'
+const SEO_TITLE = 'Best Windshield De-Icer Spray in Canada'
 const TITLE = 'Best Windshield De-Icer Spray in Canada: Alaskan Multi-Purpose De-Icer 3-Pack (Dégivrant Polyvalent) Winter Guide'
+const SEO_DESC = 'How to defrost a frozen windshield fast in Canada: how de-icer spray works, safe use on glass and locks, and the Alaskan 3-pack. Guide FR/EN.'
 const DESC = 'How to defrost a frozen windshield fast in Canada: how de-icer spray works, safe use on glass, locks and mirrors, and why the Alaskan Multi-Purpose De-Icer 3-pack (3 x 445 g, up to -31°C) is a winter essential. Guide bilingue FR/EN.'
 const SLUG = 'alaskan-de-icer-windshield-winter-guide-canada'
 const PRODUCT = `${BASE}/product/490315ae-5c9f-41d2-8bbb-6600e159cf29`
@@ -12,12 +14,12 @@ const ALT1 = 'Alaskan Multi-Purpose De-Icer (Dégivrant Polyvalent) 3-pack of 44
 const ALT2 = 'Alaskan windshield de-icer 3 x 445 g spray cans in shrink wrap, ready to ship from Quebec'
 
 export const metadata = {
-  title: `${TITLE} | The Shelf Cartel`,
-  description: DESC,
+  title: `${SEO_TITLE} | The Shelf Cartel`,
+  description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: TITLE, description: DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
     images: [{ url: IMG1, alt: ALT1 }] },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [IMG1] },
+  twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC, images: [IMG1] },
 }
 
 const sections = [

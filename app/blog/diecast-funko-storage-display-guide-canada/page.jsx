@@ -11,7 +11,8 @@ export const metadata = {
   title: `${SEO_TITLE} | The Shelf Cartel`,
   description: SEO_DESC,
   alternates: { canonical: `${BASE}/blog/${SLUG}` },
-  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA' },
+  openGraph: { title: SEO_TITLE, description: SEO_DESC, type: 'article', url: `${BASE}/blog/${SLUG}`, siteName: 'The Shelf Cartel', locale: 'en_CA',
+    images: [{ url: 'https://i.ebayimg.com/images/g/RAsAAeSwWIxqje3T/s-l1600.jpg', width: 1600, height: 1600, alt: 'Funko Pop Television He-Man #991 Masters of the Universe vinyl figure, new and sealed, photographed by The Shelf Cartel' }] },
   twitter: { card: 'summary_large_image', title: SEO_TITLE, description: SEO_DESC },
 }
 
@@ -36,7 +37,7 @@ export default function Article() {
     headline: TITLE,
     description: DESC,
     datePublished: '2026-11-13',
-    dateModified: '2026-11-13',
+    dateModified: '2026-11-21',
     mainEntityOfPage: `${BASE}/blog/${SLUG}`,
     author: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
     publisher: { '@type': 'Organization', name: 'The Shelf Cartel', url: BASE },
@@ -51,6 +52,10 @@ export default function Article() {
       <Link href="/blog" aria-label="Back to the blog" style={{ color: '#a0a0ae', fontSize: 13, textDecoration: 'none' }}>{'← Blog'}</Link>
       <h1 style={{ fontFamily: 'Bebas Neue', fontSize: 'clamp(32px,5vw,48px)', letterSpacing: 1.5, color: '#fff', lineHeight: 1.05, margin: '14px 0 16px' }}>{TITLE}</h1>
       <p style={p}>Finding a great piece is only half of collecting. How you store and display it decides whether it still looks great in five years. Here are practical tips for die-cast cars and Funko Pop figures, from light and humidity to protectors, shelves and safe moving.</p>
+      <figure style={{ margin: '20px 0', textAlign: 'center' }}>
+        <img src="https://i.ebayimg.com/images/g/RAsAAeSwWIxqje3T/s-l1600.jpg" alt="Funko Pop Television He-Man #991 Masters of the Universe vinyl figure, new and sealed, photographed by The Shelf Cartel" width={1600} height={1600} loading="eager" style={{ width: '100%', maxWidth: 420, height: 'auto', aspectRatio: '1 / 1', objectFit: 'contain', background: '#0f0f1c', borderRadius: 10 }} />
+        <figcaption style={{ color: '#a0a0ae', fontSize: 13, marginTop: 6 }}>A sealed Funko Pop from our shop: a clean box is part of the value, so protect it.</figcaption>
+      </figure>
       {sections.map(s => (
         <section key={s.h}>
           <h2 style={h2}>{s.h}</h2>
@@ -67,6 +72,9 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/matchbox-collecting-guide-vintage-collectors" style={a}>Matchbox Collecting Guide</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/ou-acheter-funko-pop-rares-canada" style={a}>Where to Buy Rare Funko Pop Figures in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/hot-wheels-treasure-hunt-guide" style={a}>Hot Wheels Treasure Hunt Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/keep-collectibles-in-box-or-open-them-guide-canada" style={a}>Keep It in the Box or Open It?</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/catalogue-and-insure-your-collection-canada-guide" style={a}>How to Catalogue and Insure Your Collection</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/mystery-blind-box-collectibles-buying-guide-canada" style={a}>Mystery Boxes and Blind Bags: Buy Smart</Link></li>
       </ul></nav>
     </article>
   )

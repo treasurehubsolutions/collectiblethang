@@ -118,6 +118,61 @@ const posts = [
     excerpt: 'Light, humidity, protectors, shelves and safe moving: keep your die-cast and Funko Pop collection in great condition.',
   },
   {
+    href: '/blog/calico-critters-playmobil-collecting-guide-canada',
+    title: 'Calico Critters and Playmobil Collecting Guide for Canadian Collectors',
+    excerpt: 'Complete sets, missing pieces, boxes, condition, fakes and storage: a practical guide for Calico Critters and Playmobil collectors in Canada.',
+  },
+  {
+    href: '/blog/hot-wheels-rlc-elite-64-collecting-guide-canada',
+    title: 'Hot Wheels RLC and Elite 64 Collecting Guide for Canadian Collectors',
+    excerpt: 'Lines, packaging, condition, fakes, sold prices and storage: a practical guide for premium Hot Wheels collectors in Canada.',
+  },
+  {
+    href: '/blog/anime-figures-collecting-guide-canada',
+    title: 'Anime Figures Collecting Guide for Canadian Collectors',
+    excerpt: 'Figure types, packaging, bootlegs, condition, sold prices and storage: a practical guide for anime figure collectors in Canada.',
+  },
+  {
+    href: '/blog/gundam-gunpla-model-kits-collecting-guide-canada',
+    title: 'Gundam and Gunpla Model Kits Collecting Guide for Canadian Collectors',
+    excerpt: 'Grades, sealed or built, missing parts, fakes, sold prices and storage: a practical guide for Gunpla collectors in Canada.',
+  },
+  {
+    href: '/blog/masters-of-the-universe-he-man-collecting-guide-canada',
+    title: 'Masters of the Universe and He-Man Collecting Guide for Canadian Collectors',
+    excerpt: 'Vintage or modern, accessories, condition, reproductions, sold prices and storage: a practical guide for Masters of the Universe collectors in Canada.',
+  },
+  {
+    href: '/blog/retro-80s-90s-nostalgia-toys-collecting-guide-canada',
+    title: 'Retro 80s and 90s Nostalgia Toys Collecting Guide for Canadian Collectors',
+    excerpt: 'Completeness, condition, packaging, reproductions, sold prices and storage: a practical guide for retro toy collectors in Canada.',
+  },
+  {
+    href: '/blog/squishmallows-plush-collecting-guide-canada',
+    title: 'Squishmallows Plush Collecting Guide for Canadian Collectors',
+    excerpt: 'Sizes, tags, condition, fakes, cleaning and storage: a practical guide for Squishmallows collectors in Canada.',
+  },
+  {
+    href: '/blog/barbie-doll-collecting-guide-canada',
+    title: 'Barbie Doll Collecting Guide for Canadian Collectors',
+    excerpt: 'Boxed or loose, outfits and accessories, condition, fakes, sold prices and storage: a practical guide for Barbie collectors in Canada.',
+  },
+  {
+    href: '/blog/disney-pixar-cars-diecast-collecting-guide-canada',
+    title: 'Disney Pixar Cars Die-Cast Collecting Guide for Canadian Collectors',
+    excerpt: 'Scale, versions, packaging, condition, fakes and storage: a practical guide for Cars die-cast collectors in Canada.',
+  },
+  {
+    href: '/blog/cyber-monday-collectibles-online-shopping-guide-canada',
+    title: 'Cyber Monday 2026 for Collectors in Canada: An Online Shopping Checklist',
+    excerpt: 'Sold prices, listing details, shipping, returns and fake deals: a checklist for Cyber Monday on November 30.',
+  },
+  {
+    href: '/blog/boxing-day-collectibles-collectors-guide-canada',
+    title: 'Boxing Day 2026 for Collectors in Canada: A Smart Shopping Plan',
+    excerpt: 'Short list, sold prices, condition checks, fake bargains and shipping: a plan for Boxing Day on December 26.',
+  },
+  {
     href: '/blog/black-friday-collectibles-guide-canada',
     title: 'Black Friday 2026 for Collectors in Canada: How to Shop Smart',
     excerpt: 'Wishlist, sold prices, condition checks, fake deals and holiday shipping: a plan for Black Friday on November 27.',
@@ -171,6 +226,81 @@ const posts = [
     href: '/blog/kidult-collectors-starter-guide-canada',
     title: 'Kidult Collecting in Canada: How Adults Can Start a Toy Collection on a Budget',
     excerpt: 'Pick a lane, set a monthly budget, read condition, compare sold prices and display your pieces.',
+  },
+  {
+    href: '/blog/catalogue-and-insure-your-collection-canada-guide',
+    title: 'How to Catalogue and Insure Your Collection: A Practical Guide for Canadian Collectors',
+    excerpt: 'A simple inventory, good photos, receipts and the right questions for your insurer.',
+  },
+  {
+    href: '/blog/keep-collectibles-in-box-or-open-them-guide-canada',
+    title: 'Keep It in the Box or Open It? A Canadian Collector’s Guide to Sealed vs Opened Collectibles',
+    excerpt: 'Packaging, condition and display: how to decide between sealed and opened, and how to protect what you keep.',
+  },
+  {
+    href: '/blog/collectible-condition-terms-explained-canada',
+    title: 'MIB, MOC, NRFB and Loose: Collectible Condition Terms Explained for Canadian Buyers',
+    excerpt: 'What the common condition abbreviations mean, how to read photos and how to compare listings with confidence.',
+  },
+  {
+    href: '/blog/how-to-spot-fake-bootleg-collectibles-canada',
+    title: 'How to Spot Fake and Bootleg Collectibles Before You Buy: A Checklist for Canadian Collectors',
+    excerpt: 'Price, photos, packaging and seller checks: a practical checklist to avoid counterfeit collectibles.',
+  },
+  {
+    href: '/blog/how-to-check-collectible-value-sold-listings-canada',
+    title: 'How to Check What a Collectible Is Really Worth: A Sold-Listings Guide for Canadian Collectors',
+    excerpt: 'Use sold listings, match the exact version and condition, and count shipping and currency to judge what a collectible is worth.',
+  },
+  {
+    href: '/blog/what-to-check-when-your-collectible-arrives-canada',
+    title: 'Your Collectible Just Arrived: A 10-Minute Inspection Checklist for Canadian Buyers',
+    excerpt: 'Check the outer box, the packing, the item and the box condition, and take photos early. A short checklist for collectors in Canada.',
+  },
+  {
+    href: '/blog/order-collectibles-early-holiday-shipping-canada-guide',
+    title: 'Order Collectibles Early: A Holiday Shipping Guide for Canadian Gift Buyers',
+    excerpt: 'Check carrier deadlines, combine items, plan packaging and keep a backup gift ready so collectible gifts arrive on time.',
+  },
+  {
+    href: '/blog/mystery-blind-box-collectibles-buying-guide-canada',
+    title: 'Mystery Boxes and Blind Bags: How Collectors in Canada Can Buy Smart',
+    excerpt: 'Read the odds, check the seal, compare sold prices and decide between a blind pull and buying the exact piece.',
+  },
+  {
+    href: '/blog/trading-cards-raw-vs-graded-buying-guide-canada',
+    title: 'Trading Cards in Canada: Raw vs Graded, and How to Buy Without Getting Burned',
+    excerpt: 'Judge centering, corners and surfaces, read a grading slab, spot fakes and compare sold prices before you buy Pokémon or hockey cards.',
+  },
+  {
+    href: '/blog/clean-loose-action-figures-diecast-cars-safely-guide-canada',
+    title: 'How to Clean Loose Action Figures and Die-Cast Cars Safely',
+    excerpt: 'Dust first, use mild soap only when needed, protect paint and decals, dry fully and know when to leave a piece alone.',
+  },
+  {
+    href: '/blog/star-trek-collectibles-collecting-guide-canada',
+    title: 'Star Trek Collectibles: A Collecting Guide for Canadian Fans',
+    excerpt: 'Choose a focus, judge condition, spot fakes and display figures, ships, models and ornaments with confidence.',
+  },
+  {
+    href: '/blog/lego-technic-sets-collecting-guide-canada',
+    title: 'Lego Technic Sets: A Buying and Collecting Guide for Canadian Builders',
+    excerpt: 'Sealed or built, parts and instructions checks, moving parts, fakes, storage and display for Technic models.',
+  },
+  {
+    href: '/blog/batman-collectibles-collecting-guide-canada',
+    title: 'Batman Collectibles: A Collecting Guide for Canadian Fans',
+    excerpt: 'Choose a focus, read the packaging, judge condition, spot fakes and display Batman figures, cars and sets.',
+  },
+  {
+    href: '/blog/large-scale-diecast-model-cars-1-18-1-24-1-43-guide-canada',
+    title: 'Large-Scale Die-Cast Model Cars: A 1:18, 1:24 and 1:43 Buying Guide for Canadians',
+    excerpt: 'What the scale number means, choosing a size, boxes, paint, moving parts, fakes, sold prices and display.',
+  },
+  {
+    href: '/blog/sonic-the-hedgehog-collectibles-guide-canada',
+    title: 'Sonic the Hedgehog Collectibles in Canada: A Buyer\'s Guide to Figures, Plush and Retro Games',
+    excerpt: 'Pick a focus, check condition and completeness, spot fakes and compare sold prices for Sonic figures, plush and retro games.',
   },
 ]
 
