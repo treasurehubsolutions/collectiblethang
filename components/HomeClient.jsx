@@ -79,7 +79,15 @@ export default function HomeClient() {
           fetch('/api/products?action=categories'),
         ])
         const [newData, popData, catData] = await Promise.all([newRes.json(), popRes.json(), catRes.json()])
-        setNewArrivals(newData.items || [])
+        // Produit epingle (demande d'Alex) : Backfire Skyline R34 toujours en premier dans les nouveautes
+        let pinned = null
+        try {
+          const pr = await fetch('/api/products?search=' + encodeURIComponent('Backfire Nissan Skyline GT-R R34') + '&perPage=6')
+          const pd = await pr.json()
+          pinned = (pd.items || []).find(x => /backfire/i.test(x.title || '') && x.enabled !== false && (x.stock == null || x.stock > 0)) || null
+        } catch(e) {}
+        const rest = (newData.items || []).filter(x => !pinned || x.id !== pinned.id)
+        setNewArrivals(pinned ? [pinned, ...rest].slice(0, 12) : rest)
         setPopular(popData.items || [])
         setCategories(catData.categories || [])
       } catch(e) { console.error(e) }
