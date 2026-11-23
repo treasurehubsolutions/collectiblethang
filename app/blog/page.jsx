@@ -302,6 +302,86 @@ const posts = [
     title: 'Sonic the Hedgehog Collectibles in Canada: A Buyer\'s Guide to Figures, Plush and Retro Games',
     excerpt: 'Pick a focus, check condition and completeness, spot fakes and compare sold prices for Sonic figures, plush and retro games.',
   },
+  {
+    href: '/blog/minecraft-collectibles-guide-canada',
+    title: 'Minecraft Collectibles in Canada: A Buyer\'s Guide to Movie Figures, Hot Wheels and LEGO Sets',
+    excerpt: 'Pick a focus, check seals and completeness, spot fakes and compare sold prices for Minecraft figures, die-cast cars and LEGO sets.',
+  },
+  {
+    href: '/blog/hello-kitty-sanrio-collectibles-guide-canada',
+    title: 'Hello Kitty and Sanrio Collectibles in Canada: A Buyer\'s Guide to Plush, Figures and Blind Boxes',
+    excerpt: 'Pick a character and format, check tags and condition, spot fakes and compare sold prices for Hello Kitty and Sanrio plush, figures and blind boxes.',
+  },
+  {
+    href: '/blog/advent-calendars-for-collectors-buying-guide-canada',
+    title: 'Advent Calendars for Collectors in Canada: A Buyer\'s Guide to Toy, LEGO and Die-Cast Countdowns',
+    excerpt: 'Pick a theme, check what is inside, confirm seals and completeness, compare sold prices and order early for LEGO, die-cast and toy advent calendars.',
+  },
+  {
+    href: '/blog/disney-collectibles-collecting-guide-canada',
+    title: "Disney Collectibles in Canada: A Collector's Guide to Figures, Plush, Pins and Die-Cast",
+    excerpt: 'Choose a franchise and format, check licence marks and condition, spot fakes and compare sold prices for Disney figures, plush, pins and die-cast.',
+  },
+  {
+    href: '/blog/pokemon-figures-plush-collecting-guide-canada',
+    title: "Pokemon Figures and Plush in Canada: A Collector's Guide (Not Cards)",
+    excerpt: 'Choose a Pokemon or format, check official marks and condition, spot fakes and compare sold prices for Pokemon figures, plush and other non-card items.',
+  },
+  {
+    href: '/blog/lego-star-wars-sets-collecting-guide-canada',
+    title: "LEGO Star Wars Sets in Canada: A Collector Buying Guide",
+    excerpt: 'Choose a theme, check sealed and used condition, count minifigures, spot fakes and compare sold prices for LEGO Star Wars sets.',
+  },
+  {
+    href: '/blog/harry-potter-collectibles-collecting-guide-canada',
+    title: "Harry Potter Collectibles in Canada: A Collector Buying Guide",
+    excerpt: 'Choose a focus, check box and wand condition, spot unofficial copies and compare sold prices for Harry Potter figures, wands and display pieces.',
+  },
+  {
+    href: '/blog/care-bears-plush-collectibles-collecting-guide-canada',
+    title: "Care Bears Collectibles in Canada: A Plush and Figure Buying Guide",
+    excerpt: 'Choose a focus, check tags and fur condition, spot unofficial copies and compare sold prices for Care Bears plush and figures.',
+  },
+  {
+    href: '/blog/model-trains-ho-n-scale-collecting-guide-canada',
+    title: "Model Trains in Canada: An HO and N Scale Collector Buying Guide",
+    excerpt: 'Choose a scale and era, check couplers, wheels and boxes, test locomotives and compare sold prices for model trains.',
+  },
+  {
+    href: '/blog/monster-high-bratz-fashion-dolls-collecting-guide-canada',
+    title: "Monster High and Bratz Dolls in Canada: A Fashion Doll Collector Buying Guide",
+    excerpt: 'Choose a line, check outfits, accessories and boxes, spot unofficial copies and compare sold prices for Monster High and Bratz dolls.',
+  },
+  {
+    href: '/blog/polly-pocket-mini-playsets-collecting-guide-canada',
+    title: "Polly Pocket Collecting in Canada: A Mini Playset Collector Buying Guide",
+    excerpt: 'Choose an era, check completeness, hinges and tiny accessories, spot unofficial copies and compare sold prices for Polly Pocket sets.',
+  },
+  {
+    href: '/blog/vintage-lunch-boxes-thermos-collecting-guide-canada',
+    title: "Vintage Lunch Boxes and Thermoses in Canada: A Collector Buying Guide",
+    excerpt: 'Check rust, latches, artwork wear and matching thermoses, spot reproductions and compare sold prices for vintage lunch boxes.',
+  },
+  {
+    href: '/blog/vintage-tin-toys-wind-up-toys-collecting-guide-canada',
+    title: "Vintage Tin Toys and Wind-Up Toys in Canada: A Collector Buying Guide",
+    excerpt: 'Check rust, working mechanisms, keys and boxes, spot reproductions and compare sold prices for vintage tin and wind-up toys.',
+  },
+  {
+    href: '/blog/jdm-hot-wheels-collecting-guide-canada',
+    title: "JDM Hot Wheels Collecting Guide for Canadian Collectors: Japanese Cars, Series and Smart Buying",
+    excerpt: 'Pick a brand or series, read the card, tell Premium from mainline, check condition and compare sold prices for JDM Hot Wheels.',
+  },
+  {
+    href: '/blog/lol-surprise-hatchimals-surprise-toys-collecting-guide-canada',
+    title: "LOL Surprise, Hatchimals and Surprise Toys in Canada: A Collector Buying Guide",
+    excerpt: 'Sealed or opened, contents, fakes and sold prices: how to buy LOL Surprise, Hatchimals and surprise toys with confidence.',
+  },
+  {
+    href: '/blog/tamagotchi-virtual-pets-collecting-guide-canada',
+    title: "Tamagotchi and Virtual Pets in Canada: A Collector Buying Guide",
+    excerpt: 'Original or reissue, shell and screen condition, battery tests, fakes and sold prices: how to buy Tamagotchi and virtual pets with confidence.',
+  },
 ]
 
 export default function Blog() {

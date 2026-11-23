@@ -81,6 +81,10 @@ export default function Article() {
         <li style={{ marginBottom: 6 }}><Link href="/blog/lego-buying-guide-collectors-canada" style={a}>LEGO Buying Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/collectors-holiday-gift-guide-canada" style={a}>Holiday Gift Guide for Collectors in Canada</Link></li>
         <li style={{ marginBottom: 6 }}><Link href="/blog/cyber-monday-collectibles-online-shopping-guide-canada" style={a}>Cyber Monday 2026 for Collectors in Canada</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/tamagotchi-virtual-pets-collecting-guide-canada" style={a}>Tamagotchi and Virtual Pets Collecting Guide for Canada</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/vintage-tin-toys-wind-up-toys-collecting-guide-canada" style={a}>Vintage Tin Toys and Wind-Up Toys Collecting Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/vintage-lunch-boxes-thermos-collecting-guide-canada" style={a}>Vintage Lunch Boxes and Thermos Collecting Guide</Link></li>
+        <li style={{ marginBottom: 6 }}><Link href="/blog/lol-surprise-hatchimals-surprise-toys-collecting-guide-canada" style={a}>LOL Surprise and Hatchimals Collecting Guide</Link></li>
       </ul></nav>
     </article>
   )
