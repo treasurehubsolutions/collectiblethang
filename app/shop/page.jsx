@@ -114,6 +114,7 @@ export default async function ShopPage({ searchParams }) {
           .shop-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}
           .shop-side{display:block;position:sticky;top:150px;max-height:calc(100vh - 170px);overflow-y:auto}
           .shop-pills{display:none !important}
+          .shop-mobile-cats{display:none !important}
         }
       `}</style>
       <div className="shop-layout">
@@ -134,6 +135,25 @@ export default async function ShopPage({ searchParams }) {
         })}
       </aside>
       <div style={{minWidth:0}}>
+      {/* Mobile: bouton "Categories" qui ouvre la liste complete (cache sur ordinateur) */}
+      <details className="shop-mobile-cats" style={{marginBottom:12,background:'#0f0f1c',border:'1px solid #1c1c30',borderRadius:8}}>
+        <summary style={{cursor:'pointer',padding:'11px 14px',fontSize:14,fontWeight:700,color:'#e8b820',listStyle:'none'}}>{'☰ Categories'}{category ? ` · ${category}` : ''}</summary>
+        <div style={{padding:'4px 8px 10px',display:'flex',flexDirection:'column',gap:2}}>
+          <Link href="/shop" style={{display:'flex',justifyContent:'space-between',padding:'10px 10px',borderRadius:6,fontSize:14,textDecoration:'none',background:!category?'#cc1100':'transparent',color:!category?'#fff':'#c4c4d0',fontWeight:!category?700:400}}>
+            <span>All</span>
+          </Link>
+          {categories.map(([cat,n])=>{
+            const m = getCatMeta(cat)
+            const on = category===cat
+            return (
+              <Link key={cat} href={buildHref({category:cat,page:1})} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8,padding:'10px 10px',borderRadius:6,fontSize:14,textDecoration:'none',background:on?m.color:'transparent',color:on?'#fff':'#c4c4d0',fontWeight:on?700:400,borderLeft:`3px solid ${m.color}`}}>
+                <span>{m.emoji} {cat}</span>
+                <span style={{fontSize:12,opacity:.7}}>{n}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </details>
       {/* Mobile: horizontal category pills */}
       <nav className="shop-pills" aria-label="Categories" style={{overflowX:'auto',marginBottom:12,display:'flex',gap:6,paddingBottom:4}}>
         <CatPill href="/shop" on={!category}>All</CatPill>
