@@ -107,8 +107,35 @@ export default async function ShopPage({ searchParams }) {
         <button type="submit" style={{padding:'10px 18px',background:'#cc1100',color:'#fff',border:'none',borderRadius:'0 6px 6px 0',fontWeight:700,fontSize:13,cursor:'pointer'}}>Search</button>
       </form>
 
+      <style>{`
+        .shop-layout{display:block}
+        .shop-side{display:none}
+        @media (min-width:900px){
+          .shop-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}
+          .shop-side{display:block;position:sticky;top:150px;max-height:calc(100vh - 170px);overflow-y:auto}
+          .shop-pills{display:none !important}
+        }
+      `}</style>
+      <div className="shop-layout">
+      <aside className="shop-side" aria-label="Shop categories">
+        <div style={{fontFamily:'Bebas Neue',fontSize:18,letterSpacing:1.5,color:'#e8b820',marginBottom:8}}>CATEGORIES</div>
+        <Link href="/shop" aria-current={!category ? 'true' : undefined} style={{display:'flex',justifyContent:'space-between',padding:'8px 10px',marginBottom:2,borderRadius:6,fontSize:13,textDecoration:'none',background:!category?'#cc1100':'transparent',color:!category?'#fff':'#c4c4d0',fontWeight:!category?700:400}}>
+          <span>All</span>
+        </Link>
+        {categories.map(([cat,n])=>{
+          const m = getCatMeta(cat)
+          const on = category===cat
+          return (
+            <Link key={cat} href={buildHref({category:cat,page:1})} aria-current={on ? 'true' : undefined} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8,padding:'8px 10px',marginBottom:2,borderRadius:6,fontSize:13,textDecoration:'none',background:on?m.color:'transparent',color:on?'#fff':'#c4c4d0',fontWeight:on?700:400,borderLeft:`3px solid ${m.color}`}}>
+              <span>{m.emoji} {cat}</span>
+              <span style={{fontSize:11,opacity:.7}}>{n}</span>
+            </Link>
+          )
+        })}
+      </aside>
+      <div style={{minWidth:0}}>
       {/* Mobile: horizontal category pills */}
-      <nav aria-label="Categories" style={{overflowX:'auto',marginBottom:12,display:'flex',gap:6,paddingBottom:4}}>
+      <nav className="shop-pills" aria-label="Categories" style={{overflowX:'auto',marginBottom:12,display:'flex',gap:6,paddingBottom:4}}>
         <CatPill href="/shop" on={!category}>All</CatPill>
         {categories.map(([cat,n])=>{
           const m = getCatMeta(cat)
@@ -223,6 +250,8 @@ export default async function ShopPage({ searchParams }) {
         </nav>
       )}
 
+      </div>
+      </div>
     </div>
   )
 }
